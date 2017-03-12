@@ -2,6 +2,7 @@ package com.nhave.dse.items;
 
 import java.util.List;
 
+import com.nhave.dse.api.items.IAirTank;
 import com.nhave.dse.client.models.ModelScubaTankLarge;
 import com.nhave.dse.client.models.ModelScubaTankSmall;
 

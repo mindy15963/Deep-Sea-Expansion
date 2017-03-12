@@ -1,9 +1,9 @@
-package com.nhave.dse.item;
+package com.nhave.dse.items;
 
 import java.util.List;
 
 import com.nhave.dse.DeepSeaExpansion;
-import com.nhave.dse.items.ItemBase;
+import com.nhave.dse.api.items.IArmorPlate;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

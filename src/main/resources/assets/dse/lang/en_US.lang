@@ -24,6 +24,8 @@ item.dse.plateheavy_steel.name=Heavy Steel Plate
 item.dse.plateheavy_plaststeel.name=Heavy Plaststeel Plate
 item.dse.rubbercompound.name=Rubber Compound
 item.dse.rubber.name=Rubber
+item.dse.token_support.name=Supporters Token
+item.dse.supply_crate.name=Supply Crate
 
 //---Items---//
 tooltip.dse.oxygen=Oxygen

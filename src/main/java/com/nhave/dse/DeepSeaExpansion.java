@@ -58,10 +58,10 @@ public class DeepSeaExpansion
 			return new ItemStack(ModItems.itemComp, 1, 1);
 		}
 		
-		/*public String getBackgroundImageName()
+		public String getBackgroundImageName()
 		{
 			return "dse.png";
-		};*/
+		};
 	};
     
     public static final CreativeTabs CREATIVETABTOOLS = new CreativeTabs("dse.tools")
@@ -72,9 +72,9 @@ public class DeepSeaExpansion
 			return new ItemStack(ModItems.itemHammerIron);
 		}
 		
-		/*public String getBackgroundImageName()
+		public String getBackgroundImageName()
 		{
 			return "dse.png";
-		};*/
+		};
 	};
 }

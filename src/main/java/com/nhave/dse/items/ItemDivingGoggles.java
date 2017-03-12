@@ -1,5 +1,7 @@
 package com.nhave.dse.items;
 
+import com.nhave.dse.api.items.IDivingHelmet;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

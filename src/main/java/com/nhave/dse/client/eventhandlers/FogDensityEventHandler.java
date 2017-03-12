@@ -1,6 +1,6 @@
 package com.nhave.dse.client.eventhandlers;
 
-import com.nhave.dse.items.IDivingHelmet;
+import com.nhave.dse.api.items.IDivingHelmet;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

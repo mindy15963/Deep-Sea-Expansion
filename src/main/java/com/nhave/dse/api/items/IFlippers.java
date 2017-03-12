@@ -1,4 +1,4 @@
-package com.nhave.dse.item;
+package com.nhave.dse.api.items;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

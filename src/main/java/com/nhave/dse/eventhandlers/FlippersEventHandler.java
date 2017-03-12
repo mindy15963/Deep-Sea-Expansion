@@ -1,6 +1,6 @@
 package com.nhave.dse.eventhandlers;
 
-import com.nhave.dse.item.IFlippers;
+import com.nhave.dse.api.items.IFlippers;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

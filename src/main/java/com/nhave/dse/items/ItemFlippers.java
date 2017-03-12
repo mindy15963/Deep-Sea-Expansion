@@ -1,7 +1,7 @@
-package com.nhave.dse.item;
+package com.nhave.dse.items;
 
+import com.nhave.dse.api.items.IFlippers;
 import com.nhave.dse.client.models.ModelFlippers;
-import com.nhave.dse.items.ItemArmorBase;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;

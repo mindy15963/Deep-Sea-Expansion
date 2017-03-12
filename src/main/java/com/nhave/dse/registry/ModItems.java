@@ -1,11 +1,13 @@
 package com.nhave.dse.registry;
 
+import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.dse.Reference;
 import com.nhave.dse.client.mesh.CustomMeshDefinitionMetaItem;
-import com.nhave.dse.item.ItemArmorPlate;
-import com.nhave.dse.item.ItemFlippers;
 import com.nhave.dse.items.ItemAirTank;
+import com.nhave.dse.items.ItemArmorPlate;
+import com.nhave.dse.items.ItemBase;
 import com.nhave.dse.items.ItemDivingGoggles;
+import com.nhave.dse.items.ItemFlippers;
 import com.nhave.dse.items.ItemHammer;
 import com.nhave.dse.items.ItemMeta;
 
@@ -37,6 +39,8 @@ public class ModItems
 	public static Item itemArmorPlateSteel;
 	public static Item itemArmorPlatePlaststeel;
 	public static Item itemComp;
+	public static Item itemSupportToken;
+	public static Item itemSupplyCrate;
 	
 	public static String[][] craftingComponents = new String[][]
 	{
@@ -61,8 +65,10 @@ public class ModItems
 		itemArmorPlateIron = new ItemArmorPlate("armorplate_iron", new int[] {2, 6, 5, 2});
 		itemArmorPlateDiamond = new ItemArmorPlate("armorplate_diamond", new int[] {3, 8, 6, 3});
 		itemArmorPlateSteel = new ItemArmorPlate("armorplate_steel", new int[] {3, 8, 6, 3});
-		itemArmorPlatePlaststeel = new ItemArmorPlate("armorplate_plaststeel", new int[] {4, 9, 7, 4}, EnumRarity.UNCOMMON);
+		itemArmorPlatePlaststeel = new ItemArmorPlate("armorplate_plaststeel", new int[] {3, 8, 6, 3}, EnumRarity.UNCOMMON);
 		itemComp = new ItemMeta("comp", craftingComponents);
+		itemSupportToken = new ItemBase("token_support", "TAB_HIDDEN", EnumRarity.EPIC).setMaxStackSize(1);
+		itemSupplyCrate = new ItemBase("supply_crate", DeepSeaExpansion.CREATIVETABTOOLS, EnumRarity.RARE).setMaxStackSize(1);
 	}
 	
 	public static void register()
@@ -80,6 +86,8 @@ public class ModItems
 		GameRegistry.register(itemArmorPlateSteel);
 		GameRegistry.register(itemArmorPlatePlaststeel);
 		GameRegistry.register(itemComp);
+		GameRegistry.register(itemSupportToken);
+		GameRegistry.register(itemSupplyCrate);
 	}
 	
 	public static void registerRenders()
@@ -97,6 +105,8 @@ public class ModItems
 		registerRender(itemArmorPlateSteel);
 		registerRender(itemArmorPlatePlaststeel);
 		registerMetaRender(itemComp, craftingComponents.length, false);
+		registerRender(itemSupportToken);
+		registerRender(itemSupplyCrate);
 	}
 	
 	public static void registerRender(Item item)
