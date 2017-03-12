@@ -1,0 +1,34 @@
+//---Creative Tab---//
+itemGroup.dse.items=DSE: Items
+itemGroup.dse.tools=DSE: Armor & Tools
+
+//---Items---//
+item.dse.airtank_small.name=Small Air Tank
+item.dse.airtank_large.name=Large Air Tank
+item.dse.airtank_highpressure.name=High Pressure Air Tank
+item.dse.airtank_creative.name=Creative Air Tank
+item.dse.divinggoggles.name=Diving Goggles
+item.dse.flippers.name=Flippers
+item.dse.hammer_iron.name=Iron Hammer
+item.dse.hammer_steel.name=Steel Hammer
+item.dse.armorplate_iron.name=Iron Armor Plating
+item.dse.armorplate_diamond.name=Diamond Armor Plating
+item.dse.armorplate_steel.name=Steel Armor Plating
+item.dse.armorplate_plaststeel.name=Plaststeel Armor Plating
+item.dse.ingot_steel.name=Steel Ingot
+item.dse.plate_iron.name=Iron Plate
+item.dse.plate_steel.name=Steel Plate
+item.dse.plate_plaststeel.name=Plaststeel Plate
+item.dse.plateheavy_iron.name=Heavy Iron Plate
+item.dse.plateheavy_steel.name=Heavy Steel Plate
+item.dse.plateheavy_plaststeel.name=Heavy Plaststeel Plate
+item.dse.rubbercompound.name=Rubber Compound
+item.dse.rubber.name=Rubber
+
+//---Items---//
+tooltip.dse.oxygen=Oxygen
+tooltip.dse.armor=Provides the following armor points
+tooltip.dse.armor.head=When applied to Scuba Helmet
+tooltip.dse.armor.chest=When applied to Scuba Chest
+tooltip.dse.armor.legs=When applied to Scuba Leggings
+tooltip.dse.armor.feet=When applied to Scuba Boots

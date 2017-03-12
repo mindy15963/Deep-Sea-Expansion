@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dse",
+  "name": "Deep Sea Expansion",
+  "description": "A mod about exploring the deep dark",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["nhave"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
