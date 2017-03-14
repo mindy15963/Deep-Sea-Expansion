@@ -38,7 +38,7 @@ public class ModItems
 	public static Item itemArmorPlateDiamond;
 	public static Item itemArmorPlateSteel;
 	public static Item itemArmorPlatePlaststeel;
-	public static Item itemComp;
+	public static ItemMeta itemComp;
 	public static Item itemSupportToken;
 	public static Item itemSupplyCrate;
 	
@@ -46,7 +46,8 @@ public class ModItems
 	{
 		{"ingot_steel", "0"}, {"plate_iron", "0"}, {"plate_steel", "0"},
 		{"plate_plaststeel", "1"}, {"plateheavy_iron", "0"}, {"plateheavy_steel", "0"},
-		{"plateheavy_plaststeel", "1"}, {"rubbercompound", "0"}, {"rubber", "0"}
+		{"plateheavy_plaststeel", "1"}, {"rubbercompound", "0"}, {"rubber", "0"},
+		{"filter", "0"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);

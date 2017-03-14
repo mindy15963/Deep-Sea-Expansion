@@ -26,6 +26,7 @@ item.dse.rubbercompound.name=Rubber Compound
 item.dse.rubber.name=Rubber
 item.dse.token_support.name=Supporters Token
 item.dse.supply_crate.name=Supply Crate
+item.dse.filter.name=Air Filter
 
 //---Items---//
 tooltip.dse.oxygen=Oxygen

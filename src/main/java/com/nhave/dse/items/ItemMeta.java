@@ -64,4 +64,13 @@ public class ItemMeta extends ItemBase
 		int meta = Math.min(stack.getItemDamage(), names.length-1);
 		return I18n.translateToLocal("item.dse." + names[meta] + ".name");
 	}
+	
+	public  ItemStack getItem(String name, int amount)
+	{
+		for (int meta = 0; meta < this.names.length; ++meta)
+		{
+			if (this.names[meta].equals(name)) return new ItemStack(this, amount, meta);
+		}
+		return null;
+	}
 }
