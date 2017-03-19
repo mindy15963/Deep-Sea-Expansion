@@ -3,6 +3,9 @@ package com.nhave.dse.registry;
 import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.dse.Reference;
 import com.nhave.dse.client.mesh.CustomMeshDefinitionMetaItem;
+import com.nhave.dse.client.mesh.CustomMeshDefinitionPearl;
+import com.nhave.dse.client.widget.TooltipWidget;
+import com.nhave.dse.client.widget.WidgetCharge;
 import com.nhave.dse.items.ItemAirTank;
 import com.nhave.dse.items.ItemArmorPlate;
 import com.nhave.dse.items.ItemBase;
@@ -10,6 +13,8 @@ import com.nhave.dse.items.ItemDivingGoggles;
 import com.nhave.dse.items.ItemFlippers;
 import com.nhave.dse.items.ItemHammer;
 import com.nhave.dse.items.ItemMeta;
+import com.nhave.dse.items.ItemPearl;
+import com.nhave.dse.items.ItemPowerCell;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -41,13 +46,18 @@ public class ModItems
 	public static ItemMeta itemComp;
 	public static Item itemSupportToken;
 	public static Item itemSupplyCrate;
+	public static Item itemPearl;
+	public static Item itemPowercellSmall;
+	public static Item itemPowercellMedium;
+	public static Item itemPowercellLarge;
+	public static Item itemPowercellCreative;
 	
 	public static String[][] craftingComponents = new String[][]
 	{
 		{"ingot_steel", "0"}, {"plate_iron", "0"}, {"plate_steel", "0"},
 		{"plate_plaststeel", "1"}, {"plateheavy_iron", "0"}, {"plateheavy_steel", "0"},
 		{"plateheavy_plaststeel", "1"}, {"rubbercompound", "0"}, {"rubber", "0"},
-		{"filter", "0"}
+		{"filter", "0"}, {"pearl", "1"}, {"blackpearl", "2"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
@@ -70,6 +80,11 @@ public class ModItems
 		itemComp = new ItemMeta("comp", craftingComponents);
 		itemSupportToken = new ItemBase("token_support", "TAB_HIDDEN", EnumRarity.EPIC).setMaxStackSize(1);
 		itemSupplyCrate = new ItemBase("supply_crate", DeepSeaExpansion.CREATIVETABTOOLS, EnumRarity.RARE).setMaxStackSize(1);
+		itemPearl = new ItemPearl("small_pearl");
+		itemPowercellSmall = new ItemPowerCell("powercell_small", 400000);
+		itemPowercellMedium = new ItemPowerCell("powercell_medium", 4000000);
+		itemPowercellLarge = new ItemPowerCell("powercell_large", 20000000, EnumRarity.UNCOMMON);
+		itemPowercellCreative = new ItemPowerCell("powercell_creative", -1, EnumRarity.EPIC);
 	}
 	
 	public static void register()
@@ -89,6 +104,16 @@ public class ModItems
 		GameRegistry.register(itemComp);
 		GameRegistry.register(itemSupportToken);
 		GameRegistry.register(itemSupplyCrate);
+		GameRegistry.register(itemPearl);
+		GameRegistry.register(itemPowercellSmall);
+		GameRegistry.register(itemPowercellMedium);
+		GameRegistry.register(itemPowercellLarge);
+		GameRegistry.register(itemPowercellCreative);
+	}
+	
+	public static void registerWidgets()
+	{
+		TooltipWidget.register(new WidgetCharge());
 	}
 	
 	public static void registerRenders()
@@ -108,6 +133,16 @@ public class ModItems
 		registerMetaRender(itemComp, craftingComponents.length, false);
 		registerRender(itemSupportToken);
 		registerRender(itemSupplyCrate);
+		registerRender(itemPowercellSmall);
+		registerRender(itemPowercellMedium);
+		registerRender(itemPowercellLarge);
+		registerRender(itemPowercellCreative);
+		
+		registerRenderMesh(itemPearl, new CustomMeshDefinitionPearl());
+		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "micro_pearl"));
+		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "tiny_pearl"));
+		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "small_pearl"));
+		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "small_blackpearl"));
 	}
 	
 	public static void registerRender(Item item)

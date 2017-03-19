@@ -3,6 +3,7 @@ package com.nhave.dse;
 import org.apache.logging.log4j.Logger;
 
 import com.nhave.dse.proxy.CommonProxy;
+import com.nhave.dse.registry.ModBlocks;
 import com.nhave.dse.registry.ModCrafting;
 import com.nhave.dse.registry.ModItems;
 
@@ -31,9 +32,11 @@ public class DeepSeaExpansion
     {
     	logger = event.getModLog();
 		proxy.setupConfig(event.getSuggestedConfigurationFile());
-    	
+
     	ModItems.init();
     	ModItems.register();
+    	ModBlocks.init();
+    	ModBlocks.register();
     }
     
     @EventHandler
@@ -49,6 +52,20 @@ public class DeepSeaExpansion
     	ModCrafting.init();
     	//ModIntegration.postInit();
     }
+    
+    public static final CreativeTabs CREATIVETABBLOCKS = new CreativeTabs("dse.blocks")
+	{
+		@Override
+		public ItemStack getTabIconItem()
+		{
+			return new ItemStack(ModBlocks.blockOyster);
+		}
+		
+		public String getBackgroundImageName()
+		{
+			return "dse.png";
+		};
+	};
     
     public static final CreativeTabs CREATIVETABITEMS = new CreativeTabs("dse.items")
 	{

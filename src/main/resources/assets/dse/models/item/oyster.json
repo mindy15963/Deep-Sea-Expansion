@@ -1,0 +1,9 @@
+{
+    "parent": "dse:block/oyster",
+	"display": {
+        "gui": {
+            "rotation": [ 22.5, 45, 0 ],
+            "translation": [ 0, 3, 0 ]
+        }
+   }
+}

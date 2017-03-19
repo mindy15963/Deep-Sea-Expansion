@@ -14,9 +14,9 @@ public class ItemBase extends Item
 	
 	public ItemBase(String name)
 	{
+		this.setRegistryName(name);
 		this.setCreativeTab(DeepSeaExpansion.CREATIVETABITEMS);
 		this.setUnlocalizedName(Reference.MODID + "." + name);
-		this.setRegistryName(name);
 	}
 	
 	public ItemBase(String name, Object... obj)

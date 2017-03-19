@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +40,6 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 	{
 		this(name, materialIn, maxAir, isDualTank);
 		this.rarity = rarity;
-
 	}
 	
 	@Override
@@ -67,11 +65,7 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		double time = getO2(stack)/20D;
-		double minutes = Math.floor(time / 60);
-		double seconds = Math.floor(time - minutes * 60);
-		boolean showMinutes = (int)minutes > 0;
-		list.add(I18n.translateToLocal("tooltip.dse.oxygen") + " " + (this.isCreative ? "∞" : (showMinutes ? (int)minutes + "m:" : "") + (int)seconds + "s"));
+		//list.add(I18n.translateToLocal("tooltip.dse.oxygen") + ": " + getO2Info(stack));
 	}
 	
 	@Override
@@ -118,7 +112,7 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 			return 0;
 		}
 	
-		int o2Stored = itemStack.getTagCompound().getInteger("co2");
+		int o2Stored = Math.min(itemStack.getTagCompound().getInteger("o2"), this.maxAir);
 	
 		return o2Stored;
 	}
@@ -133,7 +127,7 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 		}
 	
 		int o2Stored = Math.max(Math.min(amount, getMaxO2(itemStack)), 0);
-		itemStack.getTagCompound().setDouble("co2", o2Stored);
+		itemStack.getTagCompound().setDouble("o2", o2Stored);
 	}
 	
 	@Override
@@ -146,5 +140,15 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 	public boolean isDualTank(ItemStack itemStack)
 	{
 		return this.isDualTank;
+	}
+
+	@Override
+	public String getO2Info(ItemStack itemStack)
+	{
+		double time = getO2(itemStack)/20D;
+		double minutes = Math.floor(time / 60);
+		double seconds = Math.floor(time - minutes * 60);
+		boolean showMinutes = (int)minutes > 0;
+		return (this.isCreative ? "∞" : (showMinutes ? (int)minutes + "m:" : "") + (int)seconds + "s");
 	}
 }

@@ -27,9 +27,17 @@ item.dse.rubber.name=Rubber
 item.dse.token_support.name=Supporters Token
 item.dse.supply_crate.name=Supply Crate
 item.dse.filter.name=Air Filter
+item.dse.small_pearl.name=Small Pearl
+item.dse.pearl.name=Pearl
+item.dse.blackpearl.name=Black Pearl
+item.dse.powercell_small.name=Small Power Cell
+item.dse.powercell_medium.name=Medium Power Cell
+item.dse.powercell_large.name=Large Power Cell
+item.dse.powercell_creative.name=Creative Power Cell
 
 //---Items---//
 tooltip.dse.oxygen=Oxygen
+tooltip.dse.charge=Charge
 tooltip.dse.armor=Provides the following armor points
 tooltip.dse.armor.head=When applied to Scuba Helmet
 tooltip.dse.armor.chest=When applied to Scuba Chest
