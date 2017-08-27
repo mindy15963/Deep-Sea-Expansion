@@ -1,6 +1,17 @@
 //---Creative Tab---//
+itemGroup.dse.blocks=DSE: Blocks
 itemGroup.dse.items=DSE: Items
 itemGroup.dse.tools=DSE: Armor & Tools
+
+//---Blocks---//
+tile.dse.oyster.name=Oyster
+tile.dse.machineframe.name=Machine Frame
+tile.dse.compressor.name=Air Compressor
+tile.dse.heatvent.name=Heat Vent
+tile.dse.heatconductor.name=Heat Conductor
+tile.dse.powertap.name=Power Tap
+tile.dse.machineframe_advanced.name=Advanced Machine Frame
+tile.dse.compressor_advanced.name=Advanced Air Compressor
 
 //---Items---//
 item.dse.airtank_small.name=Small Air Tank
@@ -24,22 +35,30 @@ item.dse.plateheavy_steel.name=Heavy Steel Plate
 item.dse.plateheavy_plaststeel.name=Heavy Plaststeel Plate
 item.dse.rubbercompound.name=Rubber Compound
 item.dse.rubber.name=Rubber
-item.dse.token_support.name=Supporters Token
-item.dse.supply_crate.name=Supply Crate
 item.dse.filter.name=Air Filter
 item.dse.small_pearl.name=Small Pearl
 item.dse.pearl.name=Pearl
 item.dse.blackpearl.name=Black Pearl
+item.dse.gear_iron.name=Iron Gear
+item.dse.plate_copper.name=Copper Plate
+item.dse.plateheavy_copper.name=Heavy Copper Plate
+item.dse.ingot_copper.name=Copper Ingot
+item.dse.token_support.name=Supporters Token
+item.dse.supply_crate.name=Supply Crate
 item.dse.powercell_small.name=Small Power Cell
 item.dse.powercell_medium.name=Medium Power Cell
 item.dse.powercell_large.name=Large Power Cell
 item.dse.powercell_creative.name=Creative Power Cell
 
-//---Items---//
+//---Tooltip---//
 tooltip.dse.oxygen=Oxygen
 tooltip.dse.charge=Charge
+tooltip.dse.pressure=Pressure
 tooltip.dse.armor=Provides the following armor points
 tooltip.dse.armor.head=When applied to Scuba Helmet
 tooltip.dse.armor.chest=When applied to Scuba Chest
 tooltip.dse.armor.legs=When applied to Scuba Leggings
 tooltip.dse.armor.feet=When applied to Scuba Boots
+tooltip.dse.block.nyi=NOT YET IMPLEMENTED
+tooltip.dse.block.wip=WORK IN PROGRESS
+tooltip.dse.usesleft=Uses left

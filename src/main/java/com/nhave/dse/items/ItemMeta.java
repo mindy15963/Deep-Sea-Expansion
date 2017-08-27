@@ -1,15 +1,16 @@
 package com.nhave.dse.items;
 
+import com.nhave.nhc.api.items.IItemQuality;
+import com.nhave.nhc.util.StringUtils;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
 
-public class ItemMeta extends ItemBase
+public class ItemMeta extends ItemBase implements IItemQuality
 {
-	private EnumRarity[] rarityNames = new EnumRarity[] {EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.RARE, EnumRarity.EPIC};
+	private String[] rarityNames = new String[] {"", StringUtils.LIGHT_BLUE, StringUtils.PURPLE, StringUtils.ORANGE};
 	private int rarity = 0;
 	public String[] names;
 	private int[] rarities;
@@ -52,17 +53,10 @@ public class ItemMeta extends ItemBase
 	}
 	
 	@Override
-	public EnumRarity getRarity(ItemStack stack)
-	{
-		int meta = Math.min(stack.getItemDamage(), names.length-1);
-		return this.rarities != null ? this.rarityNames[rarities[meta]] : this.rarityNames[0];
-	}
-	
-	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
 		int meta = Math.min(stack.getItemDamage(), names.length-1);
-		return I18n.translateToLocal("item.dse." + names[meta] + ".name");
+		return StringUtils.localize("item.dse." + names[meta] + ".name");
 	}
 	
 	public  ItemStack getItem(String name, int amount)
@@ -72,5 +66,12 @@ public class ItemMeta extends ItemBase
 			if (this.names[meta].equals(name)) return new ItemStack(this, amount, meta);
 		}
 		return null;
+	}
+
+	@Override
+	public String getQualityColor(ItemStack stack)
+	{
+		int meta = Math.min(stack.getItemDamage(), names.length-1);
+		return this.rarities != null ? this.rarityNames[rarities[meta]] : this.rarityNames[0];
 	}
 }

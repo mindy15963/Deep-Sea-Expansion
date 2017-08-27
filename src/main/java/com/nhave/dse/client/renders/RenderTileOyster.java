@@ -25,10 +25,8 @@ public class RenderTileOyster extends TileEntitySpecialRenderer
 		{
 			int meta = tileEntity.getBlockMetadata();
 			ItemStack stack = tileEntity.getItemStack();
-			EntityItem entItem = new EntityItem(tileEntity.getWorld(), x, y, z, stack);
 			GL11.glPushMatrix();
 			//GlStateManager.disableLighting();
-				entItem.hoverStart = 0.0F;
 				//RenderItem.renderInFrame = true;
 				
 				if (stack.getItem() instanceof ItemBlock)
@@ -68,7 +66,7 @@ public class RenderTileOyster extends TileEntitySpecialRenderer
 					GL11.glRotatef(-90, 1, 0, 0);
 				}
 				//RenderManager.instance.renderEntityWithPosYaw(entItem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-				this.itemRenderer.renderItem(entItem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+				this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED);
 				//RenderItem.renderInFrame = false;
 			//GlStateManager.enableLighting();
 			GL11.glPopMatrix();

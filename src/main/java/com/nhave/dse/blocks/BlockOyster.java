@@ -1,7 +1,11 @@
 package com.nhave.dse.blocks;
 
-import com.nhave.dse.tiles.TileEntityOyster;
+import java.util.List;
 
+import com.nhave.dse.tiles.TileEntityOyster;
+import com.nhave.nhc.util.StringUtils;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -12,13 +16,17 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockOyster extends BlockBase
 {
@@ -30,6 +38,18 @@ public class BlockOyster extends BlockBase
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(2F);
 		this.setHarvestLevel("pickaxe", 0);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
+	{
+		list.add(StringUtils.format("[" + StringUtils.localize("tooltip.dse.block.nyi") + "]", StringUtils.LIGHT_RED, StringUtils.ITALIC));
+	}
+	
+	public String getQualityColor(ItemStack stack)
+	{
+		return StringUtils.LIGHT_BLUE;
 	}
 	
 	public void onBlockAdded(World world, BlockPos blockPos, IBlockState blockState)
@@ -129,7 +149,7 @@ public class BlockOyster extends BlockBase
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
-		//if (player.getHeldItemOffhand() != null) return false;
+		if (hand == EnumHand.OFF_HAND) return false;
 		TileEntityOyster tile = (TileEntityOyster) world.getTileEntity(pos);
 		if (tile != null && !player.isSneaking())
 		{
@@ -162,5 +182,34 @@ public class BlockOyster extends BlockBase
     	EntityItem theItem = new EntityItem(world, x + x2, y + y2, z + z2, stack);
     	theItem.setDefaultPickupDelay();
     	world.spawnEntity(theItem);
+	}
+	
+	@Override
+	public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis)
+	{
+		boolean result = false;
+		if (world.getTileEntity(pos) != null)
+		{
+			NBTTagCompound nbt = world.getTileEntity(pos).serializeNBT();
+			result = super.rotateBlock(world, pos, axis);
+			if (result) world.getTileEntity(pos).deserializeNBT(nbt);
+			return result;
+		}
+		return result;
+	}
+	
+	@Override
+	public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		return 0;
+	}
+	
+	@Override
+	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		IBlockState offset = world.getBlockState(pos.offset(face));
+		Block block = offset.getBlock();
+		if (block != null && block.getMaterial(offset) == Material.WATER) return true;
+		return super.doesSideBlockRendering(state, world, pos, face);
 	}
 }

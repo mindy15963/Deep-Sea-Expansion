@@ -16,6 +16,7 @@ public class ItemArmorBase extends ItemArmor
 		this.setUnlocalizedName(Reference.MODID + "." + name);
 		this.setRegistryName(name);
 		this.setCreativeTab(DeepSeaExpansion.CREATIVETABTOOLS);
+		this.setNoRepair();
 	}
 	
 	@Override

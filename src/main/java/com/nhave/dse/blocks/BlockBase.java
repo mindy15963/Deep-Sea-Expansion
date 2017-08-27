@@ -5,6 +5,7 @@ import com.nhave.dse.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemStack;
 
 public class BlockBase extends Block
 {
@@ -14,5 +15,10 @@ public class BlockBase extends Block
 		this.setRegistryName(name);
 		this.setCreativeTab(DeepSeaExpansion.CREATIVETABBLOCKS);
 		this.setUnlocalizedName(Reference.MODID + "." + name);
+	}
+	
+	public String getQualityColor(ItemStack stack)
+	{
+		return "";
 	}
 }

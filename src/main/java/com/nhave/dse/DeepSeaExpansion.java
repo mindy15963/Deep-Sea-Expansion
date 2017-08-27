@@ -1,5 +1,7 @@
 package com.nhave.dse;
 
+import java.io.File;
+
 import org.apache.logging.log4j.Logger;
 
 import com.nhave.dse.proxy.CommonProxy;
@@ -16,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSIONS)//, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUIFACTORY)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSIONS, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUIFACTORY)
 public class DeepSeaExpansion
 {
     public static Logger logger;
@@ -31,7 +33,7 @@ public class DeepSeaExpansion
     public void preInit(FMLPreInitializationEvent event)
     {
     	logger = event.getModLog();
-		proxy.setupConfig(event.getSuggestedConfigurationFile());
+		proxy.setupConfig(new File(event.getModConfigurationDirectory(), "deepseaexpansion.cfg"));
 
     	ModItems.init();
     	ModItems.register();

@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "dse:compressor_advanced" },
+        "facing=south": { "model": "dse:compressor_advanced", "y": 180 },
+        "facing=west":  { "model": "dse:compressor_advanced", "y": 270 },
+        "facing=east":  { "model": "dse:compressor_advanced", "y": 90 }
+    }
+}

@@ -2,7 +2,8 @@ package com.nhave.dse.items;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
+import com.nhave.nhc.util.StringUtils;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,8 +25,9 @@ public class ItemPearl extends ItemBase
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		tooltip.add(StringUtils.format("[" + StringUtils.localize("tooltip.dse.block.nyi") + "]", StringUtils.LIGHT_RED, StringUtils.ITALIC));
 		tooltip.add(getSizePercentage(stack) + "%");
-		if (Minecraft.getMinecraft().gameSettings.advancedItemTooltips) tooltip.add("§8blackpearl: " + isBlack(stack));
+		if (advanced) tooltip.add("§8blackpearl: " + isBlack(stack));
 	}
 	
 	@Override

@@ -2,7 +2,7 @@
 {
   "modid": "dse",
   "name": "Deep Sea Expansion",
-  "description": "A mod about exploring the deep dark",
+  "description": "A mod about exploring the deep dark.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

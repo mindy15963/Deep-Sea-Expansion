@@ -1,0 +1,9 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "dse:blocks/compressor_advanced_top",
+        "front": "dse:blocks/compressor_advanced_front",
+        "side": "dse:blocks/machine_advanced_side",
+        "down": "dse:blocks/machine_advanced_bottom"
+    }
+}

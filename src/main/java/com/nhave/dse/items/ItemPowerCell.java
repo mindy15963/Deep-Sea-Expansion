@@ -5,23 +5,23 @@ import java.util.List;
 import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.dse.api.items.IPowerItem;
 import com.nhave.dse.util.PowerUtils;
+import com.nhave.nhc.api.items.IItemQuality;
+import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemPowerCell extends ItemBase implements IPowerItem
+public class ItemPowerCell extends ItemBase implements IPowerItem, IItemQuality
 {
 	int maxPower;
 	public boolean isCreative = false;
-	private EnumRarity rarity = EnumRarity.COMMON;
+	private String quality = "";
 	
 	public ItemPowerCell(String name, int power)
 	{
@@ -32,10 +32,10 @@ public class ItemPowerCell extends ItemBase implements IPowerItem
 		if (maxPower <= 0) this.isCreative = true;
 	}
 	
-	public ItemPowerCell(String name, int power, EnumRarity rarity)
+	public ItemPowerCell(String name, int power, String quality)
 	{
 		this(name, power);
-		this.rarity = rarity;
+		this.quality = quality;
 	}
 	
 	@Override
@@ -52,16 +52,11 @@ public class ItemPowerCell extends ItemBase implements IPowerItem
 	}
 	
 	@Override
-	public EnumRarity getRarity(ItemStack stack)
-	{
-		return this.rarity;
-	}
-	
-	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
 	{
-		//list.add(I18n.translateToLocal("tooltip.dse.charge") + ": " + getPowerInfo(stack));
+		list.add(StringUtils.format("[" + StringUtils.localize("tooltip.dse.block.wip") + "]", StringUtils.LIGHT_RED, StringUtils.ITALIC));
+		list.add(StringUtils.localize("tooltip.dse.charge") + ": " + getPowerInfo(stack));
 	}
 	
 	@Override
@@ -112,6 +107,12 @@ public class ItemPowerCell extends ItemBase implements IPowerItem
 	@Override
 	public String getPowerInfo(ItemStack itemStack)
 	{
-		return (this.isCreative ? "∞RF" : (PowerUtils.getEnergyDisplay(getPower(itemStack)) + " / " + PowerUtils.getEnergyDisplay(getMaxPower(itemStack))));
+		return (this.isCreative ? "∞RF" : PowerUtils.getEnergyDisplay(getPower(itemStack)) + " / " + PowerUtils.getEnergyDisplay(getMaxPower(itemStack)));
+	}
+
+	@Override
+	public String getQualityColor(ItemStack stack)
+	{
+		return this.quality;
 	}
 }

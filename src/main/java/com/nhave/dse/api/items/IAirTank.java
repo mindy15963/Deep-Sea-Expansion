@@ -13,4 +13,6 @@ public interface IAirTank
 	public boolean isDualTank(ItemStack itemStack);
 	
 	public String getO2Info(ItemStack itemStack);
+	
+	public int getPSI(ItemStack itemStack);
 }

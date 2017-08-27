@@ -2,17 +2,22 @@ package com.nhave.dse.items;
 
 import java.util.List;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.nhave.dse.api.items.IAirTank;
 import com.nhave.dse.client.models.ModelScubaTankLarge;
 import com.nhave.dse.client.models.ModelScubaTankSmall;
+import com.nhave.dse.registry.ModConfig;
+import com.nhave.nhc.api.items.IItemQuality;
+import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,25 +26,37 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAirTank extends ItemArmorBase implements IAirTank
+public class ItemAirTank extends ItemArmorBase implements IAirTank, IItemQuality
 {
 	private boolean isDualTank;
-	private int maxAir;
 	public boolean isCreative = false;
-	private EnumRarity rarity = EnumRarity.COMMON;
+	private int maxAir;
+	private int psi;
+	private String quality = "";
 	
-	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, boolean isDualTank)
+	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, int psi, boolean isDualTank)
 	{
 		super(name, materialIn, 0, EntityEquipmentSlot.CHEST);
 		this.isDualTank = isDualTank;
 		this.maxAir = maxAir;
+		this.psi = psi;
 		if (maxAir <= 0) this.isCreative = true;
 	}
 	
-	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, boolean isDualTank, EnumRarity rarity)
+	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, boolean isDualTank)
 	{
-		this(name, materialIn, maxAir, isDualTank);
-		this.rarity = rarity;
+		this(name, materialIn, maxAir, 0, isDualTank);
+	}
+	
+	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, int psi, boolean isDualTank, String quality)
+	{
+		this(name, materialIn, maxAir, psi, isDualTank);
+		this.quality = quality;
+	}
+	
+	public ItemAirTank(String name, ArmorMaterial materialIn, int maxAir, boolean isDualTank, String quality)
+	{
+		this(name, materialIn, maxAir, 0, isDualTank, quality);
 	}
 	
 	@Override
@@ -56,16 +73,26 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 	}
 	
 	@Override
-	public EnumRarity getRarity(ItemStack stack)
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
 	{
-		return this.rarity;
+		list.add(StringUtils.localize("tooltip.dse.oxygen") + ": " + getO2Info(stack));
+		if (ModConfig.displayPressure && getPSI(stack) > 0)
+		{
+			if (ModConfig.pressureUnit.equals("PSI")) list.add("pressure: " + getPercentage(getPSI(stack), getO2(stack), getMaxO2(stack)) + "psi / " + getPSI(stack) + "psi");
+			else
+			{
+				int bar = (int) (Math.round(getPSI(stack) * 0.0689475729D));
+				list.add("pressure: " + getPercentage(bar, getO2(stack), getMaxO2(stack)) + "bar / " + bar + "bar");
+			}
+		}
 	}
 	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+	private int getPercentage(int draw, int current, int max)
 	{
-		//list.add(I18n.translateToLocal("tooltip.dse.oxygen") + ": " + getO2Info(stack));
+		double percentage = ((double) current / (double) max) * 100D;
+		double result = Math.ceil(((double) draw / 100D) * percentage);
+		return (int) result;
 	}
 	
 	@Override
@@ -101,6 +128,12 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 				setO2(stack, getO2(stack) - 1);
 			}
 		}
+	}
+	
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
+	{
+		return HashMultimap.<String, AttributeModifier>create();
 	}
 
 	@Override
@@ -150,5 +183,17 @@ public class ItemAirTank extends ItemArmorBase implements IAirTank
 		double seconds = Math.floor(time - minutes * 60);
 		boolean showMinutes = (int)minutes > 0;
 		return (this.isCreative ? "∞" : (showMinutes ? (int)minutes + "m:" : "") + (int)seconds + "s");
+	}
+
+	@Override
+	public String getQualityColor(ItemStack stack)
+	{
+		return this.quality;
+	}
+	
+	@Override
+	public int getPSI(ItemStack itemStack)
+	{
+		return this.psi;
 	}
 }

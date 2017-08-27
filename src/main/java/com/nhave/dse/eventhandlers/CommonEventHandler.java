@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class FlippersEventHandler
+public class CommonEventHandler
 {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event)

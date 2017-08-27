@@ -2,15 +2,14 @@ package com.nhave.dse.items;
 
 import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.dse.Reference;
+import com.nhave.nhc.api.items.IItemQuality;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemBase extends Item
+public class ItemBase extends Item implements IItemQuality
 {
-	private EnumRarity rarity = EnumRarity.COMMON;
+	private String quality = "";
 	
 	public ItemBase(String name)
 	{
@@ -18,29 +17,21 @@ public class ItemBase extends Item
 		this.setCreativeTab(DeepSeaExpansion.CREATIVETABITEMS);
 		this.setUnlocalizedName(Reference.MODID + "." + name);
 	}
-	
-	public ItemBase(String name, Object... obj)
+
+	public ItemBase(String name, String quality)
 	{
 		this(name);
-		for (int i = 0; i < obj.length; ++i)
-		{
-			if (obj[i] instanceof String)
-			{
-				if (((String) obj[i]).equals("TAB_HIDDEN")) this.setCreativeTab(null);
-			}
-			else if (obj[i] instanceof EnumRarity) this.rarity = (EnumRarity) obj[i];
-			else if (obj[i] instanceof CreativeTabs) this.setCreativeTab((CreativeTabs) obj[i]);
-		}
+		this.quality = quality;
 	}
 	
 	public String getItemName(ItemStack stack)
 	{
 		return stack.getItem().getRegistryName().getResourcePath();
 	}
-	
+
 	@Override
-	public EnumRarity getRarity(ItemStack stack)
+	public String getQualityColor(ItemStack stack)
 	{
-		return this.rarity;
+		return this.quality;
 	}
 }

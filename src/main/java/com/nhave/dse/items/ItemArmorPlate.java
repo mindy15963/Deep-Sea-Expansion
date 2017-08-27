@@ -4,20 +4,19 @@ import java.util.List;
 
 import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.dse.api.items.IArmorPlate;
+import com.nhave.nhc.api.items.IItemQuality;
+import com.nhave.nhc.util.StringUtils;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorPlate extends ItemBase implements IArmorPlate
+public class ItemArmorPlate extends ItemBase implements IArmorPlate, IItemQuality
 {
 	private int[] damageReduction;
-	private EnumRarity rarity = EnumRarity.COMMON;
+	private String quality = "";
 	
 	public ItemArmorPlate(String name, int[] damageReduction)
 	{
@@ -26,42 +25,37 @@ public class ItemArmorPlate extends ItemBase implements IArmorPlate
 		this.damageReduction = damageReduction;
 	}
 	
-	public ItemArmorPlate(String name, int[] damageReduction, EnumRarity rarity)
+	public ItemArmorPlate(String name, int[] damageReduction, String quality)
 	{
 		this(name, damageReduction);
-		this.rarity = rarity;
-	}
-	
-	@Override
-	public EnumRarity getRarity(ItemStack stack)
-	{
-		return this.rarity;
+		this.quality = quality;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced)
 	{
-		if (Minecraft.getMinecraft().gameSettings.advancedItemTooltips)
+		list.add(StringUtils.format("[" + StringUtils.localize("tooltip.dse.block.wip") + "]", StringUtils.LIGHT_RED, StringUtils.ITALIC));
+		if (StringUtils.isShiftKeyDown())
 		{
-			list.add("§8" + I18n.translateToLocal("tooltip.dse.armor"));
-			list.add("§8" + getDamageReduction(EntityEquipmentSlot.HEAD) + " " + I18n.translateToLocal("tooltip.dse.armor.head"));
-			list.add("§8" + getDamageReduction(EntityEquipmentSlot.CHEST) + " " + I18n.translateToLocal("tooltip.dse.armor.chest"));
-			list.add("§8" + getDamageReduction(EntityEquipmentSlot.LEGS) + " " + I18n.translateToLocal("tooltip.dse.armor.legs"));
-			list.add("§8" + getDamageReduction(EntityEquipmentSlot.FEET) + " " + I18n.translateToLocal("tooltip.dse.armor.feet"));
+			list.add(StringUtils.localize("tooltip.dse.armor"));
+			list.add(getDamageReduction(EntityEquipmentSlot.HEAD) + " " + StringUtils.localize("tooltip.dse.armor.head"));
+			list.add(getDamageReduction(EntityEquipmentSlot.CHEST) + " " + StringUtils.localize("tooltip.dse.armor.chest"));
+			list.add(getDamageReduction(EntityEquipmentSlot.LEGS) + " " + StringUtils.localize("tooltip.dse.armor.legs"));
+			list.add(getDamageReduction(EntityEquipmentSlot.FEET) + " " + StringUtils.localize("tooltip.dse.armor.feet"));
 		}
-		else
-		{
-			int total = getDamageReduction(EntityEquipmentSlot.HEAD) + getDamageReduction(EntityEquipmentSlot.CHEST) + getDamageReduction(EntityEquipmentSlot.LEGS) + getDamageReduction(EntityEquipmentSlot.FEET);
-			String armor = "";
-			for (int i = 0; i < total; ++i) armor += "#";
-			list.add(armor);
-		}
+		else list.add(StringUtils.shiftForInfo);
 	}
 
 	@Override
 	public int getDamageReduction(EntityEquipmentSlot armorType)
 	{
 		return damageReduction[Math.min(Math.max(0, armorType.getIndex()), damageReduction.length-1)];
+	}
+
+	@Override
+	public String getQualityColor(ItemStack stack)
+	{
+		return this.quality;
 	}
 }

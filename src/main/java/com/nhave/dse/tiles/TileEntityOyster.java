@@ -1,5 +1,7 @@
 package com.nhave.dse.tiles;
 
+import com.nhave.nhc.helpers.ItemHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,6 +10,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.event.terraingen.BiomeEvent.GetWaterColor;
 
 public class TileEntityOyster extends TileEntity
 {
@@ -26,20 +29,12 @@ public class TileEntityOyster extends TileEntity
 		}
 		else if (this.item != null)
 		{
-			addItemToPlayer(player, item.copy());
+			ItemHelper.addItemToPlayer(player, item.copy());
 			this.item = null;
 			sync();
 			return true;
 		}
 		return false;
-	}
-	
-	public static void addItemToPlayer(EntityPlayer player, ItemStack stack)
-	{
-		if (!player.inventory.addItemStackToInventory(stack))
-		{
-			if (!player.world.isRemote) player.entityDropItem(stack, 1F);
-		}
 	}
 	
 	private void sync()
