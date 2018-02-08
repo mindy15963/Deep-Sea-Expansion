@@ -1,33 +1,59 @@
 package com.nhave.dse.items;
 
+import java.util.List;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.nhave.dse.Reference;
 import com.nhave.dse.api.items.IFlippers;
+import com.nhave.dse.api.items.IItemUpgrade;
 import com.nhave.dse.client.models.ModelFlippers;
+import com.nhave.nhc.helpers.TooltipHelper;
+import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemColor
+public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemUpgrade
 {
-	public static int[] colorCodes = new int[] {2500134, 16711680, 65280, 6704179, 255, 11685080, 5013401, 10066329, 6710886, 15892389, 8388371, 15059968, 6730495, 15027416, 16757299, 16777215};
+	private static final String[] COLORS = new String[] {"black", "red", "green", "brown", "blue", "purple", "cyan", "lightGray", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
 	
 	public ItemFlippers(String name, ArmorMaterial materialIn)
 	{
 		super(name, materialIn, 0, EntityEquipmentSlot.FEET);
+		this.setQualityColor(StringUtils.LIGHT_BLUE);
 		this.setHasSubtypes(true);
+		this.setNoRepair();
+	}
+	
+	@Override
+	public String getItemStackDisplayName(ItemStack stack)
+	{
+		int meta = Math.min(COLORS.length - 1, Math.max(0, stack.getItemDamage()));
+		return StringUtils.localize("color.dse." + COLORS[meta]) + " " + super.getItemStackDisplayName(stack);
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	{
+		if (StringUtils.isShiftKeyDown())
+		{
+			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item." + this.getItemName(stack)), ";", StringUtils.GRAY);
+			//tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			//tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubaboots.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+		}
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	@Override
@@ -37,9 +63,15 @@ public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemColor
 	}
 	
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-		subItems.add(new ItemStack(itemIn, 1, 12));
+		if (this.isInCreativeTab(tab))
+        {
+			for (int i = 0; i < 16; ++i)
+			{
+				items.add(new ItemStack(this, 1, i));
+			}
+        }
 	}
 	
 	@Override
@@ -52,36 +84,25 @@ public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemColor
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot equipmentSlot, String armorTexture)
 	{
-		return Reference.MODID + ":textures/armor/" + stack.getItem().getRegistryName().getResourcePath() + (armorTexture == "overlay" ? "_0" : "_1") + ".png";
-	}
-	
-	@Override
-	public boolean hasOverlay(ItemStack stack)
-	{
-		return true;
-	}
-	
-	@Override
-	public boolean hasColor(ItemStack stack)
-	{
-		return true;
-	}
-	
-	@Override
-	public int getColor(ItemStack stack)
-	{
-		return getColorFromItemstack(stack, 1);
-	}
-
-	@Override
-	public int getColorFromItemstack(ItemStack stack, int pass)
-	{
-		return colorCodes[Math.max(0, Math.min(15, stack.getItemDamage()))];
+		return Reference.MODID + ":textures/models/armor/" + getItemName(stack) + "_" + stack.getMetadata() + ".png";
 	}
 	
 	@Override
 	public boolean isFlippersActive(EntityPlayer player, ItemStack stack)
 	{
 		return true;
+	}
+
+	@Override
+	public boolean canApplyUpgrade(ItemStack upgradeable, ItemStack upgrade)
+	{
+		//return upgradeable.getItem() == ModItems.itemScubaBoots;
+		return false;
+	}
+
+	@Override
+	public String getUpgradeNBT(ItemStack upgradeable, ItemStack upgrade)
+	{
+		return "FLIPPERS";
 	}
 }

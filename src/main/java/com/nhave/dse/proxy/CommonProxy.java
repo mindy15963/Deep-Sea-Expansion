@@ -6,26 +6,22 @@ import com.nhave.dse.eventhandlers.CommonEventHandler;
 import com.nhave.dse.registry.ModConfig;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy
 {
 	public void setupConfig(File configFile)
 	{
-		FMLCommonHandler.instance().bus().register(new ModConfig(false));
+		MinecraftForge.EVENT_BUS.register(new ModConfig(false));
 		ModConfig.init(configFile);
 	}
+	
+	public void preInit(FMLPreInitializationEvent event) {}
 	
 	public void registerRenders() {}
 	
 	public void registerEventHandlers()
 	{
-    	//MinecraftForge.EVENT_BUS.register(new ToolStationEventHandler());
     	MinecraftForge.EVENT_BUS.register(new CommonEventHandler());
-    	//MinecraftForge.EVENT_BUS.register(new BlockBreakSpeedEventHandler());
-    	//MinecraftForge.EVENT_BUS.register(new RebreatherEventHandler());
-    	//MinecraftForge.EVENT_BUS.register(new ArmorsetScuba());
-    	//MinecraftForge.EVENT_BUS.register(ModAchievementes.instance);
-    	//FMLCommonHandler.instance().bus().register(ModAchievementes.instance);
 	}
 }

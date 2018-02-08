@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.nhave.dse.DeepSeaExpansion;
 import com.nhave.nhc.helpers.ItemNBTHelper;
+import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.world.World;
 
 public class ItemHammer extends ItemBase
 {
@@ -18,20 +18,25 @@ public class ItemHammer extends ItemBase
 	public ItemHammer(String name, int maxDamage)
 	{
 		super(name);
-		this.setCreativeTab(DeepSeaExpansion.CREATIVETABTOOLS);
+		this.setCreativeTab(DeepSeaExpansion.CREATIVETAB);
 		this.setMaxStackSize(1);
 		this.MaxHammerDamage = maxDamage;
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced)
 	{
-		if (this.MaxHammerDamage > 0)
+		if (StringUtils.isShiftKeyDown())
 		{
-			int usesLeft = this.MaxHammerDamage - ItemNBTHelper.getInteger(stack, "HAMMER", "DAMAGE", 0);
-			tooltip.add(StringUtils.localize("tooltip.dse.usesleft") + ": " + usesLeft);
+			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item.hammer"), ";", StringUtils.GRAY);
+			
+			if (this.MaxHammerDamage > 0)
+			{
+				int usesLeft = this.MaxHammerDamage - ItemNBTHelper.getInteger(stack, "HAMMER", "DAMAGE", 0);
+				tooltip.add(StringUtils.localize("tooltip.dse.usesleft") + ": " + usesLeft);
+			}
 		}
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	@Override

@@ -1,64 +1,98 @@
 //---Creative Tab---//
-itemGroup.dse.blocks=DSE: Blocks
-itemGroup.dse.items=DSE: Items
-itemGroup.dse.tools=DSE: Armor & Tools
-
-//---Blocks---//
-tile.dse.oyster.name=Oyster
-tile.dse.machineframe.name=Machine Frame
-tile.dse.compressor.name=Air Compressor
-tile.dse.heatvent.name=Heat Vent
-tile.dse.heatconductor.name=Heat Conductor
-tile.dse.powertap.name=Power Tap
-tile.dse.machineframe_advanced.name=Advanced Machine Frame
-tile.dse.compressor_advanced.name=Advanced Air Compressor
+itemGroup.dse=Deep Sea Expansion
 
 //---Items---//
-item.dse.airtank_small.name=Small Air Tank
-item.dse.airtank_large.name=Large Air Tank
-item.dse.airtank_highpressure.name=High Pressure Air Tank
-item.dse.airtank_creative.name=Creative Air Tank
+item.dse.icon.name=DSE Mod Icon
 item.dse.divinggoggles.name=Diving Goggles
 item.dse.flippers.name=Flippers
-item.dse.hammer_iron.name=Iron Hammer
-item.dse.hammer_steel.name=Steel Hammer
-item.dse.armorplate_iron.name=Iron Armor Plating
-item.dse.armorplate_diamond.name=Diamond Armor Plating
-item.dse.armorplate_steel.name=Steel Armor Plating
-item.dse.armorplate_plaststeel.name=Plaststeel Armor Plating
-item.dse.ingot_steel.name=Steel Ingot
-item.dse.plate_iron.name=Iron Plate
-item.dse.plate_steel.name=Steel Plate
-item.dse.plate_plaststeel.name=Plaststeel Plate
-item.dse.plateheavy_iron.name=Heavy Iron Plate
-item.dse.plateheavy_steel.name=Heavy Steel Plate
-item.dse.plateheavy_plaststeel.name=Heavy Plaststeel Plate
+item.dse.dinghy.name=Dinghy
+item.dse.shadercore.name=Shader Core
+item.dse.shader.name=Item Shader
+item.dse.airtanksmall.name=Small Air Tank
+item.dse.airtanklarge.name=Large Air Tank
+item.dse.airtankhighpressure.name=High Pressure Air Tank
+item.dse.airtankcreative.name=Creative Air Tank
+
+item.dse.steelingot.name=Steel Ingot
 item.dse.rubbercompound.name=Rubber Compound
 item.dse.rubber.name=Rubber
-item.dse.filter.name=Air Filter
-item.dse.small_pearl.name=Small Pearl
-item.dse.pearl.name=Pearl
-item.dse.blackpearl.name=Black Pearl
-item.dse.gear_iron.name=Iron Gear
-item.dse.plate_copper.name=Copper Plate
-item.dse.plateheavy_copper.name=Heavy Copper Plate
-item.dse.ingot_copper.name=Copper Ingot
-item.dse.token_support.name=Supporters Token
-item.dse.supply_crate.name=Supply Crate
-item.dse.powercell_small.name=Small Power Cell
-item.dse.powercell_medium.name=Medium Power Cell
-item.dse.powercell_large.name=Large Power Cell
-item.dse.powercell_creative.name=Creative Power Cell
+item.dse.ironplate.name=Iron Plate
+item.dse.steelplate.name=Steel Plate
+item.dse.plasteelplate.name=Plasteel Plate
+item.dse.heavyironplate.name=Heavy Iron Plate
+item.dse.heavysteelplate.name=Heavy Steel Plate
+item.dse.heavyplasteelplate.name=Heavy Plasteel Plate
+item.dse.oxygenfilter.name=Oxygen Filter
+
+item.dse.hammeriron.name=Iron Hammer
+item.dse.hammersteel.name=Steel Hammer
+
+item.dse.rebreather.name=Rebreather
+item.dse.scubamask.name=Scuba Helmet
+item.dse.scubachest.name=Scuba Chestplate
+item.dse.scubalegs.name=Scuba Leggings
+item.dse.scubaboots.name=Scuba Boots
+
+//---Blocks---//
+tile.dse.compressor.name=Air Compressor
+
+//---Entity---//
+entity.dse.dinghy.name=Dinghy
+entity.dse.motorboat.name=Motor Boat
+
+//---Shaders---//
+shader.dse.crimson=Crimson Glory
+shader.dse.race=Team Blue
+shader.dse.muscle=Team Red
+shader.dse.dark=Back in Black
+shader.dse.space=Interstellar
+shader.dse.pink=Rose
+
+//---Colors---//
+color.dse.black=Black
+color.dse.red=Red
+color.dse.green=Green
+color.dse.brown=Brown
+color.dse.blue=Blue
+color.dse.purple=Purple
+color.dse.cyan=Cyan
+color.dse.lightGray=Light Gray
+color.dse.gray=Gray
+color.dse.pink=Pink
+color.dse.lime=Lime
+color.dse.yellow=Yellow
+color.dse.lightBlue=Light Blue
+color.dse.magenta=Magenta
+color.dse.orange=Orange
+color.dse.white=White
+color.dse.rainbow=Rainbow
+color.dse.tracker=Tracker
 
 //---Tooltip---//
-tooltip.dse.oxygen=Oxygen
+tooltip.dse.block.compressor=Fills air tanks at the;cost of %power%
+tooltip.dse.item.divinggoggles=Gives clear vision under water.;But try to put them on while;out of the water otherwise;they will fill up with water.
+tooltip.dse.item.flippers=Swim faster, move slower.
+tooltip.dse.item.airtank=An essential tool for;longer diving sessions.
+tooltip.dse.item.airtank.creative=Dont feel like breathing?;Then this is for you.
+tooltip.dse.item.dinghy=Just a boat made of rubber.;Oh and it can be picked up when;Sneak Right-clicked with an empty hand.
+tooltip.dse.item.shadercore=Core components in shaders.;But it can also be used;to remove shaders from items.
+tooltip.dse.item.hammer=Stop Hammer Time;Used to make plates.
+tooltip.dse.mod.canuse=Can be used to upgrade
+tooltip.dse.mod.appliesto=Can apply to
+tooltip.dse.shader=Item Shader
+tooltip.dse.shader.current=Current Shader
+tooltip.dse.shader.none=No Shader
+tooltip.dse.shader.airtank=All Air Tanks
+tooltip.dse.shader.scuba=All Scuba Armor
+tooltip.dse.oxygen=Oxygen left
 tooltip.dse.charge=Charge
-tooltip.dse.pressure=Pressure
-tooltip.dse.armor=Provides the following armor points
-tooltip.dse.armor.head=When applied to Scuba Helmet
-tooltip.dse.armor.chest=When applied to Scuba Chest
-tooltip.dse.armor.legs=When applied to Scuba Leggings
-tooltip.dse.armor.feet=When applied to Scuba Boots
-tooltip.dse.block.nyi=NOT YET IMPLEMENTED
-tooltip.dse.block.wip=WORK IN PROGRESS
 tooltip.dse.usesleft=Uses left
+
+//---Config---//
+cfg.dse.title.main=Deep Sea Expansion Configuration Menu
+cfg.dse.title.client=Deep Sea Expansion Client Configs
+cfg.dse.entry.client=Client Config
+cfg.dse.entry.client.tooltip=All Client Options
+cfg.dse.title.common=Deep Sea Expansion Common Configs
+cfg.dse.entry.common=Common Config
+cfg.dse.entry.common.tooltip=All Common Options

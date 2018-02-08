@@ -1,14 +1,17 @@
 package com.nhave.dse.items;
 
-import com.nhave.nhc.api.items.IItemQuality;
+import java.util.List;
+
+import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 
-public class ItemMeta extends ItemBase implements IItemQuality
+public class ItemMeta extends ItemBase
 {
 	private String[] rarityNames = new String[] {"", StringUtils.LIGHT_BLUE, StringUtils.PURPLE, StringUtils.ORANGE};
 	private int rarity = 0;
@@ -44,12 +47,15 @@ public class ItemMeta extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-		for (int i = 0; i < names.length; ++i)
-		{
-			list.add(new ItemStack(item, 1, i));
-		}
+		if (this.isInCreativeTab(tab))
+        {
+			for (int i = 0; i < names.length; ++i)
+			{
+				items.add(new ItemStack(this, 1, i));
+			}
+        }
 	}
 	
 	@Override
@@ -59,15 +65,20 @@ public class ItemMeta extends ItemBase implements IItemQuality
 		return StringUtils.localize("item.dse." + names[meta] + ".name");
 	}
 	
-	public  ItemStack getItem(String name, int amount)
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		for (int meta = 0; meta < this.names.length; ++meta)
+		int meta = Math.min(stack.getItemDamage(), names.length-1);
+		String descUnlocalized = "tooltip.dse.item." + names[meta];
+		String descLocalized = StringUtils.localize(descUnlocalized);
+		
+		if (!descLocalized.equals(descUnlocalized))
 		{
-			if (this.names[meta].equals(name)) return new ItemStack(this, amount, meta);
+			if (StringUtils.isShiftKeyDown()) TooltipHelper.addSplitString(tooltip, descLocalized, ";", StringUtils.GRAY);
+			else tooltip.add(StringUtils.shiftForInfo);
 		}
-		return null;
 	}
-
+	
 	@Override
 	public String getQualityColor(ItemStack stack)
 	{

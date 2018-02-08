@@ -13,15 +13,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientEventHandler
 {
-    private static final Minecraft mc = Minecraft.getMinecraft();
+	private static final Minecraft mc = Minecraft.getMinecraft();
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
-    public void onEvent(FogDensity event)
+    public void onFogDensityEvent(FogDensity event)
     {
 		if (event.getEntity().isInsideOfMaterial(Material.WATER))
 		{
-			//ItemStack goggles = ItemHelper.getCurrentItemOrArmor(mc.thePlayer, 4);
 			ItemStack goggles = mc.player.inventory.armorItemInSlot(3);
 			if (goggles != null && goggles.getItem() instanceof IDivingHelmet && ((IDivingHelmet)goggles.getItem()).isHelmetActive(mc.player, goggles))
             {

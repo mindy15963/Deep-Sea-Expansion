@@ -1,66 +1,61 @@
 package com.nhave.dse.registry;
 
+import java.util.Map.Entry;
+
 import com.nhave.dse.Reference;
 import com.nhave.dse.client.mesh.CustomMeshDefinitionMetaItem;
-import com.nhave.dse.client.mesh.CustomMeshDefinitionPearl;
-import com.nhave.dse.client.widget.WidgetCharge;
-import com.nhave.dse.items.ItemAirTank;
-import com.nhave.dse.items.ItemArmorPlate;
+import com.nhave.dse.client.mesh.CustomMeshDefinitionShadeable;
+import com.nhave.dse.client.render.ItemColorHandler;
+import com.nhave.dse.items.ItemAirtank;
 import com.nhave.dse.items.ItemBase;
+import com.nhave.dse.items.ItemDinghy;
 import com.nhave.dse.items.ItemDivingGoggles;
 import com.nhave.dse.items.ItemFlippers;
 import com.nhave.dse.items.ItemHammer;
 import com.nhave.dse.items.ItemMeta;
-import com.nhave.dse.items.ItemPearl;
-import com.nhave.dse.items.ItemPowerCell;
-import com.nhave.nhc.client.widget.TooltipWidget;
+import com.nhave.dse.items.ItemShader;
+import com.nhave.dse.shaders.Shader;
+import com.nhave.dse.shaders.ShaderRegistry;
+import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems
 {
+	public static Item itemIcon;
+	public static Item itemDivingGoggles;
+	public static Item itemFlippers;
+	public static Item itemDinghy;
+	public static Item itemShaderCore;
+	public static Item itemShader;
 	public static Item itemAirTankSmall;
 	public static Item itemAirTankLarge;
 	public static Item itemAirTankHighPressure;
 	public static Item itemAirTankCreative;
-	public static Item itemDivingGoggles;
-	public static Item itemFlippers;
+	public static Item itemComponents;
 	public static Item itemHammerIron;
 	public static Item itemHammerSteel;
-	public static Item itemArmorPlateIron;
-	public static Item itemArmorPlateDiamond;
-	public static Item itemArmorPlateSteel;
-	public static Item itemArmorPlatePlaststeel;
-	public static ItemMeta itemComp;
-	public static Item itemSupportToken;
-	public static Item itemSupplyCrate;
-	public static Item itemPearl;
-	public static Item itemPowercellSmall;
-	public static Item itemPowercellMedium;
-	public static Item itemPowercellLarge;
-	public static Item itemPowercellCreative;
 	
-	public static String[][] craftingComponents = new String[][]
+	public static final String[][] COMPONETNS = new String[][]
 	{
-		{"ingot_steel", "0"}, {"plate_iron", "0"}, {"plate_steel", "0"}, {"plate_plaststeel", "1"}, {"plateheavy_iron", "0"},
-		{"plateheavy_steel", "0"}, {"plateheavy_plaststeel", "1"}, {"rubbercompound", "0"}, {"rubber", "0"}, {"filter", "0"},
-		{"pearl", "1"}, {"blackpearl", "2"}, {"gear_iron", "0"}, {"plate_copper", "0"}, {"plateheavy_copper", "0"},
-		{"ingot_copper", "0"}
+		{"steelingot", "1"}, {"rubbercompound", "0"}, {"rubber", "0"}, {"ironplate", "0"}, {"steelplate", "1"}, {"plasteelplate", "2"},
+		{"heavyironplate", "0"}, {"heavysteelplate", "1"}, {"heavyplasteelplate", "2"}, {"oxygenfilter", "1"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
@@ -68,125 +63,168 @@ public class ModItems
 	
 	public static void init()
 	{
-		itemAirTankSmall = new ItemAirTank("airtank_small", materialNoArmor, 12000, 2640, false);
-		itemAirTankLarge = new ItemAirTank("airtank_large", materialNoArmor, 24000, 3000, true, StringUtils.LIGHT_BLUE);
-		itemAirTankHighPressure = new ItemAirTank("airtank_highpressure", materialNoArmor, 48000, 3500, true, StringUtils.PURPLE);
-		itemAirTankCreative = new ItemAirTank("airtank_creative", materialNoArmor, -1, true, StringUtils.PINK);
+		//Initialize Items
+		itemIcon = new ItemBase("icon").setCreativeTab(null);
 		itemDivingGoggles = new ItemDivingGoggles("divinggoggles", materialNoArmor);
 		itemFlippers = new ItemFlippers("flippers", materialNoArmor);
-		itemHammerIron = new ItemHammer("hammer_iron", ModConfig.hammerDurabilityIron);
-		itemHammerSteel = new ItemHammer("hammer_steel", ModConfig.hammerDurabilitySteel);
-		itemArmorPlateIron = new ItemArmorPlate("armorplate_iron", new int[] {2, 6, 5, 2});
-		itemArmorPlateDiamond = new ItemArmorPlate("armorplate_diamond", new int[] {3, 8, 6, 3}, StringUtils.LIGHT_BLUE);
-		itemArmorPlateSteel = new ItemArmorPlate("armorplate_steel", new int[] {3, 8, 6, 3}, StringUtils.LIGHT_BLUE);
-		itemArmorPlatePlaststeel = new ItemArmorPlate("armorplate_plaststeel", new int[] {3, 8, 6, 3}, StringUtils.PURPLE);
-		itemComp = new ItemMeta("comp", craftingComponents);
-		itemSupportToken = new ItemBase("token_support", StringUtils.ORANGE).setMaxStackSize(1);
-		itemSupplyCrate = new ItemBase("supply_crate", StringUtils.PURPLE).setMaxStackSize(1);
-		itemPearl = new ItemPearl("small_pearl");
-		itemPowercellSmall = new ItemPowerCell("powercell_small", 400000);
-		itemPowercellMedium = new ItemPowerCell("powercell_medium", 4000000, StringUtils.LIGHT_BLUE);
-		itemPowercellLarge = new ItemPowerCell("powercell_large", 20000000, StringUtils.PURPLE);
-		itemPowercellCreative = new ItemPowerCell("powercell_creative", -1, StringUtils.PINK);
+		itemDinghy = new ItemDinghy("dinghy");
+		itemShaderCore = new ItemBase("shadercore").setQualityColor(StringUtils.LIGHT_BLUE);
+		itemShader = new ItemShader("shader");
+		itemAirTankSmall = new ItemAirtank("airtank_small", materialNoArmor, ModConfig.airtankCapacitySmall, false).setQualityColor(StringUtils.LIGHT_BLUE);
+		itemAirTankLarge = new ItemAirtank("airtank_large", materialNoArmor, ModConfig.airtankCapacityMedium, true).setQualityColor(StringUtils.PURPLE);
+		itemAirTankHighPressure = new ItemAirtank("airtank_highpressure", materialNoArmor, ModConfig.airtankCapacityLarge, true).setQualityColor(StringUtils.ORANGE);
+		itemAirTankCreative = new ItemAirtank("airtank_creative", materialNoArmor, -1, true).setQualityColor(StringUtils.PINK);
+		itemComponents = new ItemMeta("components", COMPONETNS);
+		itemHammerIron = new ItemHammer("hammeriron", ModConfig.hammerUsesIron).setQualityColor(StringUtils.LIGHT_BLUE);
+		itemHammerSteel = new ItemHammer("hammersteel", ModConfig.hammerUsesSteel).setQualityColor(StringUtils.LIGHT_BLUE);
+		
+		//Initialize Item Shaders
+		Item[] allShadeable = new Item[] {/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative/*, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots*/};
+		ShaderRegistry.registerShader(new Shader("crimson", 3158064, 16711680).setNamePrefix(StringUtils.ORANGE).addCompatibleItems(allShadeable));
+		ShaderRegistry.registerShader(new Shader("race", 16639, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
+		ShaderRegistry.registerShader(new Shader("muscle", 7602176, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
+		ShaderRegistry.registerShader(new Shader("dark", 3158064, 49809).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("pink", 16760575, 16777215).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("space", 16777215, 16766745).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
 	}
 	
-	public static void register()
+	public static void register(Register<Item> event)
 	{
-		GameRegistry.register(itemAirTankSmall);
-		GameRegistry.register(itemAirTankLarge);
-		GameRegistry.register(itemAirTankHighPressure);
-		GameRegistry.register(itemAirTankCreative);
-		GameRegistry.register(itemDivingGoggles);
-		GameRegistry.register(itemFlippers);
-		GameRegistry.register(itemHammerIron);
-		GameRegistry.register(itemHammerSteel);
-		GameRegistry.register(itemArmorPlateIron);
-		GameRegistry.register(itemArmorPlateDiamond);
-		GameRegistry.register(itemArmorPlateSteel);
-		GameRegistry.register(itemArmorPlatePlaststeel);
-		GameRegistry.register(itemComp);
-		GameRegistry.register(itemSupportToken);
-		GameRegistry.register(itemSupplyCrate);
-		GameRegistry.register(itemPearl);
-		GameRegistry.register(itemPowercellSmall);
-		GameRegistry.register(itemPowercellMedium);
-		GameRegistry.register(itemPowercellLarge);
-		GameRegistry.register(itemPowercellCreative);
-
+		event.getRegistry().register(itemIcon);
+		event.getRegistry().register(itemDivingGoggles);
+		event.getRegistry().register(itemFlippers);
+		event.getRegistry().register(itemDinghy);
+		event.getRegistry().register(itemShaderCore);
+		event.getRegistry().register(itemShader);
+		event.getRegistry().register(itemAirTankSmall);
+		event.getRegistry().register(itemAirTankLarge);
+		event.getRegistry().register(itemAirTankHighPressure);
+		event.getRegistry().register(itemAirTankCreative);
+		event.getRegistry().register(itemComponents);
+		event.getRegistry().register(itemHammerIron);
+		event.getRegistry().register(itemHammerSteel);
+		
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerIron, 1, 0));
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerSteel, 1, 0));
-		OreDictionary.registerOre("ingotSteel", ModItems.itemComp.getItem("ingot_steel", 1));
-		OreDictionary.registerOre("ingotCopper", ModItems.itemComp.getItem("ingot_copper", 1));
-		OreDictionary.registerOre("plateIron", ModItems.itemComp.getItem("plate_iron", 1));
-		OreDictionary.registerOre("plateCopper", ModItems.itemComp.getItem("plate_copper", 1));
-		OreDictionary.registerOre("plateSteel", ModItems.itemComp.getItem("plate_steel", 1));
-		OreDictionary.registerOre("platePlaststeel", ModItems.itemComp.getItem("plate_plaststeel", 1));
-		OreDictionary.registerOre("plateDenseIron", ModItems.itemComp.getItem("plateheavy_iron", 1));
-		OreDictionary.registerOre("plateDenseCopper", ModItems.itemComp.getItem("plateheavy_copper", 1));
-		OreDictionary.registerOre("plateDenseSteel", ModItems.itemComp.getItem("plateheavy_steel", 1));
-		OreDictionary.registerOre("plateDensePlaststeel", ModItems.itemComp.getItem("plateheavy_plaststeel", 1));
-		OreDictionary.registerOre("gearIron", ModItems.itemComp.getItem("gear_iron", 1));
-		OreDictionary.registerOre("materialRubber", ModItems.itemComp.getItem("rubber", 1));
-		OreDictionary.registerOre("itemRubber", ModItems.itemComp.getItem("rubber", 1));
+		OreDictionary.registerOre("ingotSteel", createItemStack(ModItems.itemComponents, "steelingot", 1));
+		OreDictionary.registerOre("materialRubber", createItemStack(ModItems.itemComponents, "rubber", 1));
+		OreDictionary.registerOre("itemRubber", createItemStack(ModItems.itemComponents, "rubber", 1));
+		OreDictionary.registerOre("plateIron", createItemStack(ModItems.itemComponents, "ironplate", 1));
+		OreDictionary.registerOre("plateSteel", createItemStack(ModItems.itemComponents, "steelplate", 1));
+		OreDictionary.registerOre("platePlasteel", createItemStack(ModItems.itemComponents, "plasteelplate", 1));
+		OreDictionary.registerOre("plateDenseIron", createItemStack(ModItems.itemComponents, "heavyironplate", 1));
+		OreDictionary.registerOre("plateDenseSteel", createItemStack(ModItems.itemComponents, "heavysteelplate", 1));
+		OreDictionary.registerOre("plateDensePlasteel", createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1));
 	}
 	
-	public static void registerWidgets()
-	{
-		TooltipWidget.register(new WidgetCharge());
-	}
-	
+	@SideOnly(Side.CLIENT)
 	public static void registerRenders()
 	{
-		registerRender(itemAirTankSmall);
-		registerRender(itemAirTankLarge);
-		registerRender(itemAirTankHighPressure);
-		registerRender(itemAirTankCreative);
+		registerRender(itemIcon);
 		registerRender(itemDivingGoggles);
-		registerMetaRender(itemFlippers, 16, true);
+		registerRender(itemDinghy);
+		registerRender(itemShaderCore);
+		registerRender(itemShader);
 		registerRender(itemHammerIron);
 		registerRender(itemHammerSteel);
-		registerRender(itemArmorPlateIron);
-		registerRender(itemArmorPlateDiamond);
-		registerRender(itemArmorPlateSteel);
-		registerRender(itemArmorPlatePlaststeel);
-		registerMetaRender(itemComp, craftingComponents.length, false);
-		registerRender(itemSupportToken);
-		registerRender(itemSupplyCrate);
-		registerRender(itemPowercellSmall);
-		registerRender(itemPowercellMedium);
-		registerRender(itemPowercellLarge);
-		registerRender(itemPowercellCreative);
 		
-		registerRenderMesh(itemPearl, new CustomMeshDefinitionPearl());
-		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "micro_pearl"));
-		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "tiny_pearl"));
-		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "small_pearl"));
-		ModelBakery.registerItemVariants(itemPearl, new ResourceLocation(Reference.MODID + ":" + "small_blackpearl"));
+		registerMetaRender(itemFlippers, 16, false);
+		registerMetaRender(itemComponents, COMPONETNS.length, false);
+		
+		registerRenderMesh(itemAirTankSmall, new CustomMeshDefinitionShadeable("airtanksmall"));
+		registerRenderMesh(itemAirTankLarge, new CustomMeshDefinitionShadeable("airtanklarge"));
+		registerRenderMesh(itemAirTankHighPressure, new CustomMeshDefinitionShadeable("airtanklarge"));
+		registerRenderMesh(itemAirTankCreative, new CustomMeshDefinitionShadeable("airtanklarge"));
+		
+		//Registering the models used by the shaders.
+		if (!ShaderRegistry.isEmpty())
+		{
+			for(Entry<String, Shader> entry : ShaderRegistry.SHADERS.entrySet())
+			{
+				Shader shader = entry.getValue();
+				/*if (shader.isItemCompatible(itemMotorboat))
+				{
+					ModelLoader.registerItemVariants(itemMotorboat, shader.getResourceLocation("boat"));
+				}*/
+				if (shader.isItemCompatible(itemAirTankSmall))
+				{
+					ModelLoader.registerItemVariants(itemAirTankSmall, shader.getResourceLocation("airtanksmall"));
+				}
+				if (shader.isItemCompatible(itemAirTankLarge) || shader.isItemCompatible(itemAirTankHighPressure) || shader.isItemCompatible(itemAirTankCreative))
+				{
+					ModelLoader.registerItemVariants(itemAirTankLarge, shader.getResourceLocation("airtanklarge"));
+					ModelLoader.registerItemVariants(itemAirTankHighPressure, shader.getResourceLocation("airtanklarge"));
+					ModelLoader.registerItemVariants(itemAirTankCreative, shader.getResourceLocation("airtanklarge"));
+				}
+				/*if (shader.isItemCompatible(itemScubaMask))
+				{
+					ModelLoader.registerItemVariants(itemScubaMask, shader.getResourceLocation("scubamask"));
+				}
+				if (shader.isItemCompatible(itemScubaChest))
+				{
+					ModelLoader.registerItemVariants(itemScubaChest, shader.getResourceLocation("scubachest"));
+				}
+				if (shader.isItemCompatible(itemScubaLegs))
+				{
+					ModelLoader.registerItemVariants(itemScubaLegs, shader.getResourceLocation("scubalegs"));
+				}
+				if (shader.isItemCompatible(itemScubaBoots))
+				{
+					ModelLoader.registerItemVariants(itemScubaBoots, shader.getResourceLocation("scubaboots"));
+				}*/
+			}
+		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public static void registerRenderData()
+	{
+		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemColorHandler.INSTANCE, itemShader);
+	}
+
+	@SideOnly(Side.CLIENT)
 	public static void registerRender(Item item)
 	{
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-		renderItem.getItemModelMesher().register(item, 0, new ModelResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath(), "inventory"));
-		
-		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler((IItemColor)itemFlippers, itemFlippers);	
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath(), "inventory"));
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public static void registerRenderMesh(Item item, ItemMeshDefinition mesh)
+	{
+		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+		ModelLoader.setCustomMeshDefinition(item, mesh);
+		ModelLoader.registerItemVariants(item, item.getRegistryName());
+	}
+	
+	@SideOnly(Side.CLIENT)
 	public static void registerMetaRender(Item item, int loop, boolean single)
 	{
 		for (int i = 0; i < loop; ++i)
 		{
 			String meta = "";
 			if (i > 0 && !single) meta = "_" + i;
-			ModelBakery.registerItemVariants(item, new ResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath() + meta));
+			ModelLoader.registerItemVariants(item, new ResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath() + meta));
 		}
 		registerRenderMesh(item, new CustomMeshDefinitionMetaItem(single));
 	}
 	
-	public static void registerRenderMesh(Item item, ItemMeshDefinition mesh)
+	public static ItemStack createItemStack(Item item, String name, int amount)
 	{
-		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-		
-		renderItem.getItemModelMesher().register(item, mesh);
+		if (item instanceof ItemMeta)
+		{
+			ItemMeta metaItem = (ItemMeta) item;
+			for (int meta = 0; meta < metaItem.names.length; ++meta)
+			{
+				if (metaItem.names[meta].equals(name)) return new ItemStack(item, amount, meta);
+			}
+		}
+		else if (item instanceof ItemShader)
+		{
+			ItemStack shader = new ItemStack(item, amount);
+			ItemNBTHelper.setString(shader, "SHADERS", "SHADER", name);
+			return shader;
+		}
+		return new ItemStack(item, amount);
 	}
 }

@@ -5,12 +5,13 @@ import java.io.File;
 import org.apache.logging.log4j.Logger;
 
 import com.nhave.dse.proxy.CommonProxy;
-import com.nhave.dse.registry.ModBlocks;
-import com.nhave.dse.registry.ModCrafting;
+import com.nhave.dse.registry.ModEntities;
 import com.nhave.dse.registry.ModItems;
+import com.nhave.dse.registry.RegistryHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -18,10 +19,10 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSIONS, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUIFACTORY)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUIFACTORY)
 public class DeepSeaExpansion
 {
-    public static Logger logger;
+	public static Logger logger;
     
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.COMMON_PROXY)
 	public static CommonProxy proxy;
@@ -34,11 +35,11 @@ public class DeepSeaExpansion
     {
     	logger = event.getModLog();
 		proxy.setupConfig(new File(event.getModConfigurationDirectory(), "deepseaexpansion.cfg"));
-
-    	ModItems.init();
-    	ModItems.register();
-    	ModBlocks.init();
-    	ModBlocks.register();
+		
+		MinecraftForge.EVENT_BUS.register(new RegistryHandler());
+		
+		ModEntities.init();
+    	proxy.preInit(event);
     }
     
     @EventHandler
@@ -51,49 +52,14 @@ public class DeepSeaExpansion
     public void postInit(FMLPostInitializationEvent event)
     {
     	proxy.registerEventHandlers();
-    	ModCrafting.init();
-    	//ModIntegration.postInit();
     }
     
-    public static final CreativeTabs CREATIVETABBLOCKS = new CreativeTabs("dse.blocks")
+    public static final CreativeTabs CREATIVETAB = new CreativeTabs(Reference.MODID)
 	{
 		@Override
 		public ItemStack getTabIconItem()
 		{
-			return new ItemStack(ModBlocks.blockOyster);
+			return new ItemStack(ModItems.itemIcon);
 		}
-		
-		public String getBackgroundImageName()
-		{
-			return "dse.png";
-		};
-	};
-    
-    public static final CreativeTabs CREATIVETABITEMS = new CreativeTabs("dse.items")
-	{
-		@Override
-		public ItemStack getTabIconItem()
-		{
-			return new ItemStack(ModItems.itemComp, 1, 1);
-		}
-		
-		public String getBackgroundImageName()
-		{
-			return "dse.png";
-		};
-	};
-    
-    public static final CreativeTabs CREATIVETABTOOLS = new CreativeTabs("dse.tools")
-	{
-		@Override
-		public ItemStack getTabIconItem()
-		{
-			return new ItemStack(ModItems.itemHammerIron);
-		}
-		
-		public String getBackgroundImageName()
-		{
-			return "dse.png";
-		};
 	};
 }
