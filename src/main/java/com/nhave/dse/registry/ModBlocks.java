@@ -1,6 +1,7 @@
 package com.nhave.dse.registry;
 
 import com.nhave.dse.Reference;
+import com.nhave.dse.blocks.BlockCharger;
 import com.nhave.dse.blocks.BlockCompressor;
 import com.nhave.dse.client.render.RenderTileCompressor;
 import com.nhave.dse.tileentity.TileEntityCompressor;
@@ -22,28 +23,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModBlocks
 {
 	public static Block blockCompressor;
+	public static Block blockCharger;
 	
 	public static void init()
 	{
 		blockCompressor = new BlockCompressor("compressor");
-		
+		blockCharger = new BlockCharger("charger");
+
 		GameRegistry.registerTileEntity(com.nhave.dse.tileentity.TileEntityCompressor.class, "TileCompressor");
+		GameRegistry.registerTileEntity(com.nhave.dse.tileentity.TileEntityCharger.class, "TileCharger");
 	}
 	
 	public static void register(Register<Block> event)
 	{
 		event.getRegistry().register(blockCompressor);
+		event.getRegistry().register(blockCharger);
 	}
 	
 	public static void registerItemBlocks(Register<Item> event)
 	{
 		registerItemBlock(event, blockCompressor);
+		registerItemBlock(event, blockCharger);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void registerRenders()
 	{
 		registerRender(blockCompressor);
+		registerRender(blockCharger);
 	}
 	
 	@SideOnly(Side.CLIENT)

@@ -6,7 +6,7 @@ public class Reference
     
 	public static final String MODID = "dse";
     public static final String NAME = "Deep Sea Expansion";
-    public static final String VERSION = "A3";
+    public static final String VERSION = "A3.1";
     public static final String DEPENDENCIES = 
     		"required-after:nhc@[" + NHCORE_VERSION + ",)";
     

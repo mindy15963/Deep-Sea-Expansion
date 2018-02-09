@@ -90,7 +90,6 @@ public class BlockCompressor extends BlockMachine
             	powerStored = nbttagcompound1.getInteger("Energy");
             }
         }
-		//tooltip.add(StringUtils.localize("tooltip.dse.charge") + ": " + PowerUtils.getEnergyDisplay(powerStored) + " / " + PowerUtils.getEnergyDisplay((this.advanced ? 70000 : 50000)));
 		if (StringUtils.isShiftKeyDown()) tooltip.add(StringUtils.localize("tooltip.dse.charge") + ": " + NumberUtils.getDisplayShort(powerStored) + " / " + NumberUtils.getDisplayShort(ModConfig.machinePowerCapacity) + " " + ModConfig.energyUnit);
 	}
 	

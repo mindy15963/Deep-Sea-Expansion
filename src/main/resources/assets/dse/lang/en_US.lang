@@ -34,6 +34,7 @@ item.dse.scubaboots.name=Scuba Boots
 
 //---Blocks---//
 tile.dse.compressor.name=Air Compressor
+tile.dse.charger.name=Vehicle Charging Bay
 
 //---Entity---//
 entity.dse.dinghy.name=Dinghy
@@ -67,6 +68,7 @@ color.dse.white=White
 
 //---Tooltip---//
 tooltip.dse.block.compressor=Fills air tanks at the;cost of %power%
+tooltip.dse.block.charger=Charges vehicles parked on it.
 tooltip.dse.item.divinggoggles=Gives clear vision under water.;But try to put them on while;out of the water otherwise;they will fill up with water.
 tooltip.dse.item.flippers=Swim faster, move slower.
 tooltip.dse.item.airtank=An essential tool for;longer diving sessions.
