@@ -12,7 +12,6 @@ item.dse.airtanksmall.name=Small Air Tank
 item.dse.airtanklarge.name=Large Air Tank
 item.dse.airtankhighpressure.name=High Pressure Air Tank
 item.dse.airtankcreative.name=Creative Air Tank
-
 item.dse.steelingot.name=Steel Ingot
 item.dse.rubbercompound.name=Rubber Compound
 item.dse.rubber.name=Rubber
@@ -23,9 +22,9 @@ item.dse.heavyironplate.name=Heavy Iron Plate
 item.dse.heavysteelplate.name=Heavy Steel Plate
 item.dse.heavyplasteelplate.name=Heavy Plasteel Plate
 item.dse.oxygenfilter.name=Oxygen Filter
-
 item.dse.hammeriron.name=Iron Hammer
 item.dse.hammersteel.name=Steel Hammer
+item.dse.heavyboots.name=Heavy Boots
 
 item.dse.rebreather.name=Rebreather
 item.dse.scubamask.name=Scuba Helmet
@@ -65,8 +64,6 @@ color.dse.lightBlue=Light Blue
 color.dse.magenta=Magenta
 color.dse.orange=Orange
 color.dse.white=White
-color.dse.rainbow=Rainbow
-color.dse.tracker=Tracker
 
 //---Tooltip---//
 tooltip.dse.block.compressor=Fills air tanks at the;cost of %power%
@@ -75,8 +72,9 @@ tooltip.dse.item.flippers=Swim faster, move slower.
 tooltip.dse.item.airtank=An essential tool for;longer diving sessions.
 tooltip.dse.item.airtank.creative=Dont feel like breathing?;Then this is for you.
 tooltip.dse.item.dinghy=Just a boat made of rubber.;Oh and it can be picked up when;Sneak Right-clicked with an empty hand.
-tooltip.dse.item.shadercore=Core components in shaders.;But it can also be used;to remove shaders from items.
+tooltip.dse.item.shadercore=Core component in shaders.;But it can also be used;to remove shaders from items.
 tooltip.dse.item.hammer=Stop Hammer Time;Used to make plates.
+tooltip.dse.item.heavyboots=Floats like a rock.
 tooltip.dse.mod.canuse=Can be used to upgrade
 tooltip.dse.mod.appliesto=Can apply to
 tooltip.dse.shader=Item Shader

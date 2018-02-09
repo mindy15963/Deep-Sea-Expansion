@@ -65,17 +65,15 @@ color.dse.lightBlue=淡蓝色
 color.dse.magenta=品红色
 color.dse.orange=橙色
 color.dse.white=白色
-color.dse.rainbow=彩色
-color.dse.tracker=Tracker
 
 //---Tooltip---//
-tooltip.dse.block.compressor=用于填充储气罐，需要消耗%power%
+tooltip.dse.block.compressor=用于填充储气罐，需要消耗 %power%
 tooltip.dse.item.divinggoggles=提供清晰的水下视觉效果。
 tooltip.dse.item.flippers=增加游泳速度，但移动速度会有所降低。
 tooltip.dse.item.airtank=一种重要潜水装备，将提供更长的水下潜水时间。
 tooltip.dse.item.airtank.creative=想要像水肺一样在水中呼吸？那就试试这个吧。
 tooltip.dse.item.dinghy=一种由橡胶制作而成的船，它可以通过空手右击被抬起。
-tooltip.dse.item.shadercore=制作着色器的核心组件，不仅如此，它还可以用来抹去物品所染颜色。
+tooltip.dse.item.shadercore=制作着色器的核心组件;不仅如此，它还可以用来抹去物品所染颜色。
 tooltip.dse.item.hammer=用于敲制金属板。
 tooltip.dse.mod.canuse=可用于升级
 tooltip.dse.mod.appliesto=可应用于

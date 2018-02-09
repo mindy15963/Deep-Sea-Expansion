@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class EntityDinghy extends EntityBoat
+public class EntityDinghy extends EntityBoatBase
 {
 	public EntityDinghy(World worldIn)
 	{
@@ -21,11 +21,13 @@ public class EntityDinghy extends EntityBoat
 		super(worldIn, x, y, z);
 	}
 	
+	@Override
 	public Item getItemBoat()
     {
 		return ModItems.itemDinghy;
     }
 	
+	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
     {
         if (player.isSneaking() && player.getHeldItemMainhand() == ItemStack.EMPTY)
@@ -40,4 +42,20 @@ public class EntityDinghy extends EntityBoat
         }
         return super.processInitialInteract(player, hand);
     }
+	
+	@Override
+	public void onUpdate()
+	{
+		//Run base boat update code. Then add the overrides
+		super.onUpdate();
+		
+		//Propels the Dinghy back to the surface
+		if (this.status == EntityBoat.Status.UNDER_WATER)
+		{
+			this.motionY = 0.7D;
+		}
+		
+		//Prevents the Player from being kicked of the Dinghy
+    	this.outOfControlTicks = 0.0F;
+	}
 }

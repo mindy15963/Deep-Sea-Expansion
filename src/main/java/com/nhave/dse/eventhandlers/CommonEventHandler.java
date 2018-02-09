@@ -2,6 +2,7 @@ package com.nhave.dse.eventhandlers;
 
 import com.nhave.dse.api.items.IFlippers;
 import com.nhave.dse.api.items.IShaderItem;
+import com.nhave.dse.items.ItemHeavyBoots;
 import com.nhave.dse.items.ItemShader;
 import com.nhave.dse.registry.ModItems;
 import com.nhave.dse.shaders.Shader;
@@ -44,13 +45,13 @@ public class CommonEventHandler
 							player.motionZ *= 0.5D;
 						}
 					}
-					/*else if (stack.getItem() instanceof ItemLeadBoots)
+					else if (stack.getItem() instanceof ItemHeavyBoots)
 					{
 						if (player.isInWater() && player.motionY < -0.0784000015258789)
 						{
 							player.motionY *= 1.25D;
 						}
-					}*/
+					}
 				}
 			}
 		}

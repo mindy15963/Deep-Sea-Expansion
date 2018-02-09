@@ -28,9 +28,9 @@ public class ModCrafting
 		//Air Compressor
 		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockCompressor,
 			new Object[] {"XXX", "YZY", "XAX",
-			'X', Items.IRON_INGOT,
+			'X', "plateIron",
 			'Y', Blocks.FURNACE,
-			'Z', Blocks.IRON_BARS,
+			'Z', ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
 			'A', machineFrame}));
 		//Diving Goggles
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemDivingGoggles,
@@ -129,6 +129,11 @@ public class ModCrafting
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1),
 			new Object[] {"XX", "XX",
 			'X', "platePlasteel"}));
+		//Heavy Boots
+		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemHeavyBoots),
+			new Object[] {"X X", "X X", "Y Y",
+			'X', Items.LEATHER,
+			'Y', "plateIron"}));
 		
 		//Plate Crating
 		if (ModConfig.allowPlateCrafting)

@@ -12,6 +12,7 @@ import com.nhave.dse.items.ItemDinghy;
 import com.nhave.dse.items.ItemDivingGoggles;
 import com.nhave.dse.items.ItemFlippers;
 import com.nhave.dse.items.ItemHammer;
+import com.nhave.dse.items.ItemHeavyBoots;
 import com.nhave.dse.items.ItemMeta;
 import com.nhave.dse.items.ItemShader;
 import com.nhave.dse.shaders.Shader;
@@ -51,6 +52,7 @@ public class ModItems
 	public static Item itemComponents;
 	public static Item itemHammerIron;
 	public static Item itemHammerSteel;
+	public static Item itemHeavyBoots;
 	
 	public static final String[][] COMPONETNS = new String[][]
 	{
@@ -77,6 +79,7 @@ public class ModItems
 		itemComponents = new ItemMeta("components", COMPONETNS);
 		itemHammerIron = new ItemHammer("hammeriron", ModConfig.hammerUsesIron).setQualityColor(StringUtils.LIGHT_BLUE);
 		itemHammerSteel = new ItemHammer("hammersteel", ModConfig.hammerUsesSteel).setQualityColor(StringUtils.LIGHT_BLUE);
+		itemHeavyBoots = new ItemHeavyBoots("heavyboots", ArmorMaterial.IRON);
 		
 		//Initialize Item Shaders
 		Item[] allShadeable = new Item[] {/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative/*, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots*/};
@@ -103,6 +106,7 @@ public class ModItems
 		event.getRegistry().register(itemComponents);
 		event.getRegistry().register(itemHammerIron);
 		event.getRegistry().register(itemHammerSteel);
+		event.getRegistry().register(itemHeavyBoots);
 		
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerIron, 1, 0));
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerSteel, 1, 0));
@@ -127,6 +131,7 @@ public class ModItems
 		registerRender(itemShader);
 		registerRender(itemHammerIron);
 		registerRender(itemHammerSteel);
+		registerRender(itemHeavyBoots);
 		
 		registerMetaRender(itemFlippers, 16, false);
 		registerMetaRender(itemComponents, COMPONETNS.length, false);
