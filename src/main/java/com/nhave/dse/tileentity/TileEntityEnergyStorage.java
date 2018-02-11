@@ -13,7 +13,7 @@ public class TileEntityEnergyStorage extends TileEntityMachine implements IItemD
 	
 	public TileEntityEnergyStorage()
 	{
-		storage = new NHEnergyStorage(ModConfig.machinePowerCapacity, ModConfig.machinePowerTransfer);
+		storage = new NHEnergyStorage(ModConfig.machinePowerCapacity);
 	}
 	
 	@Override

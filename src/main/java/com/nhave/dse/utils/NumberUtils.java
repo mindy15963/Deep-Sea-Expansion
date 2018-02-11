@@ -74,7 +74,7 @@ public class NumberUtils
 		
 		if(value == 0)
 		{
-			return ((int) value) + "";
+			return String.format ("%." + decimalPlaces + "f", value) + "";
 		}
 		else
 		{
@@ -84,24 +84,24 @@ public class NumberUtils
 				
 				if(lowerMeasure.below(value) && lowerMeasure.ordinal() == 0)
 				{
-					return prefix + (int)roundDecimals(lowerMeasure.process(value), decimalPlaces) + lowerMeasure.getName(isShort);
+					return prefix + String.format ("%." + decimalPlaces + "f", roundDecimals(lowerMeasure.process(value), decimalPlaces)) + lowerMeasure.getName(isShort);
 				}
 				
 				if(lowerMeasure.ordinal() + 1 >= MeasurementUnit.values().length)
 				{
-					return prefix + (int)roundDecimals(lowerMeasure.process(value), decimalPlaces) + lowerMeasure.getName(isShort);
+					return prefix + String.format ("%." + decimalPlaces + "f", roundDecimals(lowerMeasure.process(value), decimalPlaces)) + lowerMeasure.getName(isShort);
 				}
 				
 				MeasurementUnit upperMeasure = MeasurementUnit.values()[i + 1];
 				
 				if((lowerMeasure.above(value) && upperMeasure.below(value)) || lowerMeasure.value == value)
 				{
-					return prefix + (int)roundDecimals(lowerMeasure.process(value), decimalPlaces) + lowerMeasure.getName(isShort);
+					return prefix + String.format ("%." + decimalPlaces + "f", roundDecimals(lowerMeasure.process(value), decimalPlaces)) + lowerMeasure.getName(isShort);
 				}
 			}
 		}
 		
-		return prefix + roundDecimals(value, decimalPlaces);
+		return prefix + String.format ("%." + decimalPlaces + "f", roundDecimals(value, decimalPlaces));
 	}
 	
 	public static String getDisplayShort(double value)

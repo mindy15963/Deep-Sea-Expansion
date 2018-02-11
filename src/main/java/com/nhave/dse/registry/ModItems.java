@@ -1,5 +1,7 @@
 package com.nhave.dse.registry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import com.nhave.dse.Reference;
@@ -14,7 +16,9 @@ import com.nhave.dse.items.ItemFlippers;
 import com.nhave.dse.items.ItemHammer;
 import com.nhave.dse.items.ItemHeavyBoots;
 import com.nhave.dse.items.ItemMeta;
+import com.nhave.dse.items.ItemMotorboat;
 import com.nhave.dse.items.ItemShader;
+import com.nhave.dse.items.ItemSimpleUpgrades;
 import com.nhave.dse.shaders.Shader;
 import com.nhave.dse.shaders.ShaderRegistry;
 import com.nhave.nhc.helpers.ItemNBTHelper;
@@ -39,6 +43,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems
 {
+	public static final List<ItemStack> MOTORBOAT_UPGRADES = new ArrayList<ItemStack>();
+	public static final List<String> MOTORBOAT_UPGRADES_NBT = new ArrayList<String>();
+	
 	public static Item itemIcon;
 	public static Item itemDivingGoggles;
 	public static Item itemFlippers;
@@ -53,11 +60,17 @@ public class ModItems
 	public static Item itemHammerIron;
 	public static Item itemHammerSteel;
 	public static Item itemHeavyBoots;
+	public static Item itemMotorboat;
+	public static Item itemSimpleUpgrades;
 	
 	public static final String[][] COMPONETNS = new String[][]
 	{
 		{"steelingot", "1"}, {"rubbercompound", "0"}, {"rubber", "0"}, {"ironplate", "0"}, {"steelplate", "1"}, {"plasteelplate", "2"},
 		{"heavyironplate", "0"}, {"heavysteelplate", "1"}, {"heavyplasteelplate", "2"}, {"oxygenfilter", "1"}
+	};
+	public static final String[][] UPGRADES = new String[][]
+	{
+		{"paddles", "0", "PADDLE"}, {"storagebox", "0", "STORAGE", "NYI"}, {"boatbooster", "2", "BOOSTER"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
@@ -80,12 +93,14 @@ public class ModItems
 		itemHammerIron = new ItemHammer("hammeriron", ModConfig.hammerUsesIron).setQualityColor(StringUtils.LIGHT_BLUE);
 		itemHammerSteel = new ItemHammer("hammersteel", ModConfig.hammerUsesSteel).setQualityColor(StringUtils.LIGHT_BLUE);
 		itemHeavyBoots = new ItemHeavyBoots("heavyboots", ArmorMaterial.IRON);
+		itemMotorboat = new ItemMotorboat("motorboat");
+		itemSimpleUpgrades = new ItemSimpleUpgrades("upgrades", UPGRADES);
 		
 		//Initialize Item Shaders
-		Item[] allShadeable = new Item[] {/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative/*, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots*/};
+		Item[] allShadeable = new Item[] {itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative/*, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots*/};
 		ShaderRegistry.registerShader(new Shader("crimson", 3158064, 16711680).setNamePrefix(StringUtils.ORANGE).addCompatibleItems(allShadeable));
-		ShaderRegistry.registerShader(new Shader("race", 16639, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
-		ShaderRegistry.registerShader(new Shader("muscle", 7602176, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(/*itemMotorboat, */itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
+		ShaderRegistry.registerShader(new Shader("race", 16639, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
+		ShaderRegistry.registerShader(new Shader("muscle", 7602176, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
 		ShaderRegistry.registerShader(new Shader("dark", 3158064, 49809).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
 		ShaderRegistry.registerShader(new Shader("pink", 16760575, 16777215).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
 		ShaderRegistry.registerShader(new Shader("space", 16777215, 16766745).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
@@ -107,6 +122,8 @@ public class ModItems
 		event.getRegistry().register(itemHammerIron);
 		event.getRegistry().register(itemHammerSteel);
 		event.getRegistry().register(itemHeavyBoots);
+		event.getRegistry().register(itemMotorboat);
+		event.getRegistry().register(itemSimpleUpgrades);
 		
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerIron, 1, 0));
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerSteel, 1, 0));
@@ -119,6 +136,13 @@ public class ModItems
 		OreDictionary.registerOre("plateDenseIron", createItemStack(ModItems.itemComponents, "heavyironplate", 1));
 		OreDictionary.registerOre("plateDenseSteel", createItemStack(ModItems.itemComponents, "heavysteelplate", 1));
 		OreDictionary.registerOre("plateDensePlasteel", createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1));
+		
+		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "paddles", 1));
+		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "storagebox", 1));
+		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "boatbooster", 1));
+		MOTORBOAT_UPGRADES_NBT.add("PADDLE");
+		MOTORBOAT_UPGRADES_NBT.add("STORAGE");
+		MOTORBOAT_UPGRADES_NBT.add("BOOSTER");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -135,11 +159,13 @@ public class ModItems
 		
 		registerMetaRender(itemFlippers, 16, false);
 		registerMetaRender(itemComponents, COMPONETNS.length, false);
+		registerMetaRender(itemSimpleUpgrades, UPGRADES.length, false);
 		
 		registerRenderMesh(itemAirTankSmall, new CustomMeshDefinitionShadeable("airtanksmall"));
 		registerRenderMesh(itemAirTankLarge, new CustomMeshDefinitionShadeable("airtanklarge"));
 		registerRenderMesh(itemAirTankHighPressure, new CustomMeshDefinitionShadeable("airtanklarge"));
 		registerRenderMesh(itemAirTankCreative, new CustomMeshDefinitionShadeable("airtanklarge"));
+		registerRenderMesh(itemMotorboat, new CustomMeshDefinitionShadeable("boat"));
 		
 		//Registering the models used by the shaders.
 		if (!ShaderRegistry.isEmpty())
@@ -147,10 +173,10 @@ public class ModItems
 			for(Entry<String, Shader> entry : ShaderRegistry.SHADERS.entrySet())
 			{
 				Shader shader = entry.getValue();
-				/*if (shader.isItemCompatible(itemMotorboat))
+				if (shader.isItemCompatible(itemMotorboat))
 				{
 					ModelLoader.registerItemVariants(itemMotorboat, shader.getResourceLocation("boat"));
-				}*/
+				}
 				if (shader.isItemCompatible(itemAirTankSmall))
 				{
 					ModelLoader.registerItemVariants(itemAirTankSmall, shader.getResourceLocation("airtanksmall"));

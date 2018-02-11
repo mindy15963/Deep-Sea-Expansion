@@ -1,3 +1,7 @@
+//---Formating---//
+//'%var%' allows the code to take over and replace '%var%' with variables.
+//The symbol ';' indicates a linebreak. Used in item tooltips.
+
 //---Creative Tab---//
 itemGroup.dse=Deep Sea Expansion
 
@@ -25,6 +29,10 @@ item.dse.oxygenfilter.name=Oxygen Filter
 item.dse.hammeriron.name=Iron Hammer
 item.dse.hammersteel.name=Steel Hammer
 item.dse.heavyboots.name=Heavy Boots
+item.dse.motorboat.name=Motorboat
+item.dse.upgrade.paddles.name=Paddles
+item.dse.upgrade.storagebox.name=Storage Box
+item.dse.upgrade.boatbooster.name=Turbocharger
 
 item.dse.rebreather.name=Rebreather
 item.dse.scubamask.name=Scuba Helmet
@@ -34,7 +42,8 @@ item.dse.scubaboots.name=Scuba Boots
 
 //---Blocks---//
 tile.dse.compressor.name=Air Compressor
-tile.dse.charger.name=Vehicle Charging Bay
+tile.dse.charger.name=Item Charger
+tile.dse.vehiclebay.name=Vehicle Charging Bay
 
 //---Entity---//
 entity.dse.dinghy.name=Dinghy
@@ -68,7 +77,8 @@ color.dse.white=White
 
 //---Tooltip---//
 tooltip.dse.block.compressor=Fills air tanks at the;cost of %power%
-tooltip.dse.block.charger=Charges vehicles parked on it.
+tooltip.dse.block.charger=Charges items placed in it.
+tooltip.dse.block.vehiclebay=Charges vehicles parked on it.
 tooltip.dse.item.divinggoggles=Gives clear vision under water.;But try to put them on while;out of the water otherwise;they will fill up with water.
 tooltip.dse.item.flippers=Swim faster, move slower.
 tooltip.dse.item.airtank=An essential tool for;longer diving sessions.
@@ -77,8 +87,14 @@ tooltip.dse.item.dinghy=Just a boat made of rubber.;Oh and it can be picked up w
 tooltip.dse.item.shadercore=Core component in shaders.;But it can also be used;to remove shaders from items.
 tooltip.dse.item.hammer=Stop Hammer Time;Used to make plates.
 tooltip.dse.item.heavyboots=Floats like a rock.
+tooltip.dse.item.motorboat=No more need for paddles.;Well unless, you run out of power.;Sneak Right-click with a wrench to pick it up.
+tooltip.dse.upgrade.paddles=Useful for moving your boat;when its out of power.
+tooltip.dse.upgrade.storagebox=Adds a small inventory to your boat.
+tooltip.dse.upgrade.boatbooster=Allows your boat to boost;when holding the jump button.;Of cause using more power.
 tooltip.dse.mod.canuse=Can be used to upgrade
 tooltip.dse.mod.appliesto=Can apply to
+tooltip.dse.mod.ctrlinfo=for Upgrades
+tooltip.dse.mod.all=All Accepted Upgrades
 tooltip.dse.shader=Item Shader
 tooltip.dse.shader.current=Current Shader
 tooltip.dse.shader.none=No Shader
@@ -86,6 +102,9 @@ tooltip.dse.shader.airtank=All Air Tanks
 tooltip.dse.shader.scuba=All Scuba Armor
 tooltip.dse.oxygen=Oxygen left
 tooltip.dse.charge=Charge
+tooltip.dse.charge.use=Per Use
+tooltip.dse.charge.tick=Per Tick
+tooltip.dse.charge.boatboost=While Boosting
 tooltip.dse.usesleft=Uses left
 
 //---Config---//

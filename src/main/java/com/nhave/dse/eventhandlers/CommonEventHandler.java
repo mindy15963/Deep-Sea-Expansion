@@ -1,10 +1,17 @@
 package com.nhave.dse.eventhandlers;
 
+import java.util.List;
+
+import com.nhave.dse.api.items.IItemUpgrade;
 import com.nhave.dse.api.items.IShaderItem;
+import com.nhave.dse.items.ItemMotorboat;
 import com.nhave.dse.items.ItemShader;
 import com.nhave.dse.registry.ModItems;
 import com.nhave.dse.shaders.Shader;
+import com.nhave.nhc.api.items.INHWrench;
+import com.nhave.nhc.events.ToolStationCraftingEvent;
 import com.nhave.nhc.events.ToolStationUpdateEvent;
+import com.nhave.nhc.helpers.ItemHelper;
 import com.nhave.nhc.util.ItemUtil;
 
 import net.minecraft.item.ItemStack;
@@ -40,7 +47,7 @@ public class CommonEventHandler
 				}
 			}
 		}
-		else if (evt.mod.getItem() instanceof IItemUpgrade && ((IItemUpgrade) evt.mod.getItem()).canApplyUpgrade(evt.input, evt.mod))
+		else*/ if (evt.mod.getItem() instanceof IItemUpgrade && ((IItemUpgrade) evt.mod.getItem()).canApplyUpgrade(evt.input, evt.mod))
 		{
 			IItemUpgrade upgrade = (IItemUpgrade) evt.mod.getItem();
 			String nbt = upgrade.getUpgradeNBT(evt.input, evt.mod);
@@ -52,7 +59,7 @@ public class CommonEventHandler
 			evt.materialCost=1;
 			evt.output=output;
 		}
-		else*/ if (evt.input.getItem() instanceof IShaderItem && evt.mod.getItem() == ModItems.itemShader)
+		else if (evt.input.getItem() instanceof IShaderItem && evt.mod.getItem() == ModItems.itemShader)
 		{
 			Shader mod = ((ItemShader) evt.mod.getItem()).getShader(evt.mod);
 			if (mod != null && mod.isItemCompatible(evt.input.getItem()))
@@ -82,15 +89,15 @@ public class CommonEventHandler
 			evt.materialCost=0;
 			evt.output=stack;
 		}
-		/*else if (evt.mod.getItem() instanceof INHWrench)
+		else if (evt.mod.getItem() instanceof INHWrench)
 		{
 			List<String> upgrades = null;
 			
 			if (evt.input.getItem() instanceof ItemMotorboat) upgrades = ModItems.MOTORBOAT_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
 			
 			if (upgrades == null) return;
 			
@@ -110,10 +117,10 @@ public class CommonEventHandler
 				evt.output=output;
 			}
 			else return;
-		}*/
+		}
 	}
 	
-	/*@SubscribeEvent
+	@SubscribeEvent
 	public void onToolStationCrafting(ToolStationCraftingEvent evt)
 	{
 		if (evt.input == null || evt.mod == null)
@@ -125,10 +132,10 @@ public class CommonEventHandler
 			List<String> upgrades = null;
 
 			if (evt.input.getItem() instanceof ItemMotorboat) upgrades = ModItems.MOTORBOAT_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
-			else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
+			//else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
 			
 			if (upgrades != null)
 			{
@@ -142,5 +149,5 @@ public class CommonEventHandler
 				}
 			}
 		}
-	}*/
+	}
 }

@@ -1,0 +1,8 @@
+{
+    "variants": {
+         "facing=north": { "model": "dse:charger" },
+        "facing=south": { "model": "dse:charger" },
+        "facing=west":  { "model": "dse:charger" },
+        "facing=east":  { "model": "dse:charger" }
+    }
+}

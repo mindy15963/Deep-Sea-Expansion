@@ -3,7 +3,9 @@ package com.nhave.dse.registry;
 import com.nhave.dse.Reference;
 import com.nhave.dse.blocks.BlockCharger;
 import com.nhave.dse.blocks.BlockCompressor;
+import com.nhave.dse.client.render.RenderTileCharger;
 import com.nhave.dse.client.render.RenderTileCompressor;
+import com.nhave.dse.tileentity.TileEntityCharger;
 import com.nhave.dse.tileentity.TileEntityCompressor;
 import com.nhave.nhc.itemblocks.ItemBlockBase;
 import com.nhave.nhc.util.StringUtils;
@@ -57,6 +59,7 @@ public class ModBlocks
 	public static void registerRenderData()
 	{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCompressor.class, new RenderTileCompressor());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCharger.class, new RenderTileCharger());
 	}
 	
 	public static void registerItemBlock(Register<Item> event, Block block)

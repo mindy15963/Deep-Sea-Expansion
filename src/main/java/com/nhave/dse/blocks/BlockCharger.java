@@ -5,20 +5,31 @@ import java.util.List;
 import com.nhave.dse.registry.ModConfig;
 import com.nhave.dse.tileentity.TileEntityCharger;
 import com.nhave.dse.utils.NumberUtils;
+import com.nhave.nhc.helpers.ItemHelper;
 import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockCharger extends BlockMachine
 {
 	public BlockCharger(String name)
 	{
-		super(name, false);
+		super(name, true);
+	}
+	
+	@Override
+	public boolean isOpaqueCube(IBlockState blockState)
+	{
+		return false;
 	}
 	
 	@Override
@@ -34,9 +45,39 @@ public class BlockCharger extends BlockMachine
 	}
 	
 	@Override
+	public boolean doBlockActivate(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
+		if (hand == EnumHand.MAIN_HAND)
+		{
+			TileEntityCharger tile = (TileEntityCharger) worldIn.getTileEntity(pos);
+			if (tile != null && !playerIn.isSneaking())
+			{
+				playerIn.swingArm(hand);
+				return tile.onTileActivated(worldIn, pos.getX(), pos.getY(), pos.getZ(), playerIn);
+			}
+		}
+		return super.doBlockActivate(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	public void onBlockHarvested(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player)
+	{
+		if (!world.isRemote)
+        {
+    		if (world.getTileEntity(blockPos) != null)
+    		{
+    			TileEntityCharger tile = (TileEntityCharger) world.getTileEntity(blockPos);
+    			ItemStack stack = tile.getItemStack();
+    			if (stack != null) ItemHelper.dropBlockAsItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack);
+    		}
+        }
+		super.onBlockHarvested(world, blockPos, blockState, player);
+	}
+	
+	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced)
 	{
-		tooltip.add(StringUtils.format("[W.I.P]", StringUtils.RED, StringUtils.BOLD));
+		//tooltip.add(StringUtils.format("[Work In Progress]", StringUtils.RED, StringUtils.BOLD));
 		super.addInformation(stack, world, tooltip, advanced);
 		
 		int powerStored = 0;

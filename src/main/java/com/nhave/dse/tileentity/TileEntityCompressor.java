@@ -5,8 +5,6 @@ import com.nhave.dse.registry.ModConfig;
 import com.nhave.nhc.helpers.ItemHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -52,7 +50,7 @@ public class TileEntityCompressor extends TileEntityEnergyReceiver implements IT
 	@Override
 	public boolean onTileActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if ((this.item == null || this.item.getItem() == Item.getItemFromBlock(Blocks.AIR)) && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof IAirTankItem)
+		if ((this.item == null || this.item.isEmpty()) && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof IAirTankItem)
 		{
 			this.item = player.getHeldItemMainhand().copy();
 			this.item.setCount(1);

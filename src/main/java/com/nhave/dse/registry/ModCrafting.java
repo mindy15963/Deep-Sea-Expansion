@@ -32,6 +32,12 @@ public class ModCrafting
 			'Y', Blocks.FURNACE,
 			'Z', ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
 			'A', machineFrame}));
+		//Item Charger
+		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockCharger,
+			new Object[] {"XXX", "Y Y", "XZX",
+			'X', "plateIron",
+			'Y', "blockRedstone",
+			'Z', machineFrame}));
 		//Diving Goggles
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemDivingGoggles,
 			new Object[] {"XXX", "YYY", "XXX",
@@ -69,6 +75,32 @@ public class ModCrafting
 		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemDinghy),
 			new Object[] {"X X", "XXX",
 			'X', "materialRubber"}));
+		//Air Filter
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
+			new Object[] {"XYX",
+			'X', "plateIron",
+			'Y', new ItemStack(Blocks.WOOL, 1, 0)}));
+		//Heavy Boots
+		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemHeavyBoots),
+			new Object[] {"X X", "X X", "Y Y",
+			'X', Items.LEATHER,
+			'Y', "plateIron"}));
+		//Motorboat
+		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemMotorboat),
+			new Object[] {"Y X", "XXX",
+			'X', "plateDenseSteel",
+			'Y', machineFrame}));
+		//Paddles
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemSimpleUpgrades, "paddles", 1),
+			new Object[] {"X X", "X X", "Y Y",
+			'X', "materialRubber",
+			'Y', "plateIron"}));
+		//Turbocharger
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemSimpleUpgrades, "boatbooster", 1),
+			new Object[] {"XYX", "YZY", "XYX",
+			'X', "plateDenseIron",
+			'Y', "plateSteel",
+			'Z', "plateIron"}));
 		
 		//Shaders
 		//Shader Core
@@ -112,11 +144,6 @@ public class ModCrafting
 			'Y', "dyeOrange",
 			'Z', ModItems.itemShaderCore}));
 		
-		//Air Filter
-		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
-			new Object[] {"XYX",
-			'X', "plateIron",
-			'Y', new ItemStack(Blocks.WOOL, 1, 0)}));
 		//Heavy Iron Plate
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "heavyironplate", 1),
 			new Object[] {"XX", "XX",
@@ -129,11 +156,6 @@ public class ModCrafting
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1),
 			new Object[] {"XX", "XX",
 			'X', "platePlasteel"}));
-		//Heavy Boots
-		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemHeavyBoots),
-			new Object[] {"X X", "X X", "Y Y",
-			'X', Items.LEATHER,
-			'Y', "plateIron"}));
 		
 		//Plate Crating
 		if (ModConfig.allowPlateCrafting)

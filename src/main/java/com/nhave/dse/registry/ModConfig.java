@@ -25,7 +25,7 @@ public class ModConfig
 	
 	//Machine Config
 	public static int machinePowerCapacity = Defaults.machinePowerCapacity;
-    public static int machinePowerTransfer = Defaults.machinePowerTransfer;
+    //public static int machinePowerTransfer = Defaults.machinePowerTransfer;
     public static int compressorPowerUsage = Defaults.compressorPowerUsage;
     public static int compressorAirGeneration = Defaults.compressorAirGeneration;
 	
@@ -86,11 +86,11 @@ public class ModConfig
 		config.setCategoryComment("common.energy", "Configuration for all Power related configs");
 		energyUnit = config.get("common.energy", "EnergyUnit", Defaults.energyUnit, "Sets the Power Unit to display").setValidValues(Defaults.energyUnits).getString();
 		machinePowerCapacity = config.get("common.energy", "MachinePowerCapacity", Defaults.machinePowerCapacity, "Machine energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.machinePowerCapacity);
-		machinePowerTransfer = config.get("common.energy", "MachinePowerTransfer", Defaults.machinePowerTransfer, "Machine energy transfer pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.machinePowerTransfer);
-		//boatPowerCapacity = config.get("common.energy", "BoatPowerCapacity", Defaults.boatPowerCapacity, "Motorboat energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerCapacity);
-		//boatPowerUsage = config.get("common.energy", "BoatPowerUsage", Defaults.boatPowerUsage, "Motorboat energy usage pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerUsage);
-		//boatPowerTransfer = config.get("common.energy", "BoatPowerTransfer", Defaults.boatPowerTransfer, "Motorboat energy transfer pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerTransfer);
-		//boatBoostModifier = config.get("common.energy", "BoatBoostModifier", Defaults.boatBoostModifier, "Motorboat energy usage modifier when boosting.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatBoostModifier);
+		//machinePowerTransfer = config.get("common.energy", "MachinePowerTransfer", Defaults.machinePowerTransfer, "Machine energy transfer pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.machinePowerTransfer);
+		boatPowerCapacity = config.get("common.energy", "BoatPowerCapacity", Defaults.boatPowerCapacity, "Motorboat energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerCapacity);
+		boatPowerUsage = config.get("common.energy", "BoatPowerUsage", Defaults.boatPowerUsage, "Motorboat energy usage pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerUsage);
+		boatPowerTransfer = config.get("common.energy", "BoatPowerTransfer", Defaults.boatPowerTransfer, "Motorboat energy transfer pr. tick.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatPowerTransfer);
+		boatBoostModifier = config.get("common.energy", "BoatBoostModifier", Defaults.boatBoostModifier, "Motorboat energy usage modifier when boosting.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.boatBoostModifier);
 		//powercellCapacitySmall = config.get("common.energy", "PowercellCapacitySmall", Defaults.powercellCapacitySmall, "Small Powercell energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.powercellCapacitySmall);
 		//powercellCapacityMedium = config.get("common.energy", "PowercellCapacityMedium", Defaults.powercellCapacityMedium, "Medium Powercell energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.powercellCapacityMedium);
 		//powercellCapacityLarge = config.get("common.energy", "PowercellCapacityLarge", Defaults.powercellCapacityLarge, "Large Powercell energy capacity.").setRequiresMcRestart(true).setMinValue(1).getInt(Defaults.powercellCapacityLarge);
@@ -122,8 +122,8 @@ public class ModConfig
 		config.setCategoryComment("client", "Configuration for all Client configs");
 		//Render Config
 		config.setCategoryComment("client.render", "Configuration for all Rendering related configs");
-		//powerItemDurablityColor = config.get("client.render", "PowerItemDurablityColor", Defaults.powerItemDurablityColor, "Sets the color of powered items durablity bar. Calculation: (Red*256*256)+(Green*256)+Blue").setMinValue(0).setMaxValue(16777215).getInt(Defaults.powerItemDurablityColor);
-		//powerItemDurablityType = config.get("client.render", "PowerItemDurablityType", Defaults.powerItemDurablityType, "Sets the style to display the durablity bar of powered items.").setValidValues(Defaults.itemDurablityTypes).getString();
+		powerItemDurablityColor = config.get("client.render", "PowerItemDurablityColor", Defaults.powerItemDurablityColor, "Sets the color of powered items durablity bar. Calculation: (Red*256*256)+(Green*256)+Blue").setMinValue(0).setMaxValue(16777215).getInt(Defaults.powerItemDurablityColor);
+		powerItemDurablityType = config.get("client.render", "PowerItemDurablityType", Defaults.powerItemDurablityType, "Sets the style to display the durablity bar of powered items.").setValidValues(Defaults.itemDurablityTypes).getString();
 		oxygenItemDurablityColor = config.get("client.render", "OxygenItemDurablityColor", Defaults.oxygenItemDurablityColor, "Sets the color of oxygen tanks durablity bar. Calculation: (Red*256*256)+(Green*256)+Blue").setMinValue(0).setMaxValue(16777215).getInt(Defaults.oxygenItemDurablityColor);
 		oxygenItemDurablityType = config.get("client.render", "OxygenItemDurablityType", Defaults.oxygenItemDurablityType, "Sets the style to display the durablity bar of oxygen tanks.").setValidValues(Defaults.itemDurablityTypes).getString();
 		//scubaDurablityPriority = config.get("client.render", "ScubaDurablityPriority", Defaults.scubaDurablityPriority, "Sets the prioritized durability type to display on scuba armor.").setValidValues(Defaults.scubaDurablityPriorities).getString();
