@@ -11,6 +11,7 @@ import com.nhave.dse.api.items.IShaderItem;
 import com.nhave.dse.client.models.ModelScubaTankLarge;
 import com.nhave.dse.client.models.ModelScubaTankSmall;
 import com.nhave.dse.registry.ModConfig;
+import com.nhave.dse.registry.ModItems;
 import com.nhave.dse.shaders.Shader;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.ItemUtil;
@@ -24,6 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -63,9 +65,10 @@ public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderI
 			tooltip.add(StringUtils.localize("tooltip.dse.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			
 			tooltip.add(StringUtils.localize("tooltip.dse.oxygen") + ": " + StringUtils.format(getOxygenInfo(stack), StringUtils.YELLOW, StringUtils.ITALIC));
-			
-			//tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
-			//tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubachest.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+
+			tooltip.add("");
+			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubachest.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
 	}
@@ -147,7 +150,7 @@ public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderI
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack)
 	{
-		if (!player.capabilities.isCreativeMode && player.isInsideOfMaterial(Material.WATER))
+		if (!player.capabilities.isCreativeMode && !player.isPotionActive(MobEffects.WATER_BREATHING) && player.isInsideOfMaterial(Material.WATER))
 		{
 			if (getOxygenStored(stack) > 0 || this.isCreative)
 			{
@@ -216,8 +219,7 @@ public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderI
 	@Override
 	public boolean canApplyUpgrade(ItemStack upgradeable, ItemStack upgrade)
 	{
-		//return upgradeable.getItem() == ModItems.itemScubaChest;
-		return false;
+		return upgradeable.getItem() == ModItems.itemScubaChest;
 	}
 
 	@Override

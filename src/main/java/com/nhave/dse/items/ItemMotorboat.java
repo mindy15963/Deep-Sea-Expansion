@@ -2,6 +2,8 @@ package com.nhave.dse.items;
 
 import java.util.List;
 
+import com.nhave.dse.api.items.IItemUpgrade;
+import com.nhave.dse.api.items.IItemUpgradeAdvanced;
 import com.nhave.dse.api.items.IShaderItem;
 import com.nhave.dse.entity.EntityMotorboat;
 import com.nhave.dse.registry.ModConfig;
@@ -48,7 +50,7 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag advanced)
 	{
 		tooltip.add(StringUtils.format("[Work In Progress]", StringUtils.RED, StringUtils.BOLD));
-		if (StringUtils.isShiftKeyDown())// && !StringUtils.isControlKeyDown())
+		if (StringUtils.isShiftKeyDown())
 		{
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item." + this.getItemName(stack)), ";", StringUtils.GRAY);
 			
@@ -63,13 +65,13 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 			
 			tooltip.add(StringUtils.localize("tooltip.dse.charge") + ": " + NumberUtils.getDisplayShort(getEnergyStored(stack)) + " / " + NumberUtils.getDisplayShort(getMaxEnergyStored(stack)) + " " + ModConfig.energyUnit);
 			tooltip.add(StringUtils.format(this.boatPowerUsage + " " + ModConfig.energyUnit + " " + StringUtils.localize("tooltip.dse.charge.tick"), StringUtils.ORANGE));
-			if (ItemUtil.getItemFromStack(stack, "BOOSTER") != null) tooltip.add(StringUtils.format(this.boatPowerUsage * this.boatBoostModifier + " " + ModConfig.energyUnit + " " + StringUtils.localize("tooltip.dse.charge.boatboost"), StringUtils.ORANGE));
+			if (ItemUtil.getItemFromStack(stack, "BOOSTER") != null) tooltip.add(StringUtils.format(this.boatPowerUsage * this.boatBoostModifier + " " + ModConfig.energyUnit + "/t " + StringUtils.localize("tooltip.dse.charge.boatboost"), StringUtils.ORANGE));
 		}
-		if (StringUtils.isControlKeyDown())// && !StringUtils.isShiftKeyDown())
+		if (StringUtils.isControlKeyDown())
 		{
 			tooltip.add(StringUtils.localize("tooltip.dse.mod.all") + ":");
 			
-			for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
+			/*for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
 			{
 				ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
 				String color = StringUtils.RED;
@@ -84,7 +86,33 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 					}
 				}
 				tooltip.add("  " + StringUtils.format(mod.getDisplayName(), color, StringUtils.ITALIC));
+			}*/
+			for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
+				String color = StringUtils.RED;
+				
+				for (int j = 0; j < ModItems.MOTORBOAT_UPGRADES_NBT.size(); ++j)
+				{
+					ItemStack installed = ItemUtil.getItemFromStack(stack, ModItems.MOTORBOAT_UPGRADES_NBT.get(j));
+					
+					if (installed != null && installed.getItem() == mod.getItem() && ((mod.getItem() instanceof IItemUpgradeAdvanced && ((IItemUpgradeAdvanced) mod.getItem()).ignoreMeta(mod)) || (installed.getItemDamage() == mod.getItemDamage())))
+					{
+						color = StringUtils.BRIGHT_GREEN;
+					}
+				}
+				
+				if ((mod.getItem() instanceof IItemUpgrade && ItemUtil.getItemFromStack(stack, ((IItemUpgrade) mod.getItem()).getUpgradeNBT(stack, mod)) != null))
+				{
+					if (color == StringUtils.BRIGHT_GREEN) tooltip.add("  " + StringUtils.format(ItemUtil.getItemFromStack(stack, ((IItemUpgrade) mod.getItem()).getUpgradeNBT(stack, mod)).getDisplayName(), color, StringUtils.ITALIC));
+					continue;
+				}
+				
+				if (mod.getItem() instanceof IItemUpgradeAdvanced) tooltip.add("  " + StringUtils.format(((IItemUpgradeAdvanced) mod.getItem()).getUpgradeName(mod), color, StringUtils.ITALIC));
+				else tooltip.add("  " + StringUtils.format(mod.getDisplayName(), color, StringUtils.ITALIC));
 			}
+			
+			if (ModItems.MOTORBOAT_UPGRADES.isEmpty()) tooltip.add("  " + StringUtils.format(StringUtils.localize("tooltip.dse.mod.none"), StringUtils.RED, StringUtils.ITALIC));
 		}
 		if (!StringUtils.isControlKeyDown() && !StringUtils.isShiftKeyDown())
 		{

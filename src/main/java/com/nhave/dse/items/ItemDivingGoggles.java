@@ -30,6 +30,7 @@ public class ItemDivingGoggles extends ItemArmorBase implements IDivingHelmet, I
 		if (StringUtils.isShiftKeyDown())
 		{
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item." + this.getItemName(stack)), ";", StringUtils.GRAY);
+			//tooltip.add("");
 			//tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
 			//tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.rebreather.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}

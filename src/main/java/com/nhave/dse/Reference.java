@@ -2,11 +2,11 @@ package com.nhave.dse;
 
 public class Reference
 {
-    public static final String NHCORE_VERSION = "4.0.1";
+    public static final String NHCORE_VERSION = "4.0.2";
     
 	public static final String MODID = "dse";
     public static final String NAME = "Deep Sea Expansion";
-    public static final String VERSION = "A4";
+    public static final String VERSION = "A5";
     public static final String DEPENDENCIES = 
     		"required-after:nhc@[" + NHCORE_VERSION + ",)";
     

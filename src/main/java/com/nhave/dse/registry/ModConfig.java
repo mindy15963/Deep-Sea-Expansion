@@ -3,6 +3,7 @@ package com.nhave.dse.registry;
 import java.io.File;
 
 import com.nhave.dse.Reference;
+import com.nhave.nhc.client.util.RenderUtils.HUDPositions;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -49,6 +50,13 @@ public class ModConfig
     public static int oxygenItemDurablityColor = Defaults.oxygenItemDurablityColor;
     public static String oxygenItemDurablityType = Defaults.oxygenItemDurablityType;
     public static String scubaDurablityPriority = Defaults.scubaDurablityPriority;
+    
+    //Hud Overlay Config
+    public static String hudPosition = Defaults.hudPosition;
+    public static int hudOffsetX = Defaults.hudOffsetX;
+    public static int hudOffsetY = Defaults.hudOffsetY;
+    public static double hudScale = Defaults.hudScale;
+    public static boolean enableHud = Defaults.enableHud;
 	
     public ModConfig(boolean isClient)
 	{
@@ -127,5 +135,12 @@ public class ModConfig
 		oxygenItemDurablityColor = config.get("client.render", "OxygenItemDurablityColor", Defaults.oxygenItemDurablityColor, "Sets the color of oxygen tanks durablity bar. Calculation: (Red*256*256)+(Green*256)+Blue").setMinValue(0).setMaxValue(16777215).getInt(Defaults.oxygenItemDurablityColor);
 		oxygenItemDurablityType = config.get("client.render", "OxygenItemDurablityType", Defaults.oxygenItemDurablityType, "Sets the style to display the durablity bar of oxygen tanks.").setValidValues(Defaults.itemDurablityTypes).getString();
 		//scubaDurablityPriority = config.get("client.render", "ScubaDurablityPriority", Defaults.scubaDurablityPriority, "Sets the prioritized durability type to display on scuba armor.").setValidValues(Defaults.scubaDurablityPriorities).getString();
+		
+		//Hud Overlay Config
+		hudPosition = config.get("client.hud", "HudBasePosition", Defaults.hudPosition, "Set the base position of the Hud on the screen.").setValidValues(HUDPositions.getStringValues()).getString();
+        hudOffsetX = config.get("client.hud", "HudOffset-X", Defaults.hudOffsetX, "The Hud display will be shifted horizontally by this value. This value may be negative.").getInt(Defaults.hudOffsetX);
+        hudOffsetY = config.get("client.hud", "HudOffset-Y", Defaults.hudOffsetY, "The Hud display will be shifted vertically by this value. This value may be negative.").getInt(Defaults.hudOffsetY);
+        hudScale = Math.abs(config.get("client.hud", "HudScale", Defaults.hudScale, "How large the Hud will be rendered. Default is 1.0, can be bigger or smaller").setMinValue(0.001D).getDouble(Defaults.hudScale));
+        enableHud = config.get("client.hud", "EnableHud", Defaults.enableHud, "Enables the Hud overlay").getBoolean(Defaults.enableHud);
 	}
 }

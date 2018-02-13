@@ -6,8 +6,9 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.nhave.dse.Reference;
 import com.nhave.dse.api.items.IFlippers;
-import com.nhave.dse.api.items.IItemUpgrade;
+import com.nhave.dse.api.items.IItemUpgradeAdvanced;
 import com.nhave.dse.client.models.ModelFlippers;
+import com.nhave.dse.registry.ModItems;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
 
@@ -25,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemUpgrade
+public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemUpgradeAdvanced
 {
 	private static final String[] COLORS = new String[] {"black", "red", "green", "brown", "blue", "purple", "cyan", "lightGray", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
 	
@@ -50,8 +51,9 @@ public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemUpgra
 		if (StringUtils.isShiftKeyDown())
 		{
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item." + this.getItemName(stack)), ";", StringUtils.GRAY);
-			//tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
-			//tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubaboots.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add("");
+			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubaboots.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
 	}
@@ -92,17 +94,28 @@ public class ItemFlippers extends ItemArmorBase implements IFlippers, IItemUpgra
 	{
 		return true;
 	}
-
+	
 	@Override
 	public boolean canApplyUpgrade(ItemStack upgradeable, ItemStack upgrade)
 	{
-		//return upgradeable.getItem() == ModItems.itemScubaBoots;
-		return false;
+		return upgradeable.getItem() == ModItems.itemScubaBoots;
 	}
-
+	
 	@Override
 	public String getUpgradeNBT(ItemStack upgradeable, ItemStack upgrade)
 	{
 		return "FLIPPERS";
+	}
+	
+	@Override
+	public boolean ignoreMeta(ItemStack upgrade)
+	{
+		return true;
+	}
+	
+	@Override
+	public String getUpgradeName(ItemStack upgrade)
+	{
+		return super.getItemStackDisplayName(upgrade);
 	}
 }

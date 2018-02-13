@@ -33,12 +33,18 @@ item.dse.motorboat.name=Motorboat
 item.dse.upgrade.paddles.name=Paddles
 item.dse.upgrade.storagebox.name=Storage Box
 item.dse.upgrade.boatbooster.name=Turbocharger
-
+item.dse.upgrade.lightfilter.name=Active Filter
+item.dse.upgrade.amplifier.name=Force Amplifier
 item.dse.rebreather.name=Rebreather
-item.dse.scubamask.name=Scuba Helmet
-item.dse.scubachest.name=Scuba Chestplate
-item.dse.scubalegs.name=Scuba Leggings
-item.dse.scubaboots.name=Scuba Boots
+item.dse.scubamask.name=Modular Scuba Helmet
+item.dse.scubachest.name=Modular Scuba Chestplate
+item.dse.scubalegs.name=Modular Scuba Leggings
+item.dse.scubaboots.name=Modular Scuba Boots
+item.dse.armorplate.name=Any Armorplate
+item.dse.armorplate.iron.name=Iron Armorplate
+item.dse.armorplate.diamond.name=Diamond Armorplate
+item.dse.armorplate.steel.name=Steel Armorplate
+item.dse.armorplate.plasteel.name=Plasteel Armorplate
 
 //---Blocks---//
 tile.dse.compressor.name=Air Compressor
@@ -56,6 +62,7 @@ shader.dse.muscle=Team Red
 shader.dse.dark=Back in Black
 shader.dse.space=Interstellar
 shader.dse.pink=Rose
+shader.dse.tech=N-TECH Prototype
 
 //---Colors---//
 color.dse.black=Black
@@ -76,7 +83,7 @@ color.dse.orange=Orange
 color.dse.white=White
 
 //---Tooltip---//
-tooltip.dse.block.compressor=Fills air tanks at the;cost of %power%
+tooltip.dse.block.compressor=Uses power to compress;air and fill up air tanks.
 tooltip.dse.block.charger=Charges items placed in it.
 tooltip.dse.block.vehiclebay=Charges vehicles parked on it.
 tooltip.dse.item.divinggoggles=Gives clear vision under water.;But try to put them on while;out of the water otherwise;they will fill up with water.
@@ -88,13 +95,26 @@ tooltip.dse.item.shadercore=Core component in shaders.;But it can also be used;t
 tooltip.dse.item.hammer=Stop Hammer Time;Used to make plates.
 tooltip.dse.item.heavyboots=Floats like a rock.
 tooltip.dse.item.motorboat=No more need for paddles.;Well unless, you run out of power.;Sneak Right-click with a wrench to pick it up.
+tooltip.dse.item.scubamask=This helmet is part of the;ultimate underwater armor set.
+tooltip.dse.item.scubachest=This chestplate is part of the;ultimate underwater armor set.
+tooltip.dse.item.scubalegs=These leggings are part of the;ultimate underwater armor set.
+tooltip.dse.item.scubaboots=These boots are part of the;ultimate underwater armor set.
+tooltip.dse.item.armorplate=Used to upgrade the protection;of the scuba armor.
 tooltip.dse.upgrade.paddles=Useful for moving your boat;when its out of power.
 tooltip.dse.upgrade.storagebox=Adds a small inventory to your boat.
 tooltip.dse.upgrade.boatbooster=Allows your boat to boost;when holding the jump button.;Of cause using more power.
+tooltip.dse.upgrade.lightfilter=Actively filters out any;low level light source.
+tooltip.dse.upgrade.amplifier=Allows mining at normal;speed while underwater.
+tooltip.dse.armorplate.onscuba=When on scuba armor
+tooltip.dse.armorplate.onhead=Armor on head
+tooltip.dse.armorplate.onbody=Armor on body
+tooltip.dse.armorplate.onlegs=Armor on legs
+tooltip.dse.armorplate.onfeet=Armor on feet
 tooltip.dse.mod.canuse=Can be used to upgrade
 tooltip.dse.mod.appliesto=Can apply to
 tooltip.dse.mod.ctrlinfo=for Upgrades
 tooltip.dse.mod.all=All Accepted Upgrades
+tooltip.dse.mod.none=None Available
 tooltip.dse.shader=Item Shader
 tooltip.dse.shader.current=Current Shader
 tooltip.dse.shader.none=No Shader

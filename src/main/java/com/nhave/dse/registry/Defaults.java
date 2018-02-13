@@ -41,4 +41,11 @@ public class Defaults
     public static final int oxygenItemDurablityColor = 65535;
     public static final String oxygenItemDurablityType = "SOLID";
     public static final String scubaDurablityPriority = "ENERGY";
+    
+    //Hud Overlay Config
+	public static final String hudPosition = "BOTTOM_LEFT";
+    public static final int hudOffsetX = 5;
+    public static final int hudOffsetY = 5;
+    public static final double hudScale = 0.8D;
+	public static final boolean enableHud = true;
 }

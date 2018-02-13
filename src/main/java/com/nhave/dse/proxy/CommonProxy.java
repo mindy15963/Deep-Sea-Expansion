@@ -2,7 +2,8 @@ package com.nhave.dse.proxy;
 
 import java.io.File;
 
-import com.nhave.dse.eventhandlers.CommonEventHandler;
+import com.nhave.dse.eventhandlers.BlockBreakSpeedEventHandler;
+import com.nhave.dse.eventhandlers.ToolStationEventHandler;
 import com.nhave.dse.registry.ModConfig;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +23,7 @@ public class CommonProxy
 	
 	public void registerEventHandlers()
 	{
-    	MinecraftForge.EVENT_BUS.register(new CommonEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new ToolStationEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new BlockBreakSpeedEventHandler());
 	}
 }

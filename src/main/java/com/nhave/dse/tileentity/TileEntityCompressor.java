@@ -50,7 +50,8 @@ public class TileEntityCompressor extends TileEntityEnergyReceiver implements IT
 	@Override
 	public boolean onTileActivated(World world, int x, int y, int z, EntityPlayer player)
 	{
-		if ((this.item == null || this.item.isEmpty()) && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof IAirTankItem)
+		ItemStack stack = player.getHeldItemMainhand();
+		if ((this.item == null || this.item.isEmpty()) && !stack.isEmpty() && stack.getItem() instanceof IAirTankItem && ((IAirTankItem) stack.getItem()).getMaxOxygen(stack) > 0)
 		{
 			this.item = player.getHeldItemMainhand().copy();
 			this.item.setCount(1);

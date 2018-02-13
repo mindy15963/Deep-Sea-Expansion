@@ -9,6 +9,8 @@ import com.nhave.dse.client.mesh.CustomMeshDefinitionMetaItem;
 import com.nhave.dse.client.mesh.CustomMeshDefinitionShadeable;
 import com.nhave.dse.client.render.ItemColorHandler;
 import com.nhave.dse.items.ItemAirtank;
+import com.nhave.dse.items.ItemArmorScuba;
+import com.nhave.dse.items.ItemArmorplate;
 import com.nhave.dse.items.ItemBase;
 import com.nhave.dse.items.ItemDinghy;
 import com.nhave.dse.items.ItemDivingGoggles;
@@ -29,6 +31,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -44,7 +47,15 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModItems
 {
 	public static final List<ItemStack> MOTORBOAT_UPGRADES = new ArrayList<ItemStack>();
+	public static final List<ItemStack> SCUBAMASK_UPGRADES = new ArrayList<ItemStack>();
+	public static final List<ItemStack> SCUBACHEST_UPGRADES = new ArrayList<ItemStack>();
+	public static final List<ItemStack> SCUBALEGS_UPGRADES = new ArrayList<ItemStack>();
+	public static final List<ItemStack> SCUBABOOTS_UPGRADES = new ArrayList<ItemStack>();
 	public static final List<String> MOTORBOAT_UPGRADES_NBT = new ArrayList<String>();
+	public static final List<String> SCUBAMASK_UPGRADES_NBT = new ArrayList<String>();
+	public static final List<String> SCUBACHEST_UPGRADES_NBT = new ArrayList<String>();
+	public static final List<String> SCUBALEGS_UPGRADES_NBT = new ArrayList<String>();
+	public static final List<String> SCUBABOOTS_UPGRADES_NBT = new ArrayList<String>();
 	
 	public static Item itemIcon;
 	public static Item itemDivingGoggles;
@@ -62,6 +73,12 @@ public class ModItems
 	public static Item itemHeavyBoots;
 	public static Item itemMotorboat;
 	public static Item itemSimpleUpgrades;
+	public static Item itemScubaMask;
+	public static Item itemScubaChest;
+	public static Item itemScubaLegs;
+	public static Item itemScubaBoots;
+
+	public static Item itemArmorplate;
 	
 	public static final String[][] COMPONETNS = new String[][]
 	{
@@ -70,7 +87,12 @@ public class ModItems
 	};
 	public static final String[][] UPGRADES = new String[][]
 	{
-		{"paddles", "0", "PADDLE"}, {"storagebox", "0", "STORAGE", "NYI"}, {"boatbooster", "2", "BOOSTER"}
+		{"paddles", "0", "PADDLE"}, {"storagebox", "0", "STORAGE", "NYI"}, {"boatbooster", "2", "BOOSTER"},
+		{"lightfilter", "3", "LIGHTFILTER", "WIP"}, {"amplifier", "2", "AMPLIFIER", "WIP"}
+	};
+	public static final String[][] ARMORPLATES = new String[][]
+	{
+		{"iron", "0", "2", "5", "6", "2"}, {"diamond", "1", "3", "6", "8", "3"}, {"steel", "1", "2", "5", "7", "2"}, {"plasteel", "2", "4", "7", "9", "4"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
@@ -95,15 +117,23 @@ public class ModItems
 		itemHeavyBoots = new ItemHeavyBoots("heavyboots", ArmorMaterial.IRON);
 		itemMotorboat = new ItemMotorboat("motorboat");
 		itemSimpleUpgrades = new ItemSimpleUpgrades("upgrades", UPGRADES);
+		itemScubaMask = new ItemArmorScuba("scubamask", materialScuba, EntityEquipmentSlot.HEAD);
+		itemScubaChest = new ItemArmorScuba("scubachest", materialScuba, EntityEquipmentSlot.CHEST);
+		itemScubaLegs = new ItemArmorScuba("scubalegs", materialScuba, EntityEquipmentSlot.LEGS);
+		itemScubaBoots = new ItemArmorScuba("scubaboots", materialScuba, EntityEquipmentSlot.FEET);
+
+		itemArmorplate = new ItemArmorplate("armorplate", ARMORPLATES);
+		//itemArmorplateDiamond = new ItemArmorplate("armorplatediamond", new int[] {3, 6, 8, 3});
 		
 		//Initialize Item Shaders
-		Item[] allShadeable = new Item[] {itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative/*, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots*/};
+		Item[] allShadeable = new Item[] {itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots};
 		ShaderRegistry.registerShader(new Shader("crimson", 3158064, 16711680).setNamePrefix(StringUtils.ORANGE).addCompatibleItems(allShadeable));
 		ShaderRegistry.registerShader(new Shader("race", 16639, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
 		ShaderRegistry.registerShader(new Shader("muscle", 7602176, 16777215).setNamePrefix(StringUtils.LIGHT_BLUE).addCompatibleItems(itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative));
-		ShaderRegistry.registerShader(new Shader("dark", 3158064, 49809).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
-		ShaderRegistry.registerShader(new Shader("pink", 16760575, 16777215).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
-		ShaderRegistry.registerShader(new Shader("space", 16777215, 16766745).setNamePrefix(StringUtils.PURPLE));//.addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("dark", 3158064, 49809).setNamePrefix(StringUtils.PURPLE).addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("pink", 16760575, 16777215).setNamePrefix(StringUtils.PURPLE).addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("space", 16777215, 16766745).setNamePrefix(StringUtils.PURPLE).addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
+		ShaderRegistry.registerShader(new Shader("tech", 16777215, 65535).setNamePrefix(StringUtils.ORANGE).addCompatibleItems(itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots));
 	}
 	
 	public static void register(Register<Item> event)
@@ -124,6 +154,12 @@ public class ModItems
 		event.getRegistry().register(itemHeavyBoots);
 		event.getRegistry().register(itemMotorboat);
 		event.getRegistry().register(itemSimpleUpgrades);
+		event.getRegistry().register(itemScubaMask);
+		event.getRegistry().register(itemScubaChest);
+		event.getRegistry().register(itemScubaLegs);
+		event.getRegistry().register(itemScubaBoots);
+
+		event.getRegistry().register(itemArmorplate);
 		
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerIron, 1, 0));
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerSteel, 1, 0));
@@ -140,9 +176,32 @@ public class ModItems
 		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "paddles", 1));
 		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "storagebox", 1));
 		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "boatbooster", 1));
+		
+		SCUBAMASK_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "lightfilter", 1));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemAirTankSmall));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemAirTankLarge));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemAirTankHighPressure));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemAirTankCreative));
+		SCUBALEGS_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "amplifier", 1));
+		SCUBABOOTS_UPGRADES.add(new ItemStack(itemFlippers));
+
+		SCUBAMASK_UPGRADES.add(new ItemStack(itemArmorplate));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemArmorplate));
+		SCUBALEGS_UPGRADES.add(new ItemStack(itemArmorplate));
+		SCUBABOOTS_UPGRADES.add(new ItemStack(itemArmorplate));
+		
 		MOTORBOAT_UPGRADES_NBT.add("PADDLE");
 		MOTORBOAT_UPGRADES_NBT.add("STORAGE");
 		MOTORBOAT_UPGRADES_NBT.add("BOOSTER");
+		SCUBAMASK_UPGRADES_NBT.add("LIGHTFILTER");
+		SCUBACHEST_UPGRADES_NBT.add("AIRTANK");
+		SCUBALEGS_UPGRADES_NBT.add("AMPLIFIER");
+		SCUBABOOTS_UPGRADES_NBT.add("FLIPPERS");
+		
+		SCUBAMASK_UPGRADES_NBT.add("ARMORPLATE");
+		SCUBACHEST_UPGRADES_NBT.add("ARMORPLATE");
+		SCUBALEGS_UPGRADES_NBT.add("ARMORPLATE");
+		SCUBABOOTS_UPGRADES_NBT.add("ARMORPLATE");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -160,12 +219,17 @@ public class ModItems
 		registerMetaRender(itemFlippers, 16, false);
 		registerMetaRender(itemComponents, COMPONETNS.length, false);
 		registerMetaRender(itemSimpleUpgrades, UPGRADES.length, false);
+		registerMetaRender(itemArmorplate, ARMORPLATES.length, false);
 		
 		registerRenderMesh(itemAirTankSmall, new CustomMeshDefinitionShadeable("airtanksmall"));
 		registerRenderMesh(itemAirTankLarge, new CustomMeshDefinitionShadeable("airtanklarge"));
 		registerRenderMesh(itemAirTankHighPressure, new CustomMeshDefinitionShadeable("airtanklarge"));
 		registerRenderMesh(itemAirTankCreative, new CustomMeshDefinitionShadeable("airtanklarge"));
 		registerRenderMesh(itemMotorboat, new CustomMeshDefinitionShadeable("boat"));
+		registerRenderMesh(itemScubaMask, new CustomMeshDefinitionShadeable("scubamask"));
+		registerRenderMesh(itemScubaChest, new CustomMeshDefinitionShadeable("scubachest"));
+		registerRenderMesh(itemScubaLegs, new CustomMeshDefinitionShadeable("scubalegs"));
+		registerRenderMesh(itemScubaBoots, new CustomMeshDefinitionShadeable("scubaboots"));
 		
 		//Registering the models used by the shaders.
 		if (!ShaderRegistry.isEmpty())
@@ -187,7 +251,7 @@ public class ModItems
 					ModelLoader.registerItemVariants(itemAirTankHighPressure, shader.getResourceLocation("airtanklarge"));
 					ModelLoader.registerItemVariants(itemAirTankCreative, shader.getResourceLocation("airtanklarge"));
 				}
-				/*if (shader.isItemCompatible(itemScubaMask))
+				if (shader.isItemCompatible(itemScubaMask))
 				{
 					ModelLoader.registerItemVariants(itemScubaMask, shader.getResourceLocation("scubamask"));
 				}
@@ -202,7 +266,7 @@ public class ModItems
 				if (shader.isItemCompatible(itemScubaBoots))
 				{
 					ModelLoader.registerItemVariants(itemScubaBoots, shader.getResourceLocation("scubaboots"));
-				}*/
+				}
 			}
 		}
 	}

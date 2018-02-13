@@ -56,24 +56,24 @@ public class ItemShader extends ItemBase
 				tooltip.add("  " + StringUtils.format(StringUtils.localize("tooltip.dse.shader.airtank"), StringUtils.YELLOW, StringUtils.ITALIC));
 				allTanks = true;
 			}
-			/*boolean allScuba = false;
+			boolean allScuba = false;
 			if (shader.isItemCompatible(ModItems.itemScubaMask) && shader.isItemCompatible(ModItems.itemScubaChest) && shader.isItemCompatible(ModItems.itemScubaLegs) && shader.isItemCompatible(ModItems.itemScubaBoots))
 			{
 				tooltip.add("  " + StringUtils.format(StringUtils.localize("tooltip.dse.shader.scuba"), StringUtils.YELLOW, StringUtils.ITALIC));
 				allScuba = true;
-			}*/
+			}
 			
 			List<Item> shaderItems = shader.getCompatibleItems();
 			for (int i = 0; i < shaderItems.size(); ++i)
 			{
-				if (allTanks && (shader.isItemCompatible(ModItems.itemAirTankSmall) || shader.isItemCompatible(ModItems.itemAirTankLarge) || shader.isItemCompatible(ModItems.itemAirTankHighPressure) || shader.isItemCompatible(ModItems.itemAirTankCreative)))
+				if (allTanks && (shaderItems.get(i) == ModItems.itemAirTankSmall || shaderItems.get(i) == ModItems.itemAirTankLarge || shaderItems.get(i) == ModItems.itemAirTankHighPressure || shaderItems.get(i) == ModItems.itemAirTankCreative))
 				{
 					continue;
 				}
-				/*if (allScuba && (shader.isItemCompatible(ModItems.itemScubaMask) || shader.isItemCompatible(ModItems.itemScubaChest) || shader.isItemCompatible(ModItems.itemScubaLegs) || shader.isItemCompatible(ModItems.itemScubaBoots)))
+				if (allScuba && (shaderItems.get(i) == ModItems.itemScubaMask || shaderItems.get(i) == ModItems.itemScubaChest || shaderItems.get(i) == ModItems.itemScubaLegs || shaderItems.get(i) == ModItems.itemScubaBoots))
 				{
 					continue;
-				}*/
+				}
 				tooltip.add("  " + StringUtils.format(StringUtils.localize(shaderItems.get(i).getUnlocalizedName() + ".name"), StringUtils.YELLOW, StringUtils.ITALIC));
 			}
 		}

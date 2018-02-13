@@ -101,6 +101,55 @@ public class ModCrafting
 			'X', "plateDenseIron",
 			'Y', "plateSteel",
 			'Z', "plateIron"}));
+		//Scuba Mask
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaMask,
+			new Object[] {"XYX", "ZAZ", "B B",
+			'X', "plateSteel",
+			'Y', ModItems.itemDivingGoggles,
+			'Z', Items.REDSTONE,
+			'A', Items.LEATHER_HELMET,
+			'B', "plateIron"}));
+		//Scuba Chest
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaChest,
+			new Object[] {"XYX", "ZAZ", "B B",
+			'X', "plateSteel",
+			'Y', "materialRubber",
+			'Z', Items.REDSTONE,
+			'A', Items.LEATHER_CHESTPLATE,
+			'B', "plateIron"}));
+		//Scuba Legs
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaLegs,
+			new Object[] {"XYX", "ZAZ", "B B",
+			'X', "plateSteel",
+			'Y', "materialRubber",
+			'Z', Items.REDSTONE,
+			'A', Items.LEATHER_LEGGINGS,
+			'B', "plateIron"}));
+		//Scuba Boots
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaBoots,
+			new Object[] {"XYX", "ZAZ", "B B",
+			'X', "plateSteel",
+			'Y', "materialRubber",
+			'Z', Items.REDSTONE,
+			'A', Items.LEATHER_BOOTS,
+			'B', "plateIron"}));
+		//Iron Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "iron", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateIron"}));
+		//Iron Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "diamond", 1),
+			new Object[] {"XXX", "XYX", "XXX",
+			'X', Items.DIAMOND,
+			'Y', ModItems.createItemStack(ModItems.itemArmorplate, "iron", 1)}));
+		//Steel Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "steel", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateSteel"}));
+		//Plasteel Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "plasteel", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "platePlasteel"}));
 		
 		//Shaders
 		//Shader Core

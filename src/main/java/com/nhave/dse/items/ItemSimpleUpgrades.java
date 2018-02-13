@@ -3,6 +3,7 @@ package com.nhave.dse.items;
 import java.util.List;
 
 import com.nhave.dse.api.items.IItemUpgrade;
+import com.nhave.dse.helpers.UpgradeHelper;
 import com.nhave.dse.registry.ModItems;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
@@ -36,7 +37,7 @@ public class ItemSimpleUpgrades extends ItemMeta implements IItemUpgrade
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag advanced)
 	{
 		int meta = Math.min(stack.getItemDamage(), names.length-1);
 		
@@ -50,7 +51,12 @@ public class ItemSimpleUpgrades extends ItemMeta implements IItemUpgrade
 		{
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.upgrade." + names[meta]), ";", StringUtils.GRAY);
 			
+			UpgradeHelper.addInformation(stack, worldIn, tooltip, advanced);
+			
+			tooltip.add("");
 			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			
+			String[] items = new String[] {"motorboat", "scubamask", "scubachest", "scubalegs", "scubaboots"};
 			for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
 			{
 				ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
@@ -59,10 +65,42 @@ public class ItemSimpleUpgrades extends ItemMeta implements IItemUpgrade
 					tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.motorboat.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 				}
 			}
+			for (int i = 0; i < ModItems.SCUBAMASK_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBAMASK_UPGRADES.get(i);
+				if (mod.getItem() == stack.getItem() && mod.getItemDamage() == stack.getItemDamage())
+				{
+					tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubamask.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+				}
+			}
+			for (int i = 0; i < ModItems.SCUBACHEST_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBACHEST_UPGRADES.get(i);
+				if (mod.getItem() == stack.getItem() && mod.getItemDamage() == stack.getItemDamage())
+				{
+					tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubachest.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+				}
+			}
+			for (int i = 0; i < ModItems.SCUBALEGS_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBALEGS_UPGRADES.get(i);
+				if (mod.getItem() == stack.getItem() && mod.getItemDamage() == stack.getItemDamage())
+				{
+					tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubalegs.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+				}
+			}
+			for (int i = 0; i < ModItems.SCUBABOOTS_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBABOOTS_UPGRADES.get(i);
+				if (mod.getItem() == stack.getItem() && mod.getItemDamage() == stack.getItemDamage())
+				{
+					tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubaboots.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+				}
+			}
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
 	}
-
+	
 	@Override
 	public boolean canApplyUpgrade(ItemStack upgradeable, ItemStack upgrade)
 	{
@@ -77,9 +115,53 @@ public class ItemSimpleUpgrades extends ItemMeta implements IItemUpgrade
 				}
 			}
 		}
+		else if (upgradeable.getItem() == ModItems.itemScubaMask)
+		{
+			for (int i = 0; i < ModItems.SCUBAMASK_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBAMASK_UPGRADES.get(i);
+				if (mod.getItem() == upgrade.getItem() && mod.getItemDamage() == upgrade.getItemDamage())
+				{
+					return true;
+				}
+			}
+		}
+		else if (upgradeable.getItem() == ModItems.itemScubaChest)
+		{
+			for (int i = 0; i < ModItems.SCUBACHEST_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBACHEST_UPGRADES.get(i);
+				if (mod.getItem() == upgrade.getItem() && mod.getItemDamage() == upgrade.getItemDamage())
+				{
+					return true;
+				}
+			}
+		}
+		else if (upgradeable.getItem() == ModItems.itemScubaLegs)
+		{
+			for (int i = 0; i < ModItems.SCUBALEGS_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBALEGS_UPGRADES.get(i);
+				if (mod.getItem() == upgrade.getItem() && mod.getItemDamage() == upgrade.getItemDamage())
+				{
+					return true;
+				}
+			}
+		}
+		else if (upgradeable.getItem() == ModItems.itemScubaBoots)
+		{
+			for (int i = 0; i < ModItems.SCUBABOOTS_UPGRADES.size(); ++i)
+			{
+				ItemStack mod = ModItems.SCUBABOOTS_UPGRADES.get(i);
+				if (mod.getItem() == upgrade.getItem() && mod.getItemDamage() == upgrade.getItemDamage())
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
-
+	
 	@Override
 	public String getUpgradeNBT(ItemStack upgradeable, ItemStack upgrade)
 	{

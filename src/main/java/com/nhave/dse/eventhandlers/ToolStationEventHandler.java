@@ -17,7 +17,7 @@ import com.nhave.nhc.util.ItemUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class CommonEventHandler
+public class ToolStationEventHandler
 {
 	@SubscribeEvent
 	public void handleToolStationEvent(ToolStationUpdateEvent evt)
@@ -26,28 +26,7 @@ public class CommonEventHandler
 		{
 			return;
 		}
-		/*if (evt.input.getItem() instanceof ItemMotorboat)
-		{
-			if (evt.mod.getItem() instanceof ItemSimpleUpgrades)
-			{
-				for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
-				{
-					ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
-					if (mod.getItem() == evt.mod.getItem() && mod.getItemDamage() == evt.mod.getItemDamage())
-					{
-						String nbt = ((ItemSimpleUpgrades) evt.mod.getItem()).upgradeNBT[evt.mod.getItemDamage()];
-						if (ItemUtil.getItemFromStack(evt.input, nbt) != null) return;
-						ItemStack output = evt.input.copy();
-						ItemStack upgrade = evt.mod.copy();
-						upgrade.setCount(1);
-						ItemUtil.addItemToStack(output, upgrade, nbt);
-						evt.materialCost=1;
-						evt.output=output;
-					}
-				}
-			}
-		}
-		else*/ if (evt.mod.getItem() instanceof IItemUpgrade && ((IItemUpgrade) evt.mod.getItem()).canApplyUpgrade(evt.input, evt.mod))
+		if (evt.mod.getItem() instanceof IItemUpgrade && ((IItemUpgrade) evt.mod.getItem()).canApplyUpgrade(evt.input, evt.mod))
 		{
 			IItemUpgrade upgrade = (IItemUpgrade) evt.mod.getItem();
 			String nbt = upgrade.getUpgradeNBT(evt.input, evt.mod);
@@ -94,10 +73,10 @@ public class CommonEventHandler
 			List<String> upgrades = null;
 			
 			if (evt.input.getItem() instanceof ItemMotorboat) upgrades = ModItems.MOTORBOAT_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
 			
 			if (upgrades == null) return;
 			
@@ -132,10 +111,10 @@ public class CommonEventHandler
 			List<String> upgrades = null;
 
 			if (evt.input.getItem() instanceof ItemMotorboat) upgrades = ModItems.MOTORBOAT_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
-			//else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaMask) upgrades = ModItems.SCUBAMASK_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaChest) upgrades = ModItems.SCUBACHEST_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaLegs) upgrades = ModItems.SCUBALEGS_UPGRADES_NBT;
+			else if (evt.input.getItem() == ModItems.itemScubaBoots) upgrades = ModItems.SCUBABOOTS_UPGRADES_NBT;
 			
 			if (upgrades != null)
 			{
