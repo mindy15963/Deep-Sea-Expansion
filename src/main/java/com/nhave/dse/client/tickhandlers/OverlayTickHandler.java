@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.nhave.dse.api.items.IAirTankItem;
 import com.nhave.dse.entity.EntityMotorboat;
+import com.nhave.dse.items.ItemArmorScuba;
 import com.nhave.dse.registry.ModConfig;
 import com.nhave.dse.utils.NumberUtils;
 import com.nhave.nhc.client.util.RenderUtils.HUDPositions;
@@ -35,7 +36,8 @@ public class OverlayTickHandler
         	
             ItemStack chest = player.inventory.armorItemInSlot(2);
         	boolean isBoatActive = (player.isRiding() && player.getRidingEntity() instanceof EntityMotorboat);
-        	boolean isTankActive = (chest != null && !chest.isEmpty() && chest.getItem() instanceof IAirTankItem && ((IAirTankItem) chest.getItem()).getMaxOxygen(chest) != 0);
+        	boolean isTankActive = (chest != null && !chest.isEmpty() && chest.getItem() instanceof IAirTankItem && ((IAirTankItem) chest.getItem()).getMaxOxygen(chest) != 0 && !(chest.getItem() instanceof ItemArmorScuba));
+        	boolean isScubaActive = (chest != null && !chest.isEmpty() && chest.getItem() instanceof ItemArmorScuba && ((ItemArmorScuba) chest.getItem()).isSetComplete(player));
         	
         	int widgetHeight = 0;
         	int widgetTotal = 0;
@@ -47,6 +49,16 @@ public class OverlayTickHandler
         	if (isTankActive)
         	{
         		widgetHeight += 28;
+            	++widgetTotal;
+        	}
+        	if (isScubaActive)
+        	{
+        		ItemArmorScuba scuba = (ItemArmorScuba) chest.getItem();
+
+				boolean hasPower = scuba.hasPowerUnit(chest);
+				boolean hasAir = scuba.hasAirTank(chest);
+				
+        		widgetHeight += (hasPower && hasAir ? 38 : 28);
             	++widgetTotal;
         	}
         	if (widgetTotal > 1) widgetHeight += (widgetTotal * 2) - 2;
@@ -99,7 +111,27 @@ public class OverlayTickHandler
 					//nextY = -30;
 					break;
             }
-            
+            if (isScubaActive)
+        	{
+				ItemArmorScuba scuba = (ItemArmorScuba) chest.getItem();
+				String name = StringUtils.localize("tooltip.dse.scubaset");
+
+				boolean hasPower = scuba.hasPowerUnit(chest);
+				boolean hasAir = scuba.hasAirTank(chest);
+				
+				String powerInfo = (scuba.isCreativePower(chest) ? "∞" : NumberUtils.getDisplayShort(scuba.getEnergyStored(chest)) + " " + ModConfig.energyUnit);
+				
+				double time = scuba.getOxygenStored(chest)/20D;
+				double minutes = Math.floor(time / 60);
+				double seconds = Math.floor(time - minutes * 60);
+				boolean showMinutes = (int)minutes > 0;
+				String oxygenInfo = (scuba.getMaxOxygen(chest) <= 0 ? "∞" : (showMinutes ? (int)minutes + "m:" : "") + (int)seconds + "s");
+				
+            	if (hasPower && hasAir) drawMultiwidget(x, y, (scuba.isCreativePower(chest) ? 1 : scuba.getEnergyStored(chest)), (scuba.isCreativePower(chest) ? 1 : scuba.getMaxEnergyStored(chest)), (scuba.getMaxOxygen(chest) <= 0 ? 1 : scuba.getOxygenStored(chest)), (scuba.getMaxOxygen(chest) <= 0 ? 1 : scuba.getMaxOxygen(chest)), name, powerInfo, oxygenInfo, scale);
+            	else if (hasAir) drawPowerwidget(x, y, (scuba.getMaxOxygen(chest) <= 0 ? 1 : scuba.getOxygenStored(chest)), (scuba.getMaxOxygen(chest) <= 0 ? 1 : scuba.getMaxOxygen(chest)), name, oxygenInfo, scale, true);
+            	else if (hasPower) drawPowerwidget(x, y, (scuba.isCreativePower(chest) ? 1 : scuba.getEnergyStored(chest)), (scuba.isCreativePower(chest) ? 1 : scuba.getMaxEnergyStored(chest)), name, powerInfo, scale, false);
+        		y += (hasPower && hasAir ? 40 : 30);
+        	}
             if (isTankActive)
         	{
             	IAirTankItem tank = (IAirTankItem) chest.getItem();
@@ -144,6 +176,38 @@ public class OverlayTickHandler
 		
 		drawStringCenter(StringUtils.limitString(name, 16), mc.fontRenderer, x + 50, y + 4, 0x404040, false);
 		drawStringCenter(info, mc.fontRenderer, x + 50, y + 14, 0xeeeeee, true);
+
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.disableRescaleNormal();
+        GL11.glPopMatrix();
+    }
+    
+    public static void drawMultiwidget(int x, int y, int currentA, int maxA, int currentB, int maxB, String name, String infoA, String infoB, double scale)
+    {
+    	GL11.glPushMatrix();
+        GL11.glScaled(scale, scale, 1.0D);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F);
+        
+		mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
+		Gui.drawModalRectWithCustomSizedTexture(x, y + 8, 0, 22, 100, 30, 256, 256);
+		Gui.drawModalRectWithCustomSizedTexture(x, y, 102, 0, 100, 12, 256, 256);
+		
+		int powerStart = 240;
+		int powerWidth = getPercentage(88, currentA, maxA);
+		int powerHeight = 8;
+		
+		if (powerWidth > 0) Gui.drawModalRectWithCustomSizedTexture(x + 6, y + 14, 0, powerStart, powerWidth, powerHeight, 256, 256);
+		
+		int oxygenStart = 248;
+		int oxygenWidth = getPercentage(88, currentB, maxB);
+		int oxygenHeight = 8;
+		
+		if (oxygenWidth > 0) Gui.drawModalRectWithCustomSizedTexture(x + 6, y + 24, 0, oxygenStart, oxygenWidth, oxygenHeight, 256, 256);
+		
+		drawStringCenter(StringUtils.limitString(name, 16), mc.fontRenderer, x + 50, y + 4, 0x404040, false);
+		drawStringCenter(infoA, mc.fontRenderer, x + 50, y + 14, 0xeeeeee, true);
+		drawStringCenter(infoB, mc.fontRenderer, x + 50, y + 24, 0xeeeeee, true);
 
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.disableRescaleNormal();

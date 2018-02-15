@@ -6,7 +6,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.nhave.dse.Reference;
 import com.nhave.dse.api.items.IAirTankItem;
-import com.nhave.dse.api.items.IItemUpgrade;
+import com.nhave.dse.api.items.IItemUpgradeAdvanced;
 import com.nhave.dse.api.items.IShaderItem;
 import com.nhave.dse.client.models.ModelScubaTankLarge;
 import com.nhave.dse.client.models.ModelScubaTankSmall;
@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderItem, IItemUpgrade
+public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderItem, IItemUpgradeAdvanced
 {
 	public boolean isCreative = false;
 	private boolean isDualTank;
@@ -65,7 +65,7 @@ public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderI
 			tooltip.add(StringUtils.localize("tooltip.dse.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			
 			tooltip.add(StringUtils.localize("tooltip.dse.oxygen") + ": " + StringUtils.format(getOxygenInfo(stack), StringUtils.YELLOW, StringUtils.ITALIC));
-
+			
 			tooltip.add("");
 			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
 			tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubachest.name"), StringUtils.YELLOW, StringUtils.ITALIC));
@@ -215,16 +215,28 @@ public class ItemAirtank extends ItemArmorBase implements IAirTankItem, IShaderI
 	{
 		return this.isDualTank;
 	}
-
+	
 	@Override
 	public boolean canApplyUpgrade(ItemStack upgradeable, ItemStack upgrade)
 	{
 		return upgradeable.getItem() == ModItems.itemScubaChest;
 	}
-
+	
 	@Override
 	public String getUpgradeNBT(ItemStack upgradeable, ItemStack upgrade)
 	{
 		return "AIRTANK";
+	}
+	
+	@Override
+	public boolean ignoreMeta(ItemStack upgrade)
+	{
+		return true;
+	}
+	
+	@Override
+	public String getUpgradeName(ItemStack upgrade)
+	{
+		return StringUtils.localize("item.dse.airtank.name");
 	}
 }

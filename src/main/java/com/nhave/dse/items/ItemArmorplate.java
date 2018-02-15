@@ -2,6 +2,7 @@ package com.nhave.dse.items;
 
 import java.util.List;
 
+import com.nhave.dse.api.items.IArmorplate;
 import com.nhave.dse.api.items.IItemUpgradeAdvanced;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
@@ -11,7 +12,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemArmorplate extends ItemMeta implements IItemUpgradeAdvanced
+public class ItemArmorplate extends ItemMeta implements IItemUpgradeAdvanced, IArmorplate
 {
 	private int[] damageReductionHead;
 	private int[] damageReductionChest;
@@ -45,12 +46,10 @@ public class ItemArmorplate extends ItemMeta implements IItemUpgradeAdvanced
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced)
 	{
-		//super.addInformation(stack, world, tooltip, advanced);
-		String descUnlocalized = "tooltip.dse.item." + this.getItemName(stack);
-		String descLocalized = StringUtils.localize(descUnlocalized);
+		int meta = Math.min(stack.getItemDamage(), names.length-1);
 		if (StringUtils.isShiftKeyDown())
 		{
-			TooltipHelper.addSplitString(tooltip, descLocalized, ";", StringUtils.GRAY);
+			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item." + this.getItemName(stack)), ";", StringUtils.GRAY);
 			
 			tooltip.add("");
 			tooltip.add(StringUtils.localize("tooltip.dse.armorplate.onscuba") + ":");
@@ -60,8 +59,11 @@ public class ItemArmorplate extends ItemMeta implements IItemUpgradeAdvanced
 			tooltip.add(StringUtils.format(" +" + getDamageReduction(stack, EntityEquipmentSlot.FEET) + " " + StringUtils.localize("tooltip.dse.armorplate.onfeet"), StringUtils.LIGHT_BLUE));
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
+		
+		//UpgradeHelper.addInformation(stack, world, tooltip, advanced);
 	}
-	
+
+	@Override
 	public int getDamageReduction(ItemStack stack, EntityEquipmentSlot slot)
 	{
 		int meta = Math.max(0, Math.min(this.damageReductionHead.length - 1, stack.getItemDamage()));

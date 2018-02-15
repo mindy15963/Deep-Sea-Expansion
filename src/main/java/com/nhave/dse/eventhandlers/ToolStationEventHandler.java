@@ -15,6 +15,7 @@ import com.nhave.nhc.helpers.ItemHelper;
 import com.nhave.nhc.util.ItemUtil;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolStationEventHandler
@@ -35,6 +36,23 @@ public class ToolStationEventHandler
 			ItemStack mod = evt.mod.copy();
 			mod.setCount(1);
 			ItemUtil.addItemToStack(output, mod, nbt);
+			evt.materialCost=1;
+			evt.output=output;
+		}
+		else if (evt.input.getItem() == ModItems.itemScubaMask && evt.mod.getItem().getRegistryName().toString().equals("theoneprobe:probe"))
+		{
+			//Item probe = Item.REGISTRY.getObject(new ResourceLocation("theoneprobe", "probe"));
+			
+			ItemStack output = evt.input.copy();
+	        ItemStack mod = evt.mod.copy();
+			mod.setCount(1);
+			ItemUtil.addItemToStack(output, mod, "TOP");
+			
+			NBTTagCompound tag = output.getTagCompound();
+			if (tag == null) tag = new NBTTagCompound();
+	        tag.setInteger("theoneprobe", 1);
+	        output.setTagCompound(tag);
+	        
 			evt.materialCost=1;
 			evt.output=output;
 		}
@@ -92,6 +110,9 @@ public class ToolStationEventHandler
 			}
 			if (changed)
 			{
+				NBTTagCompound tag = output.getTagCompound();
+				if (tag != null && tag.hasKey("theoneprobe")) tag.removeTag("theoneprobe");
+				
 				evt.materialCost=0;
 				evt.output=output;
 			}

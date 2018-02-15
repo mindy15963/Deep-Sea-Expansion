@@ -134,7 +134,7 @@ public class ModConfig
 		powerItemDurablityType = config.get("client.render", "PowerItemDurablityType", Defaults.powerItemDurablityType, "Sets the style to display the durablity bar of powered items.").setValidValues(Defaults.itemDurablityTypes).getString();
 		oxygenItemDurablityColor = config.get("client.render", "OxygenItemDurablityColor", Defaults.oxygenItemDurablityColor, "Sets the color of oxygen tanks durablity bar. Calculation: (Red*256*256)+(Green*256)+Blue").setMinValue(0).setMaxValue(16777215).getInt(Defaults.oxygenItemDurablityColor);
 		oxygenItemDurablityType = config.get("client.render", "OxygenItemDurablityType", Defaults.oxygenItemDurablityType, "Sets the style to display the durablity bar of oxygen tanks.").setValidValues(Defaults.itemDurablityTypes).getString();
-		//scubaDurablityPriority = config.get("client.render", "ScubaDurablityPriority", Defaults.scubaDurablityPriority, "Sets the prioritized durability type to display on scuba armor.").setValidValues(Defaults.scubaDurablityPriorities).getString();
+		scubaDurablityPriority = config.get("client.render", "ScubaDurablityPriority", Defaults.scubaDurablityPriority, "Sets the prioritized durability type to display on scuba armor.").setValidValues(Defaults.scubaDurablityPriorities).getString();
 		
 		//Hud Overlay Config
 		hudPosition = config.get("client.hud", "HudBasePosition", Defaults.hudPosition, "Set the base position of the Hud on the screen.").setValidValues(HUDPositions.getStringValues()).getString();

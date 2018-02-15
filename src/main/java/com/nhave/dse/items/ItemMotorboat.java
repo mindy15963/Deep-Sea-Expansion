@@ -1,5 +1,6 @@
 package com.nhave.dse.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nhave.dse.api.items.IItemUpgrade;
@@ -64,6 +65,7 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 			tooltip.add(StringUtils.localize("tooltip.dse.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			
 			tooltip.add(StringUtils.localize("tooltip.dse.charge") + ": " + NumberUtils.getDisplayShort(getEnergyStored(stack)) + " / " + NumberUtils.getDisplayShort(getMaxEnergyStored(stack)) + " " + ModConfig.energyUnit);
+			tooltip.add(StringUtils.localize("tooltip.dse.charge.transfer") + ": " + NumberUtils.getDisplayShort(getMaxTransfer(stack), 0) + " " + ModConfig.energyUnit + "/t");
 			tooltip.add(StringUtils.format(this.boatPowerUsage + " " + ModConfig.energyUnit + " " + StringUtils.localize("tooltip.dse.charge.tick"), StringUtils.ORANGE));
 			if (ItemUtil.getItemFromStack(stack, "BOOSTER") != null) tooltip.add(StringUtils.format(this.boatPowerUsage * this.boatBoostModifier + " " + ModConfig.energyUnit + "/t " + StringUtils.localize("tooltip.dse.charge.boatboost"), StringUtils.ORANGE));
 		}
@@ -71,22 +73,8 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 		{
 			tooltip.add(StringUtils.localize("tooltip.dse.mod.all") + ":");
 			
-			/*for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
-			{
-				ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
-				String color = StringUtils.RED;
-				
-				for (int j = 0; j < ModItems.MOTORBOAT_UPGRADES_NBT.size(); ++j)
-				{
-					ItemStack installed = ItemUtil.getItemFromStack(stack, ModItems.MOTORBOAT_UPGRADES_NBT.get(j));
-					
-					if (installed != null && installed.getItem() == mod.getItem() && installed.getItemDamage() == mod.getItemDamage())
-					{
-						color = StringUtils.BRIGHT_GREEN;
-					}
-				}
-				tooltip.add("  " + StringUtils.format(mod.getDisplayName(), color, StringUtils.ITALIC));
-			}*/
+			List<String> nbt_list = new ArrayList<String>();
+			
 			for (int i = 0; i < ModItems.MOTORBOAT_UPGRADES.size(); ++i)
 			{
 				ItemStack mod = ModItems.MOTORBOAT_UPGRADES.get(i);
@@ -106,6 +94,13 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 				{
 					if (color == StringUtils.BRIGHT_GREEN) tooltip.add("  " + StringUtils.format(ItemUtil.getItemFromStack(stack, ((IItemUpgrade) mod.getItem()).getUpgradeNBT(stack, mod)).getDisplayName(), color, StringUtils.ITALIC));
 					continue;
+				}
+				
+				if ((mod.getItem() instanceof IItemUpgradeAdvanced))
+				{
+					IItemUpgradeAdvanced upgrade = (IItemUpgradeAdvanced) mod.getItem();
+					if (nbt_list.contains(upgrade.getUpgradeNBT(stack, mod)) && upgrade.ignoreMeta(mod)) continue;
+					nbt_list.add(upgrade.getUpgradeNBT(stack, mod));
 				}
 				
 				if (mod.getItem() instanceof IItemUpgradeAdvanced) tooltip.add("  " + StringUtils.format(((IItemUpgradeAdvanced) mod.getItem()).getUpgradeName(mod), color, StringUtils.ITALIC));

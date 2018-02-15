@@ -1,8 +1,12 @@
 package com.nhave.dse.client.eventhandlers;
 
+import java.util.List;
+
 import com.nhave.dse.api.items.IDivingHelmet;
 import com.nhave.dse.api.items.IFlippers;
 import com.nhave.dse.items.ItemHeavyBoots;
+import com.nhave.nhc.helpers.TooltipHelper;
+import com.nhave.nhc.util.StringUtils;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -10,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,6 +23,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientEventHandler
 {
 	private static final Minecraft mc = Minecraft.getMinecraft();
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void makeTooltip(ItemTooltipEvent event)
+	{
+		if (event.getItemStack() == null || event.getItemStack().isEmpty()) return;
+		List<String> tooltip = event.getToolTip();
+		ItemStack stack = event.getItemStack();
+		
+		if(stack.getItem().getRegistryName().toString().equals("theoneprobe:probe"))
+		{
+			if (StringUtils.isShiftKeyDown())
+			{
+				TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.item.theoneprobe"), ";", StringUtils.GRAY);
+				tooltip.add("");
+				tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+				tooltip.add("  " + StringUtils.format(StringUtils.localize("item.dse.scubamask.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+			}
+			else tooltip.add(StringUtils.shiftForInfo);
+		}
+	}
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)

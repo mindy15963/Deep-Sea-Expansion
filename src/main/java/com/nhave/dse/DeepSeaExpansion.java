@@ -68,6 +68,8 @@ public class DeepSeaExpansion
     public void postInit(FMLPostInitializationEvent event)
     {
     	proxy.registerEventHandlers();
+    	
+    	ModIntegration.postInit();
     }
     
     public static final CreativeTabs CREATIVETAB = new CreativeTabs(Reference.MODID)

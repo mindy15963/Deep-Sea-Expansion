@@ -6,6 +6,7 @@ import com.nhave.dse.registry.ModConfig;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -13,27 +14,27 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(modid = "redstoneflux", iface = "cofh.redstoneflux.api.IEnergyContainerItem")
-public class ItemEnergyBase extends ItemBase implements IEnergyItem, IEnergyContainerItem
+public class ItemArmorEnergyBase extends ItemArmorBase implements IEnergyItem, IEnergyContainerItem
 {
 	private int maxEnergy;
 	private int maxTransfer;
 	private boolean canReceive = true;
 	private boolean canExtract = true;
 	
-	public ItemEnergyBase(String name, int maxEnergy, int maxTransfer)
+	public ItemArmorEnergyBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, int maxEnergy, int maxTransfer)
 	{
-		super(name);
+		super(name, materialIn, renderIndexIn, equipmentSlotIn);
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
 	}
 	
-	public ItemEnergyBase setNoReceive()
+	public ItemArmorEnergyBase setNoReceive()
 	{
 		this.canReceive = false;
 		return this;
 	}
 	
-	public ItemEnergyBase setNoExtract()
+	public ItemArmorEnergyBase setNoExtract()
 	{
 		this.canExtract = false;
 		return this;

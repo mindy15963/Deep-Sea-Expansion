@@ -12,6 +12,7 @@ item.dse.flippers.name=Flippers
 item.dse.dinghy.name=Dinghy
 item.dse.shadercore.name=Shader Core
 item.dse.shader.name=Item Shader
+item.dse.airtank.name=Any Air Tank
 item.dse.airtanksmall.name=Small Air Tank
 item.dse.airtanklarge.name=Large Air Tank
 item.dse.airtankhighpressure.name=High Pressure Air Tank
@@ -45,6 +46,18 @@ item.dse.armorplate.iron.name=Iron Armorplate
 item.dse.armorplate.diamond.name=Diamond Armorplate
 item.dse.armorplate.steel.name=Steel Armorplate
 item.dse.armorplate.plasteel.name=Plasteel Armorplate
+item.dse.armorplate.copper.name=Copper Armorplate
+item.dse.armorplate.bronze.name=Bronze Armorplate
+item.dse.armorplate.platinum.name=Platinum Armorplate
+item.dse.armorplate.invar.name=Invar Armorplate
+item.dse.armorplate.silver.name=Silver Armorplate
+item.dse.powerunit.name=Any Power Unit
+item.dse.powerunitsmall.name=Small Power Unit
+item.dse.powerunitmedium.name=Medium Power Unit
+item.dse.powerunitlarge.name=Large Power Unit
+item.dse.powerunitcreative.name=Creative Power Unit
+item.dse.insulation.hyperthermic.name=Hyperthermic Insulation
+item.dse.insulation.hypothermic.name=Hypothermic Insulation
 
 //---Blocks---//
 tile.dse.compressor.name=Air Compressor
@@ -62,7 +75,7 @@ shader.dse.muscle=Team Red
 shader.dse.dark=Back in Black
 shader.dse.space=Interstellar
 shader.dse.pink=Rose
-shader.dse.tech=N-TECH Prototype
+shader.dse.tech=N-TECH
 
 //---Colors---//
 color.dse.black=Black
@@ -82,6 +95,10 @@ color.dse.magenta=Magenta
 color.dse.orange=Orange
 color.dse.white=White
 
+//---Attributes--//
+attribute.name.dse.hyperthermic=Hyperthermia Protection
+attribute.name.dse.hypothermic=Hypothermia Protection
+
 //---Tooltip---//
 tooltip.dse.block.compressor=Uses power to compress;air and fill up air tanks.
 tooltip.dse.block.charger=Charges items placed in it.
@@ -100,6 +117,8 @@ tooltip.dse.item.scubachest=This chestplate is part of the;ultimate underwater a
 tooltip.dse.item.scubalegs=These leggings are part of the;ultimate underwater armor set.
 tooltip.dse.item.scubaboots=These boots are part of the;ultimate underwater armor set.
 tooltip.dse.item.armorplate=Used to upgrade the protection;of the scuba armor.
+tooltip.dse.item.powerunit=Stores large amounts of power.
+tooltip.dse.item.powerunit.creative=No idea where it draws;its power from.
 tooltip.dse.upgrade.paddles=Useful for moving your boat;when its out of power.
 tooltip.dse.upgrade.storagebox=Adds a small inventory to your boat.
 tooltip.dse.upgrade.boatbooster=Allows your boat to boost;when holding the jump button.;Of cause using more power.
@@ -110,6 +129,11 @@ tooltip.dse.armorplate.onhead=Armor on head
 tooltip.dse.armorplate.onbody=Armor on body
 tooltip.dse.armorplate.onlegs=Armor on legs
 tooltip.dse.armorplate.onfeet=Armor on feet
+tooltip.dse.armorplate.noarmor=This armorplate provides no;addtional physical protection.
+tooltip.dse.insulation.hyperthermic=Provides resistance;against extreme heat.
+tooltip.dse.insulation.hypothermic=Provides resistance;against extreme cold.
+tooltip.dse.buff.hyperthermic=Full set allows you to stay;in extremely hot areas.
+tooltip.dse.buff.hypothermic=Full set allows you to stay;in extremely cold areas.
 tooltip.dse.mod.canuse=Can be used to upgrade
 tooltip.dse.mod.appliesto=Can apply to
 tooltip.dse.mod.ctrlinfo=for Upgrades
@@ -123,9 +147,11 @@ tooltip.dse.shader.scuba=All Scuba Armor
 tooltip.dse.oxygen=Oxygen left
 tooltip.dse.charge=Charge
 tooltip.dse.charge.use=Per Use
+tooltip.dse.charge.transfer=Transfer
 tooltip.dse.charge.tick=Per Tick
 tooltip.dse.charge.boatboost=While Boosting
 tooltip.dse.usesleft=Uses left
+tooltip.dse.scubaset=Scuba Armor
 
 //---Config---//
 cfg.dse.title.main=Deep Sea Expansion Configuration Menu
@@ -135,3 +161,6 @@ cfg.dse.entry.client.tooltip=All Client Options
 cfg.dse.title.common=Deep Sea Expansion Common Configs
 cfg.dse.entry.common=Common Config
 cfg.dse.entry.common.tooltip=All Common Options
+
+//---The One Probe---//
+tooltip.dse.item.theoneprobe=Deep Sea Expansion has added;The One Probe as a scuba upgrade.

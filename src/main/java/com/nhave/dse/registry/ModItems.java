@@ -9,6 +9,7 @@ import com.nhave.dse.client.mesh.CustomMeshDefinitionMetaItem;
 import com.nhave.dse.client.mesh.CustomMeshDefinitionShadeable;
 import com.nhave.dse.client.render.ItemColorHandler;
 import com.nhave.dse.items.ItemAirtank;
+import com.nhave.dse.items.ItemArmorInsulation;
 import com.nhave.dse.items.ItemArmorScuba;
 import com.nhave.dse.items.ItemArmorplate;
 import com.nhave.dse.items.ItemBase;
@@ -19,6 +20,7 @@ import com.nhave.dse.items.ItemHammer;
 import com.nhave.dse.items.ItemHeavyBoots;
 import com.nhave.dse.items.ItemMeta;
 import com.nhave.dse.items.ItemMotorboat;
+import com.nhave.dse.items.ItemPowerunit;
 import com.nhave.dse.items.ItemShader;
 import com.nhave.dse.items.ItemSimpleUpgrades;
 import com.nhave.dse.shaders.Shader;
@@ -77,8 +79,15 @@ public class ModItems
 	public static Item itemScubaChest;
 	public static Item itemScubaLegs;
 	public static Item itemScubaBoots;
+	
+	public static Item itemPowerunitSmall;
+	public static Item itemPowerunitMedium;
+	public static Item itemPowerunitLarge;
+	public static Item itemPowerunitCreative;
 
 	public static Item itemArmorplate;
+	public static Item itemInsulationHyper;
+	public static Item itemInsulationHypo;
 	
 	public static final String[][] COMPONETNS = new String[][]
 	{
@@ -92,7 +101,9 @@ public class ModItems
 	};
 	public static final String[][] ARMORPLATES = new String[][]
 	{
-		{"iron", "0", "2", "5", "6", "2"}, {"diamond", "1", "3", "6", "8", "3"}, {"steel", "1", "2", "5", "7", "2"}, {"plasteel", "2", "4", "7", "9", "4"}
+		{"iron", "0", "2", "5", "6", "2"}, {"diamond", "1", "3", "6", "8", "3"}, {"steel", "1", "2", "5", "7", "2"}, {"plasteel", "2", "4", "7", "9", "4"},
+		{"copper", "0", "1", "3", "3", "1"}, {"bronze", "1", "2", "6", "6", "2"}, {"platinum", "2", "3", "6", "8", "3"}, {"invar", "1", "2", "5", "7", "2"},
+		{"silver", "0", "2", "4", "4", "1"}
 	};
 	
 	public static ArmorMaterial materialScuba = EnumHelper.addArmorMaterial("SCUBA", "SCUBA", 0, new int[] {1, 3, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
@@ -123,7 +134,14 @@ public class ModItems
 		itemScubaBoots = new ItemArmorScuba("scubaboots", materialScuba, EntityEquipmentSlot.FEET);
 
 		itemArmorplate = new ItemArmorplate("armorplate", ARMORPLATES);
-		//itemArmorplateDiamond = new ItemArmorplate("armorplatediamond", new int[] {3, 6, 8, 3});
+		
+		itemPowerunitSmall = new ItemPowerunit("powerunit_small", 5000000, 5000).setQualityColor(StringUtils.LIGHT_BLUE);
+		itemPowerunitMedium = new ItemPowerunit("powerunit_medium", 10000000, 10000).setQualityColor(StringUtils.PURPLE);
+		itemPowerunitLarge = new ItemPowerunit("powerunit_large", 20000000, 20000).setQualityColor(StringUtils.ORANGE);
+		itemPowerunitCreative = new ItemPowerunit("powerunit_creative", Integer.MAX_VALUE, 250000).setIsCreative(true).setQualityColor(StringUtils.PINK);
+
+		itemInsulationHyper = new ItemArmorInsulation("hyperthermic");
+		itemInsulationHypo = new ItemArmorInsulation("hypothermic");
 		
 		//Initialize Item Shaders
 		Item[] allShadeable = new Item[] {itemMotorboat, itemAirTankSmall, itemAirTankLarge, itemAirTankHighPressure, itemAirTankCreative, itemScubaMask, itemScubaChest, itemScubaLegs, itemScubaBoots};
@@ -158,8 +176,16 @@ public class ModItems
 		event.getRegistry().register(itemScubaChest);
 		event.getRegistry().register(itemScubaLegs);
 		event.getRegistry().register(itemScubaBoots);
-
+		
 		event.getRegistry().register(itemArmorplate);
+		
+		event.getRegistry().register(itemPowerunitSmall);
+		event.getRegistry().register(itemPowerunitMedium);
+		event.getRegistry().register(itemPowerunitLarge);
+		event.getRegistry().register(itemPowerunitCreative);
+		
+		event.getRegistry().register(itemInsulationHyper);
+		event.getRegistry().register(itemInsulationHypo);
 		
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerIron, 1, 0));
 		OreDictionary.registerOre("plateHammer", new ItemStack(itemHammerSteel, 1, 0));
@@ -184,11 +210,25 @@ public class ModItems
 		SCUBACHEST_UPGRADES.add(new ItemStack(itemAirTankCreative));
 		SCUBALEGS_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "amplifier", 1));
 		SCUBABOOTS_UPGRADES.add(new ItemStack(itemFlippers));
-
+		
 		SCUBAMASK_UPGRADES.add(new ItemStack(itemArmorplate));
 		SCUBACHEST_UPGRADES.add(new ItemStack(itemArmorplate));
 		SCUBALEGS_UPGRADES.add(new ItemStack(itemArmorplate));
 		SCUBABOOTS_UPGRADES.add(new ItemStack(itemArmorplate));
+		
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemPowerunitSmall));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemPowerunitMedium));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemPowerunitLarge));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemPowerunitCreative));
+
+		SCUBAMASK_UPGRADES.add(new ItemStack(itemInsulationHyper));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemInsulationHyper));
+		SCUBALEGS_UPGRADES.add(new ItemStack(itemInsulationHyper));
+		SCUBABOOTS_UPGRADES.add(new ItemStack(itemInsulationHyper));
+		SCUBAMASK_UPGRADES.add(new ItemStack(itemInsulationHypo));
+		SCUBACHEST_UPGRADES.add(new ItemStack(itemInsulationHypo));
+		SCUBALEGS_UPGRADES.add(new ItemStack(itemInsulationHypo));
+		SCUBABOOTS_UPGRADES.add(new ItemStack(itemInsulationHypo));
 		
 		MOTORBOAT_UPGRADES_NBT.add("PADDLE");
 		MOTORBOAT_UPGRADES_NBT.add("STORAGE");
@@ -197,6 +237,7 @@ public class ModItems
 		SCUBACHEST_UPGRADES_NBT.add("AIRTANK");
 		SCUBALEGS_UPGRADES_NBT.add("AMPLIFIER");
 		SCUBABOOTS_UPGRADES_NBT.add("FLIPPERS");
+		SCUBACHEST_UPGRADES_NBT.add("POWERUNIT");
 		
 		SCUBAMASK_UPGRADES_NBT.add("ARMORPLATE");
 		SCUBACHEST_UPGRADES_NBT.add("ARMORPLATE");
@@ -215,6 +256,14 @@ public class ModItems
 		registerRender(itemHammerIron);
 		registerRender(itemHammerSteel);
 		registerRender(itemHeavyBoots);
+
+		registerRender(itemPowerunitSmall);
+		registerRender(itemPowerunitMedium);
+		registerRender(itemPowerunitLarge);
+		registerRender(itemPowerunitCreative);
+		
+		registerRender(itemInsulationHyper);
+		registerRender(itemInsulationHypo);
 		
 		registerMetaRender(itemFlippers, 16, false);
 		registerMetaRender(itemComponents, COMPONETNS.length, false);

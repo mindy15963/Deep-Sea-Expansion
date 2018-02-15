@@ -75,7 +75,7 @@ public class TileEntityCharger extends TileEntityEnergyReceiver implements ITick
 	
 	public boolean isPowerItem(ItemStack stack)
 	{
-		return (stack.hasCapability(CapabilityEnergy.ENERGY, null) || (DeepSeaExpansion.redstoneflux && RedstoneFluxCompatibility.isEnergyItem(stack.getItem())));
+		return ((stack.hasCapability(CapabilityEnergy.ENERGY, null) && stack.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(Integer.MAX_VALUE, true) > 0) || ((DeepSeaExpansion.redstoneflux && RedstoneFluxCompatibility.isEnergyItem(stack.getItem()) && RedstoneFluxCompatibility.receiveEnergy(stack, Integer.MAX_VALUE, true) > 0)));
 	}
 	
 	public ItemStack getItemStack()

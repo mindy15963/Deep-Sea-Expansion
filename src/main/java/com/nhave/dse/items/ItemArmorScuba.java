@@ -8,6 +8,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.nhave.dse.Reference;
 import com.nhave.dse.api.items.IAirTankItem;
+import com.nhave.dse.api.items.IArmorplate;
 import com.nhave.dse.api.items.IDivingHelmet;
 import com.nhave.dse.api.items.IFlippers;
 import com.nhave.dse.api.items.IItemUpgrade;
@@ -20,6 +21,7 @@ import com.nhave.dse.helpers.UpgradeHelper;
 import com.nhave.dse.registry.ModConfig;
 import com.nhave.dse.registry.ModItems;
 import com.nhave.dse.shaders.Shader;
+import com.nhave.dse.utils.NumberUtils;
 import com.nhave.nhc.helpers.ItemHelper;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.ItemUtil;
@@ -28,6 +30,7 @@ import com.nhave.nhc.util.StringUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -37,22 +40,33 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlippers, IDivingHelmet, IAirTankItem
+public class ItemArmorScuba extends ItemArmorEnergyBase implements IShaderItem, IFlippers, IDivingHelmet, IAirTankItem
 {
     private static final UUID[] ARMOR_MODIFIERS = new UUID[] {UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
     
 	public ItemArmorScuba(String name, ArmorMaterial materialIn, EntityEquipmentSlot slot)
 	{
-		super(name, materialIn, 0, slot);
+		super(name, materialIn, 0, slot, 0, 0);
 		this.setMaxDamage(0);
 		this.setQualityColor(StringUtils.ORANGE);
 	}
 	
 	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+	{
+		if (this.isInCreativeTab(tab))
+        {
+            items.add(new ItemStack(this));
+        }
+	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag advanced)
 	{
 		if (StringUtils.isShiftKeyDown())
@@ -69,6 +83,11 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 			tooltip.add(StringUtils.localize("tooltip.dse.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			
 			if (hasAirTank(stack)) tooltip.add(StringUtils.localize("tooltip.dse.oxygen") + ": " + StringUtils.format(getOxygenInfo(stack), StringUtils.YELLOW, StringUtils.ITALIC));
+			if (hasPowerUnit(stack))
+			{
+				tooltip.add(StringUtils.localize("tooltip.dse.charge") + ": " + (isCreativePower(stack) ? "∞" : NumberUtils.getDisplayShort(getEnergyStored(stack)) + " / " + NumberUtils.getDisplayShort(getMaxEnergyStored(stack))) + " " + ModConfig.energyUnit);
+				tooltip.add(StringUtils.localize("tooltip.dse.charge.transfer") + ": " + NumberUtils.getDisplayShort(getMaxTransfer(stack), 0) + " " + ModConfig.energyUnit + "/t");
+			}
 			
 			UpgradeHelper.addInformation(stack, worldIn, tooltip, advanced);
 		}
@@ -100,6 +119,8 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 				upgrades_nbt = ModItems.SCUBABOOTS_UPGRADES_NBT; 
 			}
 			
+			List<String> nbt_list = new ArrayList<String>();
+			
 			for (int i = 0; i < upgrades.size(); ++i)
 			{
 				ItemStack mod = upgrades.get(i);
@@ -119,6 +140,13 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 				{
 					if (color == StringUtils.BRIGHT_GREEN) tooltip.add("  " + StringUtils.format(ItemUtil.getItemFromStack(stack, ((IItemUpgrade) mod.getItem()).getUpgradeNBT(stack, mod)).getDisplayName(), color, StringUtils.ITALIC));
 					continue;
+				}
+				
+				if ((mod.getItem() instanceof IItemUpgradeAdvanced))
+				{
+					IItemUpgradeAdvanced upgrade = (IItemUpgradeAdvanced) mod.getItem();
+					if (nbt_list.contains(upgrade.getUpgradeNBT(stack, mod)) && upgrade.ignoreMeta(mod)) continue;
+					nbt_list.add(upgrade.getUpgradeNBT(stack, mod));
 				}
 				
 				if (mod.getItem() instanceof IItemUpgradeAdvanced) tooltip.add("  " + StringUtils.format(((IItemUpgradeAdvanced) mod.getItem()).getUpgradeName(mod), color, StringUtils.ITALIC));
@@ -145,14 +173,15 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 			double toughness = (double)this.toughness;
 			
 			ItemStack armorplate = ItemUtil.getItemFromStack(stack, "ARMORPLATE");
-			if (armorplate != null && armorplate.getItem() instanceof ItemArmorplate)
+			if (armorplate != null && armorplate.getItem() instanceof IArmorplate)
 			{
-				ItemArmorplate plate = (ItemArmorplate) armorplate.getItem();
+				IArmorplate plate = (IArmorplate) armorplate.getItem();
 				damageReduceAmount = plate.getDamageReduction(armorplate, slot);
-				//System.out.println("test");
 			}
             multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor modifier", damageReduceAmount, 0));
             multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor toughness", toughness, 0));
+            
+            //UpgradeHelper.addAttributeModifiers(multimap, stack);
         }
 
         return multimap;
@@ -217,12 +246,11 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 	public boolean showDurabilityBar(ItemStack stack)
 	{
 		boolean airTank = hasAirTank(stack) && getMaxOxygen(stack) > 0;
-		boolean energyCell = false;//hasEnergyCell(stack);
+		boolean energyCell = hasPowerUnit(stack) && !isCreativePower(stack);
 		if (this.armorType == EntityEquipmentSlot.CHEST)
 		{
-			if (airTank && energyCell) return (ModConfig.scubaDurablityPriority.equals("ENERGY") ? !ModConfig.powerItemDurablityType.equals("HIDDEN") : !ModConfig.oxygenItemDurablityType.equals("HIDDEN"));
-			else if (airTank) return !ModConfig.oxygenItemDurablityType.equals("HIDDEN");
-			else if (energyCell) return !ModConfig.powerItemDurablityType.equals("HIDDEN");
+			if (!ModConfig.oxygenItemDurablityType.equals("HIDDEN") && (airTank && !energyCell || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("OXYGEN")))) return true;
+			else if (!ModConfig.powerItemDurablityType.equals("HIDDEN") && (energyCell && !airTank || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("ENERGY")))) return true;
 		}
 		return false;
 	}
@@ -231,24 +259,33 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 	public double getDurabilityForDisplay(ItemStack stack)
 	{
 		boolean airTank = hasAirTank(stack) && getMaxOxygen(stack) > 0;
-		boolean energyCell = false;//hasEnergyCell(stack);
+		boolean energyCell = hasPowerUnit(stack) && !isCreativePower(stack);
 		
-	    double maxAmount = this.getMaxOxygen(stack);
-	    double dif = maxAmount-this.getOxygenStored(stack);
-	    return dif/maxAmount;
+		if (!ModConfig.oxygenItemDurablityType.equals("HIDDEN") && (airTank && !energyCell || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("OXYGEN"))))
+		{
+			double maxAmount = this.getMaxOxygen(stack);
+		    double dif = maxAmount-this.getOxygenStored(stack);
+		    return dif/maxAmount;
+		}
+		else if (!ModConfig.powerItemDurablityType.equals("HIDDEN") && (energyCell && !airTank || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("ENERGY"))))
+		{
+			double maxAmount = this.getMaxEnergyStored(stack);
+		    double dif = maxAmount-this.getEnergyStored(stack);
+		    return dif/maxAmount;
+		}
+		return 0.0D;
 	}
 	
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack)
 	{
 		boolean airTank = hasAirTank(stack) && getMaxOxygen(stack) > 0;
-		boolean energyCell = false;//hasEnergyCell(stack);
+		boolean energyCell = hasPowerUnit(stack) && !isCreativePower(stack);
 		
 		if (this.armorType == EntityEquipmentSlot.CHEST)
 		{
-			if (airTank && energyCell) return (ModConfig.scubaDurablityPriority.equals("ENERGY") ? (ModConfig.powerItemDurablityType.equals("SOLID") ? ModConfig.powerItemDurablityColor : super.getRGBDurabilityForDisplay(stack)) : (ModConfig.oxygenItemDurablityType.equals("SOLID") ? ModConfig.oxygenItemDurablityColor : super.getRGBDurabilityForDisplay(stack)));
-			else if (airTank) return (ModConfig.oxygenItemDurablityType.equals("SOLID") ? ModConfig.oxygenItemDurablityColor : super.getRGBDurabilityForDisplay(stack));
-			else if (airTank) return (ModConfig.powerItemDurablityType.equals("SOLID") ? ModConfig.powerItemDurablityColor : super.getRGBDurabilityForDisplay(stack));
+			if (!ModConfig.oxygenItemDurablityType.equals("HIDDEN") && (airTank && !energyCell || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("OXYGEN")))) return (ModConfig.oxygenItemDurablityType.equals("SOLID") ? ModConfig.oxygenItemDurablityColor : super.getRGBDurabilityForDisplay(stack));
+			else if (!ModConfig.powerItemDurablityType.equals("HIDDEN") && (energyCell && !airTank || (airTank && energyCell && ModConfig.scubaDurablityPriority.equals("ENERGY")))) return (ModConfig.powerItemDurablityType.equals("SOLID") ? ModConfig.powerItemDurablityColor : super.getRGBDurabilityForDisplay(stack));
 		}
 		return super.getRGBDurabilityForDisplay(stack);
 	}
@@ -276,6 +313,19 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 		return (ItemHelper.getCurrentItemOrArmor(player, slot) != null && ItemHelper.getCurrentItemOrArmor(player, slot).getItem() == item);
 	}
 	
+	public boolean hasPowerUnit(ItemStack stack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(stack, "POWERUNIT");
+		return powerUnit != null && powerUnit.getItem() instanceof ItemPowerunit;
+	}
+	
+	public boolean isCreativePower(ItemStack stack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(stack, "POWERUNIT");
+		if (hasPowerUnit(stack)) return ((ItemPowerunit)powerUnit.getItem()).isCreative;
+		return false;
+	}
+	
 	public boolean hasAirTank(ItemStack stack)
 	{
 		ItemStack airTank = ItemUtil.getItemFromStack(stack, "AIRTANK");
@@ -298,6 +348,83 @@ public class ItemArmorScuba extends ItemArmorBase implements IShaderItem, IFlipp
 	public boolean isFlippersActive(EntityPlayer player, ItemStack stack)
 	{
 		return this.armorType == EntityEquipmentSlot.FEET && isSetComplete(player) && hasFlippers(stack) && player.isInWater();
+	}
+
+	@Override
+	public int getMaxTransfer(ItemStack stack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(stack, "POWERUNIT");
+		if (hasPowerUnit(stack)) return ((ItemPowerunit)powerUnit.getItem()).getMaxTransfer(powerUnit);
+		return 0;
+	}
+
+	@Override
+	public int getEnergyStored(ItemStack itemStack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(itemStack, "POWERUNIT");
+		if (hasPowerUnit(itemStack)) return ((ItemPowerunit)powerUnit.getItem()).getEnergyStored(powerUnit);
+		return 0;
+	}
+
+	@Override
+	public void setEnergy(ItemStack itemStack, int amount)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(itemStack, "POWERUNIT");
+		if (hasPowerUnit(itemStack))
+		{
+			((ItemPowerunit)powerUnit.getItem()).setEnergy(powerUnit, amount);
+			if (!isCreativePower(itemStack)) ItemUtil.addItemToStack(itemStack, powerUnit, "POWERUNIT");
+		}
+	}
+	
+	@Override
+    public int receiveEnergy(ItemStack stack, int maxReceive, boolean simulate)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(stack, "POWERUNIT");
+		if (hasPowerUnit(stack))
+		{
+			int energy = ((ItemPowerunit)powerUnit.getItem()).receiveEnergy(powerUnit, maxReceive, simulate);
+			if (!isCreativePower(stack)) ItemUtil.addItemToStack(stack, powerUnit, "POWERUNIT");
+			return energy;
+		}
+		return 0;
+	}
+	
+    @Override
+    public int extractEnergy(ItemStack stack, int maxExtract, boolean simulate)
+    {
+    	ItemStack powerUnit = ItemUtil.getItemFromStack(stack, "POWERUNIT");
+		if (hasPowerUnit(stack))
+		{
+			int energy = ((ItemPowerunit)powerUnit.getItem()).extractEnergy(powerUnit, maxExtract, simulate);
+			if (!isCreativePower(stack)) ItemUtil.addItemToStack(stack, powerUnit, "POWERUNIT");
+			return energy;
+		}
+		return 0;
+    }
+
+	@Override
+	public int getMaxEnergyStored(ItemStack itemStack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(itemStack, "POWERUNIT");
+		if (hasPowerUnit(itemStack)) return ((ItemPowerunit)powerUnit.getItem()).getMaxEnergyStored(powerUnit);
+		return 0;
+	}
+
+	@Override
+	public boolean canReceive(ItemStack itemStack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(itemStack, "POWERUNIT");
+		if (hasPowerUnit(itemStack)) return ((ItemPowerunit)powerUnit.getItem()).canReceive(powerUnit);
+		return false;
+	}
+
+	@Override
+	public boolean canExtract(ItemStack itemStack)
+	{
+		ItemStack powerUnit = ItemUtil.getItemFromStack(itemStack, "POWERUNIT");
+		if (hasPowerUnit(itemStack)) return ((ItemPowerunit)powerUnit.getItem()).canExtract(powerUnit);
+		return false;
 	}
 	
 	@Override
