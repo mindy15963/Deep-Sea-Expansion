@@ -1,0 +1,91 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_all",
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"color": {
+			"black": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_black"
+				}
+			},
+			"red": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_red"
+				}
+			},
+			"green": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_green"
+				}
+			},
+			"brown": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_brown"
+				}
+			},
+			"blue": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_blue"
+				}
+			},
+			"purple": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_purple"
+				}
+			},
+			"cyan": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_cyan"
+				}
+			},
+			"silver": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_silver"
+				}
+			},
+			"gray": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_gray"
+				}
+			},
+			"pink": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_pink"
+				}
+			},
+			"lime": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_lime"
+				}
+			},
+			"yellow": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_yellow"
+				}
+			},
+			"light_blue": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_light_blue"
+				}
+			},
+			"magenta": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_magenta"
+				}
+			},
+			"orange": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_orange"
+				}
+			},
+			"white": {
+				"textures": {
+					"all": "dse:blocks/metal_colored_white"
+				}
+			}
+		}
+	}
+}

@@ -4,7 +4,7 @@ public class Defaults
 {
 	//Energy Config
     public static final String[] energyUnits = new String[] {"RF", "FE", "T"};
-	public static final String energyUnit = "FE";
+	public static final String energyUnit = "RF";
 	public static final int boatPowerCapacity = 1000000;
     public static final int boatPowerUsage = 100;
     public static final int boatPowerTransfer = 4000;

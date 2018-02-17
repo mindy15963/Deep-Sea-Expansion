@@ -27,6 +27,9 @@ item.dse.heavyironplate.name=Heavy Iron Plate
 item.dse.heavysteelplate.name=Heavy Steel Plate
 item.dse.heavyplasteelplate.name=Heavy Plasteel Plate
 item.dse.oxygenfilter.name=Oxygen Filter
+item.dse.basiccircuit.name=Basic Circuit
+item.dse.advancedcircuit.name=Advanced Circuit
+item.dse.elitecircuit.name=Elite Circuit
 item.dse.hammeriron.name=Iron Hammer
 item.dse.hammersteel.name=Steel Hammer
 item.dse.heavyboots.name=Heavy Boots
@@ -62,7 +65,22 @@ item.dse.insulation.hypothermic.name=Hypothermic Insulation
 //---Blocks---//
 tile.dse.compressor.name=Air Compressor
 tile.dse.charger.name=Item Charger
-tile.dse.vehiclebay.name=Vehicle Charging Bay
+tile.dse.coloredmetal.white.name=White Metal Block
+tile.dse.coloredmetal.orange.name=Orange Metal Block
+tile.dse.coloredmetal.magenta.name=Magenta Metal Block
+tile.dse.coloredmetal.light_blue.name=Light Blue Metal Block
+tile.dse.coloredmetal.yellow.name=Yellow Metal Block
+tile.dse.coloredmetal.lime.name=Lime Metal Block
+tile.dse.coloredmetal.pink.name=Pink Metal Block
+tile.dse.coloredmetal.gray.name=Gray Metal Block
+tile.dse.coloredmetal.silver.name=Light Gray Metal Block
+tile.dse.coloredmetal.cyan.name=Cyan Metal Block
+tile.dse.coloredmetal.purple.name=Purple Metal Block
+tile.dse.coloredmetal.blue.name=Blue Metal Block
+tile.dse.coloredmetal.brown.name=Brown Metal Block
+tile.dse.coloredmetal.green.name=Green Metal Block
+tile.dse.coloredmetal.red.name=Red Metal Block
+tile.dse.coloredmetal.black.name=Black Metal Block
 
 //---Entity---//
 entity.dse.dinghy.name=Dinghy

@@ -57,10 +57,12 @@ public class ItemArmorplate extends ItemMeta implements IItemUpgradeAdvanced, IA
 			tooltip.add(StringUtils.format(" +" + getDamageReduction(stack, EntityEquipmentSlot.CHEST) + " " + StringUtils.localize("tooltip.dse.armorplate.onbody"), StringUtils.LIGHT_BLUE));
 			tooltip.add(StringUtils.format(" +" + getDamageReduction(stack, EntityEquipmentSlot.LEGS) + " " + StringUtils.localize("tooltip.dse.armorplate.onlegs"), StringUtils.LIGHT_BLUE));
 			tooltip.add(StringUtils.format(" +" + getDamageReduction(stack, EntityEquipmentSlot.FEET) + " " + StringUtils.localize("tooltip.dse.armorplate.onfeet"), StringUtils.LIGHT_BLUE));
+			
+			tooltip.add("");
+			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("tooltip.dse.shader.scuba"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
-		
-		//UpgradeHelper.addInformation(stack, world, tooltip, advanced);
 	}
 
 	@Override

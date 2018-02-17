@@ -92,7 +92,8 @@ public class ModItems
 	public static final String[][] COMPONETNS = new String[][]
 	{
 		{"steelingot", "1"}, {"rubbercompound", "0"}, {"rubber", "0"}, {"ironplate", "0"}, {"steelplate", "1"}, {"plasteelplate", "2"},
-		{"heavyironplate", "0"}, {"heavysteelplate", "1"}, {"heavyplasteelplate", "2"}, {"oxygenfilter", "1"}
+		{"heavyironplate", "0"}, {"heavysteelplate", "1"}, {"heavyplasteelplate", "2"}, {"oxygenfilter", "1"},
+		{"basiccircuit", "0"}, {"advancedcircuit", "1"}, {"elitecircuit", "2"}
 	};
 	public static final String[][] UPGRADES = new String[][]
 	{
@@ -198,6 +199,9 @@ public class ModItems
 		OreDictionary.registerOre("plateDenseIron", createItemStack(ModItems.itemComponents, "heavyironplate", 1));
 		OreDictionary.registerOre("plateDenseSteel", createItemStack(ModItems.itemComponents, "heavysteelplate", 1));
 		OreDictionary.registerOre("plateDensePlasteel", createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1));
+		OreDictionary.registerOre("circuitBasic", createItemStack(ModItems.itemComponents, "basiccircuit", 1));
+		OreDictionary.registerOre("circuitAdvanced", createItemStack(ModItems.itemComponents, "advancedcircuit", 1));
+		OreDictionary.registerOre("circuitElite", createItemStack(ModItems.itemComponents, "elitecircuit", 1));
 		
 		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "paddles", 1));
 		MOTORBOAT_UPGRADES.add(createItemStack(ModItems.itemSimpleUpgrades, "storagebox", 1));

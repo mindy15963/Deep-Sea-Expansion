@@ -12,6 +12,7 @@ import com.nhave.nhc.api.items.INHWrench;
 import com.nhave.nhc.events.ToolStationCraftingEvent;
 import com.nhave.nhc.events.ToolStationUpdateEvent;
 import com.nhave.nhc.helpers.ItemHelper;
+import com.nhave.nhc.items.ItemToken;
 import com.nhave.nhc.util.ItemUtil;
 
 import net.minecraft.item.ItemStack;
@@ -41,8 +42,6 @@ public class ToolStationEventHandler
 		}
 		else if (evt.input.getItem() == ModItems.itemScubaMask && evt.mod.getItem().getRegistryName().toString().equals("theoneprobe:probe"))
 		{
-			//Item probe = Item.REGISTRY.getObject(new ResourceLocation("theoneprobe", "probe"));
-			
 			ItemStack output = evt.input.copy();
 	        ItemStack mod = evt.mod.copy();
 			mod.setCount(1);
@@ -85,6 +84,23 @@ public class ToolStationEventHandler
 			ItemUtil.removeAllItemFromStack(stack, "SHADER");
 			evt.materialCost=0;
 			evt.output=stack;
+		}
+		else if (evt.input.getItem() instanceof ItemShader && evt.mod.getItem() instanceof ItemToken)
+		{
+			ItemToken token = (ItemToken) evt.mod.getItem();
+			ItemShader shader = (ItemShader) evt.input.getItem();
+			boolean canConvert = token.isActive(evt.mod) && !shader.getShader(evt.input).getID().equals("tech");
+			if (canConvert)
+			{
+				/*ItemStack tokenStack = ItemUtil.getItemFromStack(evt.input, "SHADER");
+				if (tokenStack != null && !tokenStack.isEmpty() && tokenStack.getItem() instanceof ItemToken) return;
+				
+				ItemStack output = evt.input.copy();
+				ItemUtil.addItemToStack(output, evt.mod.copy(), "SHADER");*/
+				
+				evt.materialCost=0;
+				evt.output=ModItems.createItemStack(ModItems.itemShader, "tech", 1);
+			}
 		}
 		else if (evt.mod.getItem() instanceof INHWrench)
 		{

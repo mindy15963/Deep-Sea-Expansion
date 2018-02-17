@@ -93,7 +93,7 @@ public class ItemPowerunit extends ItemEnergyBase implements IItemUpgradeAdvance
 	@Override
 	public int getEnergyStored(ItemStack stack)
 	{
-		return (this.isCreative ?  0 : super.getEnergyStored(stack));
+		return (this.isCreative ?  getMaxEnergyStored(stack) / 2 : super.getEnergyStored(stack));
 	}
 	
 	@Override

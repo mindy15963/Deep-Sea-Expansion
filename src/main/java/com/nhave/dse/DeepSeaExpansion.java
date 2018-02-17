@@ -79,5 +79,11 @@ public class DeepSeaExpansion
 		{
 			return new ItemStack(ModItems.itemIcon);
 		}
+		
+		@Override
+		public String getBackgroundImageName()
+		{
+			return "dse.png";
+		};
 	};
 }

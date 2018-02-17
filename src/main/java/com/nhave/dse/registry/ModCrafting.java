@@ -24,20 +24,33 @@ public class ModCrafting
 		Block machineFrame = com.nhave.nhc.registry.ModBlocks.blockMachineFrame;
 		Item energyPearl = com.nhave.nhc.registry.ModItems.itemEnergyPearl;
 		
-		//Shaped Crafting
+		//Blocks
 		//Air Compressor
 		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockCompressor,
-			new Object[] {"XXX", "YZY", "XAX",
+			new Object[] {"XXX", "YZY", "BAB",
 			'X', "plateIron",
 			'Y', Blocks.FURNACE,
 			'Z', ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
-			'A', machineFrame}));
+			'A', machineFrame,
+			'B', "circuitBasic"}));
 		//Item Charger
 		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockCharger,
-			new Object[] {"XXX", "Y Y", "XZX",
+			new Object[] {"XXX", "YAY", "BZB",
 			'X', "plateIron",
 			'Y', "blockRedstone",
-			'Z', machineFrame}));
+			'Z', machineFrame,
+			'A', Blocks.HOPPER,
+			'B', "circuitBasic"}));
+		//Metal Blocks - All 16 colors
+		for (int i = 0; i < OREDICT.length; ++i)
+		{
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModBlocks.blockMetalColored, 16, 15 - i),
+				new Object[] {"XXX", "XYX", "XXX",
+				'X', "plateIron",
+				'Y', OREDICT[i]}));
+		}
+		
+		//Basic armor
 		//Diving Goggles
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemDivingGoggles,
 			new Object[] {"XXX", "YYY", "XXX",
@@ -51,6 +64,13 @@ public class ModCrafting
 				'X', OREDICT[i],
 				'Y', "materialRubber"}));
 		}
+		//Heavy Boots
+		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemHeavyBoots),
+			new Object[] {"X X", "X X", "Y Y",
+			'X', Items.LEATHER,
+			'Y', "plateIron"}));
+		
+		//Air tanks
 		//Small Air Tank
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemAirTankSmall,
 			new Object[] {"XYX", "YZY", "YAY",
@@ -71,25 +91,42 @@ public class ModCrafting
 			'X', "platePlasteel",
 			'Y', "plateDensePlasteel",
 			'Z', ModItems.itemAirTankLarge}));
+		
+		//Power units
+		//Small Power Unit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemPowerunitSmall,
+			new Object[] {"XYX", "YZY", "XYX",
+			'X', "plateDenseIron",
+			'Y', Items.ENDER_PEARL,
+			'Z', "circuitBasic"}));
+		//Medium Power Unit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemPowerunitMedium,
+			new Object[] {"XYX", "ZAZ", "XYX",
+			'X', "plateDenseSteel",
+			'Y', "plateIron",
+			'Z', ModItems.itemPowerunitSmall,
+			'A', "circuitAdvanced"}));
+		//Large Power Unit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemPowerunitLarge,
+			new Object[] {"XYX", "ZAZ", "XYX",
+			'X', "plateDensePlasteel",
+			'Y', "plateSteel",
+			'Z', ModItems.itemPowerunitMedium,
+			'A', "circuitElite"}));
+		
+		//Boats
 		//Dinghy
 		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemDinghy),
 			new Object[] {"X X", "XXX",
 			'X', "materialRubber"}));
-		//Air Filter
-		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
-			new Object[] {"XYX",
-			'X', "plateIron",
-			'Y', new ItemStack(Blocks.WOOL, 1, 0)}));
-		//Heavy Boots
-		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemHeavyBoots),
-			new Object[] {"X X", "X X", "Y Y",
-			'X', Items.LEATHER,
-			'Y', "plateIron"}));
 		//Motorboat
 		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemMotorboat),
-			new Object[] {"Y X", "XXX",
+			new Object[] {"YZX", "XXX",
 			'X', "plateDenseSteel",
-			'Y', machineFrame}));
+			'Y', machineFrame,
+			'Z', "circuitAdvanced"}));
+		
+		//Simpe upgrades
 		//Paddles
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemSimpleUpgrades, "paddles", 1),
 			new Object[] {"X X", "X X", "Y Y",
@@ -100,39 +137,60 @@ public class ModCrafting
 			new Object[] {"XYX", "YZY", "XYX",
 			'X', "plateDenseIron",
 			'Y', "plateSteel",
-			'Z', "plateIron"}));
+			'Z', "circuitAdvanced"}));
+		//Active Filter
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemSimpleUpgrades, "lightfilter", 1),
+			new Object[] {"XYX", "ZAZ", "XYX",
+			'X', "plateIron",
+			'Y', "paneGlassColorless",
+			'Z', "circuitElite",
+			'A', energyPearl}));
+		//Force Amplifierr
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemSimpleUpgrades, "amplifier", 1),
+			new Object[] {"XYX", "ZAZ", "XYX",
+			'X', Blocks.PISTON,
+			'Y', "plateSteel",
+			'Z', "circuitAdvanced",
+			'A', machineFrame}));
+		
+		//Scuba armorset
 		//Scuba Mask
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaMask,
-			new Object[] {"XYX", "ZAZ", "B B",
+			new Object[] {"XYX", "ZAZ", "BCB",
 			'X', "plateSteel",
 			'Y', ModItems.itemDivingGoggles,
 			'Z', Items.REDSTONE,
 			'A', Items.LEATHER_HELMET,
-			'B', "plateIron"}));
+			'B', "plateIron",
+			'C', "circuitAdvanced"}));
 		//Scuba Chest
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaChest,
-			new Object[] {"XYX", "ZAZ", "B B",
+			new Object[] {"XYX", "ZAZ", "BCB",
 			'X', "plateSteel",
 			'Y', "materialRubber",
 			'Z', Items.REDSTONE,
 			'A', Items.LEATHER_CHESTPLATE,
-			'B', "plateIron"}));
+			'B', "plateIron",
+			'C', "circuitAdvanced"}));
 		//Scuba Legs
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaLegs,
-			new Object[] {"XYX", "ZAZ", "B B",
+			new Object[] {"XYX", "ZAZ", "BCB",
 			'X', "plateSteel",
 			'Y', "materialRubber",
 			'Z', Items.REDSTONE,
 			'A', Items.LEATHER_LEGGINGS,
-			'B', "plateIron"}));
+			'B', "plateIron",
+			'C', "circuitAdvanced"}));
 		//Scuba Boots
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemScubaBoots,
-			new Object[] {"XYX", "ZAZ", "B B",
+			new Object[] {"XYX", "ZAZ", "BCB",
 			'X', "plateSteel",
 			'Y', "materialRubber",
 			'Z', Items.REDSTONE,
 			'A', Items.LEATHER_BOOTS,
-			'B', "plateIron"}));
+			'B', "plateIron",
+			'C', "circuitAdvanced"}));
+		
 		//Iron Armorplate
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "iron", 1),
 			new Object[] {"XXX", "X X", "XXX",
@@ -150,6 +208,26 @@ public class ModCrafting
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "plasteel", 1),
 			new Object[] {"XXX", "X X", "XXX",
 			'X', "platePlasteel"}));
+		//Copper Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "copper", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateCopper"}));
+		//Bronze Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "bronze", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateBronze"}));
+		//Platinum Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "platinum", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "platePlatinum"}));
+		//Invar Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "invar", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateInvar"}));
+		//Silver Armorplate
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemArmorplate, "silver", 1),
+			new Object[] {"XXX", "X X", "XXX",
+			'X', "plateSilver"}));
 		
 		//Shaders
 		//Shader Core
@@ -193,6 +271,7 @@ public class ModCrafting
 			'Y', "dyeOrange",
 			'Z', ModItems.itemShaderCore}));
 		
+		//Crafting components
 		//Heavy Iron Plate
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "heavyironplate", 1),
 			new Object[] {"XX", "XX",
@@ -205,7 +284,35 @@ public class ModCrafting
 		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "heavyplasteelplate", 1),
 			new Object[] {"XX", "XX",
 			'X', "platePlasteel"}));
+		//Air Filter
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "oxygenfilter", 1),
+			new Object[] {"XYX",
+			'X', "plateIron",
+			'Y', new ItemStack(Blocks.WOOL, 1, 0)}));
+		//Basic Circuit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "basiccircuit", 1),
+			new Object[] {" XY", "ZAB", "YX ",
+			'X', Items.REDSTONE,
+			'Y', Items.IRON_INGOT,
+			'Z', Items.REPEATER,
+			'A', "dyeGreen",
+			'B', Items.COMPARATOR}));
+		//Advanced Circuit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "advancedcircuit", 1),
+			new Object[] {" XY", "ZAZ", "YX ",
+			'X', Items.REDSTONE,
+			'Y', Items.GOLD_INGOT,
+			'Z', "circuitBasic",
+			'A', "dyeRed"}));
+		//Elite Circuit
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.createItemStack(ModItems.itemComponents, "elitecircuit", 1),
+			new Object[] {" XY", "ZAZ", "YX ",
+			'X', Items.REDSTONE,
+			'Y', Items.DIAMOND,
+			'Z', "circuitAdvanced",
+			'A', "dyeBlue"}));
 		
+		//Config recipes
 		//Plate Crating
 		if (ModConfig.allowPlateCrafting)
 		{

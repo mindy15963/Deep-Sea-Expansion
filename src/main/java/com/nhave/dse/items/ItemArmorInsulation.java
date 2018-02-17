@@ -33,6 +33,10 @@ public class ItemArmorInsulation extends ItemBase implements IItemUpgradeAdvance
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.insulation." + this.getItemName(stack)), ";", StringUtils.GRAY);
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.buff." + this.getItemName(stack)), ";", StringUtils.BRIGHT_GREEN);
 			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.dse.armorplate.noarmor"), ";", StringUtils.ORANGE);
+			
+			tooltip.add("");
+			tooltip.add(StringUtils.localize("tooltip.dse.mod.canuse") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("tooltip.dse.shader.scuba"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
 	}
