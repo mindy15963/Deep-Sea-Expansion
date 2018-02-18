@@ -81,6 +81,8 @@ tile.dse.coloredmetal.brown.name=Brown Metal Block
 tile.dse.coloredmetal.green.name=Green Metal Block
 tile.dse.coloredmetal.red.name=Red Metal Block
 tile.dse.coloredmetal.black.name=Black Metal Block
+tile.dse.vehiclecharger.name=Vehicle Charging Bay
+tile.dse.vehiclestation.name=Vehicle Modification Station
 
 //---Entity---//
 entity.dse.dinghy.name=Dinghy
@@ -120,7 +122,9 @@ attribute.name.dse.hypothermic=Hypothermia Protection
 //---Tooltip---//
 tooltip.dse.block.compressor=Uses power to compress;air and fill up air tanks.
 tooltip.dse.block.charger=Charges items placed in it.
-tooltip.dse.block.vehiclebay=Charges vehicles parked on it.
+tooltip.dse.block.vehiclecharger=Charges vehicles parked in;front of the charging bay.
+tooltip.dse.block.vehiclecharger.details=Only one vehicle can;be charged at a time!
+tooltip.dse.block.vehiclestation=Allows you to interact and;upgrade nearby vehicles;as if they were on a;Tool Station.
 tooltip.dse.item.divinggoggles=Gives clear vision under water.;But try to put them on while;out of the water otherwise;they will fill up with water.
 tooltip.dse.item.flippers=Swim faster, move slower.
 tooltip.dse.item.airtank=An essential tool for;longer diving sessions.

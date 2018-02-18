@@ -4,6 +4,8 @@ import com.nhave.dse.Reference;
 import com.nhave.dse.blocks.BlockCharger;
 import com.nhave.dse.blocks.BlockColoredMetal;
 import com.nhave.dse.blocks.BlockCompressor;
+import com.nhave.dse.blocks.BlockVehicleCharger;
+import com.nhave.dse.blocks.BlockVehicleStation;
 import com.nhave.dse.client.render.RenderTileCharger;
 import com.nhave.dse.client.render.RenderTileCompressor;
 import com.nhave.dse.itemblocks.ItemBlockBase;
@@ -31,16 +33,20 @@ public class ModBlocks
 	public static Block blockCompressor;
 	public static Block blockCharger;
 	public static Block blockMetalColored;
+	public static Block blockVehicleCharger;
+	public static Block blockVehicleStation;
 	
 	public static void init()
 	{
 		blockCompressor = new BlockCompressor("compressor");
 		blockCharger = new BlockCharger("charger");
-		
 		blockMetalColored = new BlockColoredMetal("coloredmetal", Material.IRON);
+		blockVehicleCharger = new BlockVehicleCharger("vehiclecharger");
+		blockVehicleStation = new BlockVehicleStation("vehiclestation");
 
 		GameRegistry.registerTileEntity(com.nhave.dse.tileentity.TileEntityCompressor.class, "TileCompressor");
 		GameRegistry.registerTileEntity(com.nhave.dse.tileentity.TileEntityCharger.class, "TileCharger");
+		GameRegistry.registerTileEntity(com.nhave.dse.tileentity.TileEntityVehicleCharger.class, "TileVehicleCharger");
 	}
 	
 	public static void register(Register<Block> event)
@@ -48,12 +54,16 @@ public class ModBlocks
 		event.getRegistry().register(blockCompressor);
 		event.getRegistry().register(blockCharger);
 		event.getRegistry().register(blockMetalColored);
+		event.getRegistry().register(blockVehicleCharger);
+		event.getRegistry().register(blockVehicleStation);
 	}
 	
 	public static void registerItemBlocks(Register<Item> event)
 	{
 		registerItemBlock(event, blockCompressor);
 		registerItemBlock(event, blockCharger);
+		registerItemBlock(event, blockVehicleCharger);
+		registerItemBlock(event, blockVehicleStation);
 		event.getRegistry().register(new ItemBlockColor(blockMetalColored).setRegistryName(blockMetalColored.getRegistryName()));
 	}
 	
@@ -62,6 +72,8 @@ public class ModBlocks
 	{
 		registerRender(blockCompressor);
 		registerRender(blockCharger);
+		registerRender(blockVehicleCharger);
+		registerRender(blockVehicleStation);
 		registerColorRender(blockMetalColored);
 	}
 	

@@ -995,9 +995,9 @@ public class EntityMotorboat extends EntityBoat
         }
         
         if (compound.hasKey("SHADER")) setShader(new ItemStack((NBTTagCompound) compound.getTag("SHADER")));
-        if (compound.hasKey("PADDLES") && compound.getBoolean("PADDLES")) setHasPaddles();
-        if (compound.hasKey("STORAGE") && compound.getBoolean("STORAGE")) setHasStorage();
-        if (compound.hasKey("BOOSTER") && compound.getBoolean("BOOSTER")) setHasBooster();
+        if (compound.hasKey("PADDLES") && compound.getBoolean("PADDLES")) setHasPaddles(true);
+        if (compound.hasKey("STORAGE") && compound.getBoolean("STORAGE")) setHasStorage(true);
+        if (compound.hasKey("BOOSTER") && compound.getBoolean("BOOSTER")) setHasBooster(true);
         //if (compound.hasKey("MAGNET") && compound.getBoolean("MAGNET")) setHasMagnet();
         if (compound.hasKey("POWER")) setPowerStored(compound.getInteger("POWER"));
     }
@@ -1211,9 +1211,9 @@ public class EntityMotorboat extends EntityBoat
 		return this.dataManager.get(SHADER);
 	}
     
-    public void setHasPaddles()
+    public void setHasPaddles(boolean val)
 	{
-		this.dataManager.set(PADDLES, true);
+		this.dataManager.set(PADDLES, val);
 	}
 	
 	public boolean hasPaddles()
@@ -1221,9 +1221,9 @@ public class EntityMotorboat extends EntityBoat
 		return this.dataManager.get(PADDLES);
 	}
     
-    public void setHasStorage()
+    public void setHasStorage(boolean val)
 	{
-		this.dataManager.set(STORAGE, true);
+		this.dataManager.set(STORAGE, val);
 	}
 	
 	public boolean hasStorage()
@@ -1231,9 +1231,9 @@ public class EntityMotorboat extends EntityBoat
 		return this.dataManager.get(STORAGE);
 	}
     
-    public void setHasBooster()
+    public void setHasBooster(boolean val)
 	{
-		this.dataManager.set(BOOSTER, true);
+		this.dataManager.set(BOOSTER, val);
 	}
 	
 	public boolean hasBooster()

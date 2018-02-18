@@ -197,9 +197,9 @@ public class ItemMotorboat extends ItemEnergyBase implements IShaderItem
 				entityboat.rotationYaw = playerIn.rotationYaw;
 				
 				if (hasShader(itemstack)) entityboat.setShader(ItemUtil.getItemFromStack(itemstack, "SHADER").copy());
-				if (ItemUtil.getItemFromStack(itemstack, "PADDLE") != null) entityboat.setHasPaddles();
-				if (ItemUtil.getItemFromStack(itemstack, "STORAGE") != null) entityboat.setHasStorage();
-				if (ItemUtil.getItemFromStack(itemstack, "BOOSTER") != null) entityboat.setHasBooster();
+				if (ItemUtil.getItemFromStack(itemstack, "PADDLE") != null) entityboat.setHasPaddles(true);
+				if (ItemUtil.getItemFromStack(itemstack, "STORAGE") != null) entityboat.setHasStorage(true);
+				if (ItemUtil.getItemFromStack(itemstack, "BOOSTER") != null) entityboat.setHasBooster(true);
 				//if (ItemUtil.getItemFromStack(itemstack, "MAGNET") != null) entityboat.setHasMagnet();
 				entityboat.setPowerStored(this.getEnergyStored(itemstack));
 				

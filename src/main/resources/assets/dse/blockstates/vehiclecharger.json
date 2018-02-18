@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=up":  { "model": "dse:vehiclecharger" },
+        "facing=down":  { "model": "dse:vehiclecharger", "x": 180 },
+		"facing=north": { "model": "dse:vehiclecharger", "x": 90 },
+        "facing=east":  { "model": "dse:vehiclecharger", "x": 90, "y": 90 },
+        "facing=south": { "model": "dse:vehiclecharger", "x": 90, "y": 180 },
+        "facing=west":  { "model": "dse:vehiclecharger", "x": 90, "y": 270 }
+    }
+}

@@ -1,10 +1,10 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"top": "dse:blocks/charger_top",
-		"side": "dse:blocks/charger_side",
-		"down": "dse:blocks/charger_bottom",
-		"particle": "dse:blocks/charger_bottom"
+		"top": "dse:blocks/vehiclecharger_top",
+		"side": "dse:blocks/vehiclecharger_side",
+		"down": "dse:blocks/vehiclecharger_bottom",
+		"particle": "dse:blocks/vehiclecharger_bottom"
 	},
 	"elements": [
 		{

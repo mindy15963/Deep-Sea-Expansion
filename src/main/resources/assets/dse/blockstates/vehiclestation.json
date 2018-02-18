@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "dse:vehiclestation" },
+        "facing=south": { "model": "dse:vehiclestation", "y": 180  },
+        "facing=west":  { "model": "dse:vehiclestation", "y": 270  },
+        "facing=east":  { "model": "dse:vehiclestation", "y": 90  }
+    }
+}

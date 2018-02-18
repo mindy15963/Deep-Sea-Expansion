@@ -35,12 +35,9 @@ public class BlockMachine extends BlockMachineBase
 		String descUnlocalized = "tooltip.dse.block." + this.getRegistryName().getResourcePath();
 		String descLocalized = StringUtils.localize(descUnlocalized);
 		
-		if (!descLocalized.equals(descUnlocalized))
-		{
-			String descFinal = replaceVariables(stack, descLocalized);
-			if (StringUtils.isShiftKeyDown()) TooltipHelper.addSplitString(tooltip, descFinal, ";", StringUtils.GRAY);
-			else tooltip.add(StringUtils.shiftForInfo);
-		}
+		String descFinal = replaceVariables(stack, descLocalized);
+		if (StringUtils.isShiftKeyDown()) TooltipHelper.addSplitString(tooltip, descFinal, ";", StringUtils.GRAY);
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	public String replaceVariables(ItemStack stack, String info)
@@ -69,21 +66,24 @@ public class BlockMachine extends BlockMachineBase
 	
 	public void onBlockHarvested(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player)
 	{
-		TileEntity tileentity = world.getTileEntity(blockPos);
-
-        ItemStack itemstack = new ItemStack(this);
-        
-        if (tileentity instanceof IItemDataTile)
-        {
-        	IItemDataTile tile = (IItemDataTile) tileentity;
-        	
-            NBTTagCompound nbttagcompound = new NBTTagCompound();
-            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-            tile.writeDataToItemNBT(nbttagcompound1);
-            nbttagcompound.setTag("BlockEntityTag", nbttagcompound1);
-            itemstack.setTagCompound(nbttagcompound);
-        }
-        spawnAsEntity(world, blockPos, itemstack);
+		if (!player.capabilities.isCreativeMode)
+		{
+			TileEntity tileentity = world.getTileEntity(blockPos);
+			
+	        ItemStack itemstack = new ItemStack(this);
+	        
+	        if (tileentity instanceof IItemDataTile)
+	        {
+	        	IItemDataTile tile = (IItemDataTile) tileentity;
+	        	
+	            NBTTagCompound nbttagcompound = new NBTTagCompound();
+	            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+	            tile.writeDataToItemNBT(nbttagcompound1);
+	            nbttagcompound.setTag("BlockEntityTag", nbttagcompound1);
+	            itemstack.setTagCompound(nbttagcompound);
+	        }
+	        spawnAsEntity(world, blockPos, itemstack);
+		}
         
 		super.onBlockHarvested(world, blockPos, blockState, player);
 	}
