@@ -22,6 +22,7 @@ public class ModCrafting
 	public static void register(Register<IRecipe> event)
 	{
 		Block machineFrame = com.nhave.nhc.registry.ModBlocks.blockMachineFrame;
+		Block toolStation = com.nhave.nhc.registry.ModBlocks.blockToolStation;
 		Item energyPearl = com.nhave.nhc.registry.ModItems.itemEnergyPearl;
 		
 		//Blocks
@@ -41,10 +42,25 @@ public class ModCrafting
 			'Z', machineFrame,
 			'A', Blocks.HOPPER,
 			'B', "circuitBasic"}));
+		//Vehicle Charger
+		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockVehicleCharger,
+			new Object[] {"XYX", "XYX", "AZA",
+			'X', "plateDenseIron",
+			'Y', "blockRedstone",
+			'Z', machineFrame,
+			'A', "circuitAdvanced"}));
+		//Vehicle Station
+		addRecipe(event, new ShapedOreRecipe(null, ModBlocks.blockVehicleStation,
+			new Object[] {"XYX", "XZX", "BAB",
+			'X', "plateDenseSteel",
+			'Y', ModBlocks.blockVehicleCharger,
+			'Z', toolStation,
+			'A', machineFrame,
+			'B', "circuitElite"}));
 		//Metal Blocks - All 16 colors
 		for (int i = 0; i < OREDICT.length; ++i)
 		{
-			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModBlocks.blockMetalColored, 16, 15 - i),
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModBlocks.blockMetalColored, 32, 15 - i),
 				new Object[] {"XXX", "XYX", "XXX",
 				'X', "plateIron",
 				'Y', OREDICT[i]}));

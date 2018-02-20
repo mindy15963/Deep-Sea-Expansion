@@ -16,7 +16,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -64,7 +66,7 @@ public class BlockMachine extends BlockMachineBase
         }
 	}
 	
-	public void onBlockHarvested(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player)
+	/*public void onBlockHarvested(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player)
 	{
 		if (!player.capabilities.isCreativeMode)
 		{
@@ -92,5 +94,46 @@ public class BlockMachine extends BlockMachineBase
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
 	{
 		return new java.util.ArrayList<ItemStack>();
+	}*/
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+		TileEntity tileentity = world.getTileEntity(pos);
+		
+        ItemStack itemstack = new ItemStack(this);
+        
+        if (tileentity instanceof IItemDataTile)
+        {
+        	IItemDataTile tile = (IItemDataTile) tileentity;
+        	
+            NBTTagCompound nbttagcompound = new NBTTagCompound();
+            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+            tile.writeDataToItemNBT(nbttagcompound1);
+            nbttagcompound.setTag("BlockEntityTag", nbttagcompound1);
+            itemstack.setTagCompound(nbttagcompound);
+        }
+        
+        drops.add(itemstack);
+    }
+	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	{
+		TileEntity tileentity = world.getTileEntity(pos);
+		
+        ItemStack itemstack = super.getPickBlock(state, target, world, pos, player);
+        
+        if (tileentity instanceof IItemDataTile)
+        {
+        	IItemDataTile tile = (IItemDataTile) tileentity;
+        	
+            NBTTagCompound nbttagcompound = new NBTTagCompound();
+            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+            tile.writeDataToItemNBT(nbttagcompound1);
+            nbttagcompound.setTag("BlockEntityTag", nbttagcompound1);
+            itemstack.setTagCompound(nbttagcompound);
+        }
+		return itemstack;
 	}
 }
