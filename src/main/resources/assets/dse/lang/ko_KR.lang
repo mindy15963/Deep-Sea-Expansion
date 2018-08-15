@@ -1,0 +1,188 @@
+//---Formating---//
+//'%var%' allows the code to take over and replace '%var%' with variables.
+//The symbol ';' indicates a linebreak. Used in item tooltips.
+
+//---Creative Tab---//
+itemGroup.dse=딥 씨 익스팬션
+
+//---Items---//
+item.dse.icon.name=DSE 모드 아이콘
+item.dse.divinggoggles.name=다이빙 수경
+item.dse.flippers.name=오리발
+item.dse.dinghy.name=구명정
+item.dse.shadercore.name=셰이더 코어
+item.dse.shader.name=아이템 셰이더 코어
+item.dse.airtank.name=에어 탱크
+item.dse.airtanksmall.name=소형 에어 탱크
+item.dse.airtanklarge.name=대형 에어 탱크
+item.dse.airtankhighpressure.name=고압 에어 탱크
+item.dse.airtankcreative.name=크리에이티브 에어 탱크
+item.dse.steelingot.name=강철괴
+item.dse.rubbercompound.name=합성 고무
+item.dse.rubber.name=고무
+item.dse.ironplate.name=철판
+item.dse.steelplate.name=강철판
+item.dse.plasteelplate.name=플라시텔판
+item.dse.heavyironplate.name=중형 철판
+item.dse.heavysteelplate.name=중형 강철판
+item.dse.heavyplasteelplate.name=중형 플라시텔판
+item.dse.oxygenfilter.name=산소 필터
+item.dse.basiccircuit.name=기본 회로
+item.dse.advancedcircuit.name=고급 회로
+item.dse.elitecircuit.name=특급 회로
+item.dse.hammeriron.name=철 망치
+item.dse.hammersteel.name=강철 망치
+item.dse.heavyboots.name=중형부츠
+item.dse.motorboat.name=모터보트
+item.dse.upgrade.paddles.name=노
+item.dse.upgrade.storagebox.name=저장 상자
+item.dse.upgrade.boatbooster.name=터보 충전기
+item.dse.upgrade.lightfilter.name=활성화 필터
+item.dse.upgrade.amplifier.name=강제 증폭기
+item.dse.rebreather.name=재호흡기
+item.dse.scubamask.name=스쿠버 투구
+item.dse.scubachest.name=스쿠버 흉갑
+item.dse.scubalegs.name=스쿠버 각반
+item.dse.scubaboots.name=스쿠어 부츠
+item.dse.armorplate.name=갑옷
+item.dse.armorplate.iron.name=철 갑옷
+item.dse.armorplate.diamond.name=다이아몬드 갑옷
+item.dse.armorplate.steel.name=철 갑옷
+item.dse.armorplate.plasteel.name=플라시텔 갑옷
+item.dse.armorplate.copper.name=구리 갑옷
+item.dse.armorplate.bronze.name=황동 갑옷
+item.dse.armorplate.platinum.name=백금 갑옷
+item.dse.armorplate.invar.name=인바 갑옷
+item.dse.armorplate.silver.name=은 갑옷
+item.dse.powerunit.name=파워 유닛
+item.dse.powerunitsmall.name=소형 파워 유닛
+item.dse.powerunitmedium.name=중형 파워 유닛
+item.dse.powerunitlarge.name=대형 파워 유닛
+item.dse.powerunitcreative.name=크리에이티브 파워 유닛
+item.dse.insulation.hyperthermic.name=초열성 단열재
+item.dse.insulation.hypothermic.name=고열 단열재
+
+//---Blocks---//
+tile.dse.compressor.name=공기 압축기
+tile.dse.charger.name=아이템 충전기
+tile.dse.coloredmetal.white.name=흰색 금속 블록
+tile.dse.coloredmetal.orange.name=주황색 금속 블록
+tile.dse.coloredmetal.magenta.name=자홍색 금속 블록
+tile.dse.coloredmetal.light_blue.name=하늘색 금속 블록
+tile.dse.coloredmetal.yellow.name=노란색 금속 블록
+tile.dse.coloredmetal.lime.name=연두색 금속 블록
+tile.dse.coloredmetal.pink.name=분홍색 금속 블록
+tile.dse.coloredmetal.gray.name=회색 금속 블록
+tile.dse.coloredmetal.silver.name=밝은 회색 금속 블록
+tile.dse.coloredmetal.cyan.name=청록색 금속 블록
+tile.dse.coloredmetal.purple.name=보라색 금속 블록
+tile.dse.coloredmetal.blue.name=파란색 금속 블록
+tile.dse.coloredmetal.brown.name=갈색 금속 블록
+tile.dse.coloredmetal.green.name=초록색 금속 블록
+tile.dse.coloredmetal.red.name=빨간색 금속 블록
+tile.dse.coloredmetal.black.name=검은색 금속 블록
+tile.dse.vehiclecharger.name=차량 충전기
+tile.dse.vehiclestation.name=차량 개조기
+
+//---Entity---//
+entity.dse.dinghy.name=구명정
+entity.dse.motorboat.name=모터보트
+
+//---Shaders---//
+shader.dse.crimson=황색팀
+shader.dse.race=청색팀
+shader.dse.muscle=홍색팀
+shader.dse.dark=흑색팀
+shader.dse.space=우주팀
+shader.dse.pink=분홍팀
+shader.dse.tech=회색팀
+
+//---Colors---//
+color.dse.black=검은색
+color.dse.red=빨간색
+color.dse.green=초록색
+color.dse.brown=갈색
+color.dse.blue=파란색
+color.dse.purple=보라색
+color.dse.cyan=청록색
+color.dse.lightGray=밝은 회색
+color.dse.gray=회색
+color.dse.pink=분홍색
+color.dse.lime=연두색
+color.dse.yellow=노란색
+color.dse.lightBlue=하늘색
+color.dse.magenta=자홍색
+color.dse.orange=주황색
+color.dse.white=White
+
+//---Attributes--//
+attribute.name.dse.hyperthermic=초열성 보호
+attribute.name.dse.hypothermic=고열 보호
+
+//---Tooltip---//
+tooltip.dse.block.compressor=전원을 사용하여 공기를 압축하고 ;공기 탱크를 채웁니다.
+tooltip.dse.block.charger=그 안에 있는 아이템을 충전합니다.
+tooltip.dse.block.vehiclecharger=충전기 앞에 주차된 차량을 ;충전합니다.
+tooltip.dse.block.vehiclecharger.details=한 번에 하나의 차량만 ;충전할 수 있습니다!
+tooltip.dse.block.vehiclestation=인근 차량이 ;마치 도구장에 있는 것처럼 ;상호 작용하고 ;업그레이드할 수 있습니다.
+tooltip.dse.item.divinggoggles=물속에서 맑은 시력을 제공합니다.;하지만 물 밖에 있는 동안 ;그것들을 착용하도록 노력하세요. ;그렇지 않으면 그들은 물로 가득 찰 거예요.
+tooltip.dse.item.flippers=더 빨리 헤엄칠수록, 더 천천히 움직입니다.
+tooltip.dse.item.airtank=An essential tool for;longer diving sessions.
+tooltip.dse.item.airtank.creative=Dont feel like breathing?;Then this is for you.
+tooltip.dse.item.dinghy=Just a boat made of rubber.;Oh and it can be picked up when;Sneak Right-clicked with an empty hand.
+tooltip.dse.item.shadercore=Core component in shaders.;But it can also be used;to remove shaders from items.
+tooltip.dse.item.hammer=Stop Hammer Time;Used to make plates.
+tooltip.dse.item.heavyboots=Floats like a rock.
+tooltip.dse.item.motorboat=No more need for paddles.;Well unless, you run out of power.;Sneak Right-click with a wrench to pick it up.
+tooltip.dse.item.scubamask=This helmet is part of the;ultimate underwater armor set.
+tooltip.dse.item.scubachest=This chestplate is part of the;ultimate underwater armor set.
+tooltip.dse.item.scubalegs=These leggings are part of the;ultimate underwater armor set.
+tooltip.dse.item.scubaboots=These boots are part of the;ultimate underwater armor set.
+tooltip.dse.item.armorplate=Used to upgrade the protection;of the scuba armor.
+tooltip.dse.item.powerunit=Stores large amounts of power.
+tooltip.dse.item.powerunit.creative=No idea where it draws;its power from.
+tooltip.dse.upgrade.paddles=Useful for moving your boat;when its out of power.
+tooltip.dse.upgrade.storagebox=Adds a small inventory to your boat.
+tooltip.dse.upgrade.boatbooster=Allows your boat to boost;when holding the jump button.;Of cause using more power.
+tooltip.dse.upgrade.lightfilter=Actively filters out any;low level light source.
+tooltip.dse.upgrade.amplifier=Allows mining at normal;speed while underwater.
+tooltip.dse.armorplate.onscuba=When on scuba armor
+tooltip.dse.armorplate.onhead=Armor on head
+tooltip.dse.armorplate.onbody=Armor on body
+tooltip.dse.armorplate.onlegs=Armor on legs
+tooltip.dse.armorplate.onfeet=Armor on feet
+tooltip.dse.armorplate.noarmor=This armorplate provides no;addtional physical protection.
+tooltip.dse.insulation.hyperthermic=Provides resistance;against extreme heat.
+tooltip.dse.insulation.hypothermic=Provides resistance;against extreme cold.
+tooltip.dse.buff.hyperthermic=Full set allows you to stay;in extremely hot areas.
+tooltip.dse.buff.hypothermic=Full set allows you to stay;in extremely cold areas.
+tooltip.dse.mod.canuse=Can be used to upgrade
+tooltip.dse.mod.appliesto=Can apply to
+tooltip.dse.mod.ctrlinfo=for Upgrades
+tooltip.dse.mod.all=All Accepted Upgrades
+tooltip.dse.mod.none=None Available
+tooltip.dse.shader=Item Shader
+tooltip.dse.shader.current=Current Shader
+tooltip.dse.shader.none=No Shader
+tooltip.dse.shader.airtank=All Air Tanks
+tooltip.dse.shader.scuba=All Scuba Armor
+tooltip.dse.oxygen=Oxygen left
+tooltip.dse.charge=Charge
+tooltip.dse.charge.use=Per Use
+tooltip.dse.charge.transfer=Transfer
+tooltip.dse.charge.tick=Per Tick
+tooltip.dse.charge.boatboost=While Boosting
+tooltip.dse.usesleft=Uses left
+tooltip.dse.scubaset=Scuba Armor
+
+//---Config---//
+cfg.dse.title.main=Deep Sea Expansion Configuration Menu
+cfg.dse.title.client=Deep Sea Expansion Client Configs
+cfg.dse.entry.client=Client Config
+cfg.dse.entry.client.tooltip=All Client Options
+cfg.dse.title.common=Deep Sea Expansion Common Configs
+cfg.dse.entry.common=Common Config
+cfg.dse.entry.common.tooltip=All Common Options
+
+//---The One Probe---//
+tooltip.dse.item.theoneprobe=Deep Sea Expansion has added;The One Probe as a scuba upgrade.
